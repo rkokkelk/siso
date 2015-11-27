@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :repositories
-  get 'main/index'
+  root 'main#index'
 
   get 'main/create_repo'
 
