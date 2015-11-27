@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Iv:</strong>
+  <%= @repository.iv %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @repository.title %>
+</p>
+
+<p>
+  <strong>Master key:</strong>
+  <%= @repository.master_key %>
+</p>
+
+<p>
+  <strong>Pass:</strong>
+  <%= @repository.pass %>
+</p>
+
+<p>
+  <strong>Token:</strong>
+  <%= @repository.token %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @repository.description %>
+</p>
+
+<p>
+  <strong>Created:</strong>
+  <%= @repository.created %>
+</p>
+
+<p>
+  <strong>Deletion:</strong>
+  <%= @repository.deletion %>
+</p>
+
+<%= link_to 'Edit', edit_repository_path(@repository) %> |
+<%= link_to 'Back', repositories_path %>

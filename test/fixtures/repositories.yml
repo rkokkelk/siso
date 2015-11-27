@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  iv: MyString
+  title: MyString
+  master_key: MyString
+  pass: MyString
+  token: MyString
+  description: MyText
+  created: 2015-11-27
+  deletion: 2015-11-27
+
+two:
+  iv: MyString
+  title: MyString
+  master_key: MyString
+  pass: MyString
+  token: MyString
+  description: MyText
+  created: 2015-11-27
+  deletion: 2015-11-27
