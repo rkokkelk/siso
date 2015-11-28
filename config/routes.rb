@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resources :repositories
   root 'main#index'
 
-  get 'main/create_repo'
+  get 'main/repo'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

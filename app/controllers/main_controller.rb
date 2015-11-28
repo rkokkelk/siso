@@ -1,13 +1,10 @@
 class MainController < ApplicationController
 
   def index
-    auth = false
+    auth = true
     if auth
-      redirect_to({ :action=>'create_repo' }, :alert => 'Something serious happened')
+      redirect_to({ :controller => 'repositories', :action=>'new' })
     end
   end
 
-  def create_repo
-
-  end
 end
