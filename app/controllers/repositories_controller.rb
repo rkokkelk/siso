@@ -1,6 +1,8 @@
 require 'base64'
 
 class RepositoriesController < ApplicationController
+  include CryptoHelper
+
   before_action :set_repository, only: [:show]
 
   # GET /repositories/b01e604fce20e8dab976a171fcce5a82
@@ -20,9 +22,9 @@ class RepositoriesController < ApplicationController
 
     @repository.created = Time.now
 
-    @repository.iv = SecureRandom.hex 16
-    @repository.token = SecureRandom.hex 16
-    @repository.master_key_clear = SecureRandom.random_bytes(32)
+    @repository.iv = generate_iv
+    @repository.token = generate_token
+    @repository.master_key_clear = generate_key
     #@repository.master_key = Base64.encode64(SecureRandom.random_bytes(32)).force_encoding('UTF-8')
 
     respond_to do |format|
