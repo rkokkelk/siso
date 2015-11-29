@@ -8,8 +8,23 @@ class Repository < ActiveRecord::Base
   has_secure_password
 
   def decrypt_data
+
+    if master_key.nil?
+      raise SecurityError, 'Master key not available'
+    end
+
     self.title = decrypt_aes_256(iv, master_key, title_enc)
     self.description = decrypt_aes_256(iv, master_key, description_enc)
+  end
+
+  def encrypt_master_key(password)
+    key = pbkdf2(iv, password)
+    self.master_key_enc = encrypt_aes_256(iv, key, master_key)
+  end
+
+  def decrypt_master_key(password)
+    key = pbkdf2(iv, password)
+    decrypt_aes_256(iv, key, master_key_enc)
   end
 
   private

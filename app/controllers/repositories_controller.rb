@@ -25,6 +25,7 @@ class RepositoriesController < ApplicationController
   # POST /repositories
   # POST /repositories.json
   def create
+
     @repository = Repository.new(repository_params)
 
     @repository.iv = generate_iv
@@ -32,6 +33,7 @@ class RepositoriesController < ApplicationController
     @repository.master_key = generate_key
     @repository.creation = Time.now
 
+    @repository.encrypt_master_key repository_params[:password]
     session[@repository.token] = b64_encode @repository.master_key
 
     respond_to do |format|
@@ -54,6 +56,6 @@ class RepositoriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def repository_params
-      params.require(:repository).permit(:title, :description, :password)
+      params.require(:repository).permit(:title, :description, :password, :password_confirmation)
     end
 end

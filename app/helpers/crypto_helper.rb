@@ -4,6 +4,7 @@ module CryptoHelper
 
   MODE = :CBC
   KEY_SIZE = 256
+  PBKDF_ROUNDS = 10000
 
   def encrypt_aes_256(iv, key, data)
     cipher = OpenSSL::Cipher::AES.new(KEY_SIZE, MODE)
@@ -27,6 +28,20 @@ module CryptoHelper
     encrypted = b64_decode encoded
     plain = cipher.update(encrypted) + cipher.final
     return plain
+  end
+
+  def pbkdf2(iv, pass)
+    digest = OpenSSL::Digest::SHA256.new
+    p = OpenSSL::PKCS5.pbkdf2_hmac(pass, iv, PBKDF_ROUNDS, digest.digest_length, digest)
+
+    #ToDo: verify why only works with 2 iterations
+    #pbkdf = PBKDF2.new do |p|
+    #  p.password = password
+    #  p.salt = iv
+    #  p.iterations = PBKDF_ROUNDS
+    #  p.key_length = KEY_SIZE
+    #end
+    return p
   end
 
   def b64_encode(data)
