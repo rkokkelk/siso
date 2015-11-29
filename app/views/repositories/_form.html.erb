@@ -13,11 +13,15 @@
 
   <div class="field">
     <%= f.label :title %><br>
-    <%= f.text_field :title %>
+    <%= f.text_field :title_enc %>
   </div>
   <div class="field">
     <%= f.label :pass %><br>
-    <%= f.text_field :pass %>
+    <%= f.password_field :password, size: 100 %>
+  </div>
+  <div class="field">
+    <%= f.label :password_confirmation, 'Confirm:' %><br>
+    <%= f.password_field :password_confirmation, size: 40 %>
   </div>
   <div class="field">
     <%= f.label :description %><br>

@@ -20,12 +20,10 @@ class RepositoriesController < ApplicationController
   def create
     @repository = Repository.new(repository_params)
 
-    @repository.created = Time.now
-
     @repository.iv = generate_iv
     @repository.token = generate_token
-    @repository.master_key_clear = generate_key
-    #@repository.master_key = Base64.encode64(SecureRandom.random_bytes(32)).force_encoding('UTF-8')
+    @repository.master_key = generate_key
+    @repository.creation = Time.now
 
     respond_to do |format|
       if @repository.save
@@ -47,6 +45,6 @@ class RepositoriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def repository_params
-      params.require(:repository).permit(:title, :description, :pass)
+      params.require(:repository).permit(:title_enc, :description, :password)
     end
 end

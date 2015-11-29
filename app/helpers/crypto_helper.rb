@@ -13,7 +13,8 @@ module CryptoHelper
     cipher.key =key
 
     encrypt = cipher.update(data) + cipher.final
-    Base64.encode64(encrypt).force_encoding('UTF-8')
+    b64_encode encrypt
+    puts encrypt
   end
 
   def decrypt_aes_256(iv, key, encoded)
@@ -23,12 +24,20 @@ module CryptoHelper
     cipher.iv = iv
     cipher.key =key
 
-    encrypted = Base64.decode64(encoded)
+    encrypted = b64_decode encoded
     cipher.update(encrypted) + cipher.final
   end
 
+  def b64_encode(data)
+    Base64.encode64(data).force_encoding('UTF-8')
+  end
+
+  def b64_decode(data)
+    Base64.decode64(data)
+  end
+
   def generate_iv
-    SecureRandom.hex 16
+    SecureRandom.random_bytes 32
   end
 
   def generate_token
