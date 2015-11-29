@@ -20,9 +20,10 @@ class RepositoriesController < ApplicationController
 
     @repository.created = Time.now
 
-    @repository.iv = SecureRandom.hex 4
+    @repository.iv = SecureRandom.hex 16
     @repository.token = SecureRandom.hex 16
-    @repository.master_key = Base64.encode64(SecureRandom.random_bytes(32)).force_encoding('UTF-8')
+    @repository.master_key_clear = SecureRandom.random_bytes(32)
+    #@repository.master_key = Base64.encode64(SecureRandom.random_bytes(32)).force_encoding('UTF-8')
 
     respond_to do |format|
       if @repository.save
