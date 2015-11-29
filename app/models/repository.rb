@@ -36,8 +36,8 @@ class Repository < ActiveRecord::Base
   end
 
   def decode
-    if self.iv_enc
-      self.iv = b64_decode(self.iv_enc)
+    if iv_enc.present?
+      self.iv = b64_decode(iv_enc)
     end
   end
 
