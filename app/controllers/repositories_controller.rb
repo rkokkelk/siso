@@ -8,6 +8,13 @@ class RepositoriesController < ApplicationController
   # GET /repositories/b01e604fce20e8dab976a171fcce5a82
   # GET /repositories/b01e604fce20e8dab976a171fcce5a82.json
   def show
+
+    if session[params[:id]].nil?
+      raise SecurityError, 'You are not authenticated'
+    end
+
+    @repository.master_key = b64_decode session[params[:id]]
+    @repository.decrypt_data
   end
 
   # GET /repositories/new
@@ -25,9 +32,11 @@ class RepositoriesController < ApplicationController
     @repository.master_key = generate_key
     @repository.creation = Time.now
 
+    session[@repository.token] = b64_encode @repository.master_key
+
     respond_to do |format|
       if @repository.save
-        format.html { redirect_to({:action => "show", :id => @repository.token}, notice: 'Repository was successfully created.') }
+        format.html { redirect_to({:action => 'show', :id => @repository.token}, notice: 'Repository was successfully created.') }
         format.json { render :show, status: :created, location: @repository }
       else
         format.html { render :new }
@@ -45,6 +54,6 @@ class RepositoriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def repository_params
-      params.require(:repository).permit(:title_enc, :description, :password)
+      params.require(:repository).permit(:title, :description, :password)
     end
 end

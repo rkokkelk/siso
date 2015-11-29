@@ -10,11 +10,11 @@ module CryptoHelper
 
     cipher.encrypt
     cipher.iv = iv
-    cipher.key =key
+    cipher.key = key
 
     encrypt = cipher.update(data) + cipher.final
-    b64_encode encrypt
-    puts encrypt
+    encode = b64_encode encrypt
+    return encode
   end
 
   def decrypt_aes_256(iv, key, encoded)
@@ -22,10 +22,11 @@ module CryptoHelper
 
     cipher.decrypt
     cipher.iv = iv
-    cipher.key =key
+    cipher.key = key
 
     encrypted = b64_decode encoded
-    cipher.update(encrypted) + cipher.final
+    plain = cipher.update(encrypted) + cipher.final
+    return plain
   end
 
   def b64_encode(data)
