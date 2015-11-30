@@ -1,21 +1,12 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  iv: MyString
-  title: MyString
-  master_key: MyString
-  pass: MyString
-  token: MyString
-  description: MyText
-  created: 2015-11-27
-  deletion: 2015-11-27
-
-two:
-  iv: MyString
-  title: MyString
-  master_key: MyString
-  pass: MyString
-  token: MyString
-  description: MyText
-  created: 2015-11-27
+  iv_enc: Xr8f59B/w3Wjs5w7ecbi+iFKmk1mLyZwzusTKVHGD0M=
+  title_enc: cxZt6aimL5gIvErzoCcmvg==
+  master_key_enc: hU4GMySi2X7blAJUoCTOvjgq3rw235jiUrYd1TUwHTeXGR7t/eC9c5THzqKn
+              Cd7q
+  password_digest: $2a$10$0gX0acLQNp14VPIvIeGcRO04GRttsWnrzzto..s0WVqIwXThTxMK6
+  token: 44bbd0f23ebf6c81fd5080bf51cbcdd2
+  description_enc: 43KQk7SFBxI6zMpKyfk6Uw==
+  creation: 2015-11-27
   deletion: 2015-11-27
