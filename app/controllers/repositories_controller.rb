@@ -9,16 +9,13 @@ class RepositoriesController < ApplicationController
   # GET /repositories/b01e604fce20e8dab976a171fcce5a82.json
   def show
 
-    logger.debug{"Session id: #{session[params[:id]]}"}
-
     if session[params[:id]].nil?
       flash[:alert] = 'Please login'
       render :authenticate
-      return
+    else
+      @repository.master_key = b64_decode session[params[:id]]
+      @repository.decrypt_data
     end
-
-    @repository.master_key = b64_decode session[params[:id]]
-    @repository.decrypt_data
   end
 
   # GET /repositories/new
@@ -55,17 +52,12 @@ class RepositoriesController < ApplicationController
     @repository.encrypt_master_key repository_params[:password]
     session[@repository.token] = b64_encode @repository.master_key
 
-    respond_to do |format|
-      if @repository.save
-        format.html { redirect_to({:action => 'show', :id => @repository.token}, notice: 'Repository was successfully created.') }
-        format.json { render :show, status: :created, location: @repository }
-      else
-        format.html { render :new }
-        format.json { render json: @repository.errors, status: :unprocessable_entity }
-      end
+    if @repository.save
+      redirect_to({:action => 'show', :id => @repository.token}, notice: 'Repository was successfully created.')
+    else
+      render :new
     end
   end
-
 
   private
     # Use callbacks to share common setup or constraints between actions.

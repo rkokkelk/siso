@@ -13,9 +13,7 @@ class Repository < ActiveRecord::Base
 
   def decrypt_data
 
-    if master_key.nil?
-      raise SecurityError, 'Master key not available'
-    end
+    if master_key.nil? then raise SecurityError, 'Master key not available' end
 
     self.title = decrypt_aes_256(iv, master_key, title_enc)
     self.description = decrypt_aes_256(iv, master_key, description_enc)
