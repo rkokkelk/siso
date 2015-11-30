@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class RepositoriesControllerTest < ActionController::TestCase
+  include CryptoHelper
+
   setup do
     @repository = repositories(:one)
   end
@@ -18,25 +20,22 @@ class RepositoriesControllerTest < ActionController::TestCase
 
   test 'should create repository' do
     assert_difference('Repository.count') do
-      post :create, repository: { description: @repository.description_enc, password: 'foobar!#FV8zc', title: @repository.title_enc}
+      post :create, repository: { description: 'foobar', password: 'foobar!#FV8zc', title: 'foobar'}
     end
 
-    assert_redirected_to(:controller => 'repositories', :action => 'show', :id => @repository.token)
-  end
-
-  test 'should catch invalid create repository' do
-    assert_raises(ActionController::UrlGenerationError) do
-      assert_difference('Repository.count') do
-        post :create, repository: { creation: @repository.creation, deletion: @repository.deletion, description: @repository.description, iv: @repository.iv, master_key: @repository.master_key, password: @repository.password, title: @repository.title, token: @repository.token }
-      end
-
-      assert_response :failure
-    end
+    assert_response :found
   end
 
   test 'should show repository' do
-    session[@repository.token] = @repository.master_key
+
+    iv = b64_decode @repository.iv_enc
+    key = pbkdf2(iv,'pass1')
+    master_key = decrypt_aes_256(iv, key, @repository.master_key_enc)
+
+    session[@repository.token] = b64_encode master_key
     get :show, id: @repository.token
+
+    assert_not_nil assigns(:repository)
     assert_response :success
   end
 
