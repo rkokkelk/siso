@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :records
   root 'main#index'
 
   get  'repositories/new'                  => 'repositories#new'
