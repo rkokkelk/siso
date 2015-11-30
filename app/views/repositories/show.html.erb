@@ -15,4 +15,11 @@
   <%= @repository.creation %>
 </p>
 
+<%= form_tag({controller: :records, action: :create}, multipart: true) do%>
+    <%= file_field_tag 'file' %>
+    <div class="actions">
+      <%= submit_tag 'Upload' %>
+    </div>
+<% end %>
+
 <%= link_to 'Back', repositories_path %>

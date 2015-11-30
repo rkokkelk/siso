@@ -2,12 +2,14 @@ Rails.application.routes.draw do
   resources :records
   root 'main#index'
 
-  get  'repositories/new'                  => 'repositories#new'
-  post 'repositories'                      => 'repositories#create'
-  post 'repositories/:id/authenticate'     => 'repositories#authenticate'
-  get  'repositories/:id'                   => 'repositories#show'
+  # Repositories
+  get  'repositories/new'               => 'repositories#new'
+  post 'repositories'                   => 'repositories#create'
+  post 'repositories/:id/authenticate'  => 'repositories#authenticate'
+  get  'repositories/:id'               => 'repositories#show'
 
-
+  # File Records
+  post 'repositories/:id/record'        => 'records#create'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

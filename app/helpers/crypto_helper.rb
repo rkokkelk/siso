@@ -6,7 +6,7 @@ module CryptoHelper
   KEY_SIZE = 256
   PBKDF_ROUNDS = 20000
 
-  def encrypt_aes_256(iv, key, data)
+  def encrypt_aes_256(iv, key, data, encode=true)
     cipher = OpenSSL::Cipher::AES.new(KEY_SIZE, MODE)
 
     cipher.encrypt
@@ -14,17 +14,17 @@ module CryptoHelper
     cipher.key = key
 
     encrypt = cipher.update(data) + cipher.final
-    b64_encode encrypt
+    encode ? b64_encode(encrypt) : encrypt
   end
 
-  def decrypt_aes_256(iv, key, encoded)
+  def decrypt_aes_256(iv, key, data, encode=true)
     cipher = OpenSSL::Cipher::AES.new(KEY_SIZE, MODE)
 
     cipher.decrypt
     cipher.iv = iv
     cipher.key = key
 
-    encrypted = b64_decode encoded
+    encrypted = encode ? b64_decode(data) : data
     cipher.update(encrypted) + cipher.final
   end
 

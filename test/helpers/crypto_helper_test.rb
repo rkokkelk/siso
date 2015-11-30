@@ -25,6 +25,17 @@ class CryptoHelperTest < ActiveSupport::TestCase
     assert_equal data, decrypt
   end
 
+  test 'AES-256 encryption with random values and no encoding' do
+    iv = generate_iv
+    key = generate_key
+    data = generate_token
+
+    encrypt = encrypt_aes_256(iv,key,data, false)
+    decrypt = decrypt_aes_256(iv,key,encrypt, false)
+
+    assert_equal data, decrypt
+  end
+
   test 'Base64 encoding with static values' do
 
     encode = b64_encode data

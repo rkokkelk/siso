@@ -4,7 +4,7 @@ class CreateRecords < ActiveRecord::Migration
       t.string :iv
       t.string :token
       t.string :file_name
-      t.number :size
+      t.integer :size
       t.date :creation
       t.belongs_to :repositories, index: true, foreign_key: true
 
