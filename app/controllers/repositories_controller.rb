@@ -18,7 +18,6 @@ class RepositoriesController < ApplicationController
 
       @records = Record.where(repositories_id: @repository)
       @records.each do |record|
-        logger.debug{"Found record #{record.file_name}"}
         record.decrypt_data @repository.master_key
       end
     end
