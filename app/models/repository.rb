@@ -7,6 +7,10 @@ class Repository < ActiveRecord::Base
 
   has_secure_password
 
+  validates :title, presence: true, format: { with: /\A[\d\w!]+\z/, message: 'Only alphabetical characters are allowed.' }, length: { minimum: 1, maximum: 100 }
+  validates :description, format: { with: /\A[\d\w!]*\z/, message: 'Only alphabetical characters are allowed.' }, length: { maximum: 1000 }
+  validates :token, uniqueness: true
+
   def decrypt_data
 
     if master_key.nil?

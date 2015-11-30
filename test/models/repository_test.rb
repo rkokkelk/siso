@@ -27,7 +27,7 @@ class RepositoryTest < ActiveSupport::TestCase
   end
 
   test 'repository invalid title' do
-    repo = Repository.new(title: 'Test', password: '!s#fc*AcVB_',)
+    repo = Repository.new(title: 'foobar', password: '!s#fc*AcVB_',)
     assert repo.valid?
 
     repo.title = 'Invalid_!@#$%^'
@@ -37,9 +37,6 @@ class RepositoryTest < ActiveSupport::TestCase
     repo.title = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     assert repo.invalid?
     assert repo.errors[:title].any?
-
-    repo.title = 'Foobar 12345! Foobar_2'
-    assert repo.valid?
   end
 
   test 'repository invalid description' do
@@ -49,8 +46,5 @@ class RepositoryTest < ActiveSupport::TestCase
     repo.description = 'Invalid_!@#$%^'
     assert repo.invalid?
     assert repo.errors[:description].any?
-
-    repo.description = 'Foobar 12345! Foobar_2'
-    assert repo.valid?
   end
 end
