@@ -3,14 +3,18 @@ require 'base64'
 class RepositoriesController < ApplicationController
   include CryptoHelper
 
-  before_action :set_repository, only: [:show]
+  before_action :set_repository, only: [:show, :authenticate]
 
   # GET /repositories/b01e604fce20e8dab976a171fcce5a82
   # GET /repositories/b01e604fce20e8dab976a171fcce5a82.json
   def show
 
+    logger.debug{"Session id: #{session[params[:id]]}"}
+
     if session[params[:id]].nil?
-      raise SecurityError, 'You are not authenticated'
+      flash[:alert] = 'Please login'
+      render :authenticate
+      return
     end
 
     @repository.master_key = b64_decode session[params[:id]]
@@ -22,7 +26,22 @@ class RepositoriesController < ApplicationController
     @repository = Repository.new
   end
 
-  # POST /repositories
+  # POST /repositories/b01e604fce20e8dab976a171fcce5a82/authenticate
+  def authenticate
+
+    if @repository and @repository.authenticate(params[:password])
+
+      master_key = @repository.decrypt_master_key(params[:password])
+      session[@repository.token] = b64_encode master_key
+
+      redirect_to({:action => 'show', :id => @repository.token})
+    else
+      flash[:alert] = 'Login failed. Please verify the correct URL and password.'
+      render :authenticate
+    end
+  end
+
+  # POST /repositories/b01e604fce20e8dab976a171fcce5a82
   # POST /repositories.json
   def create
 

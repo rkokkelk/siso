@@ -1,0 +1,18 @@
+<h1>Login</h1>
+
+<% if flash[:alert] %>
+    <p id="notice"><%= flash[:alert] %></p>
+<% end %>
+
+<%= form_tag(controller: 'repositories', action: 'authenticate', method: 'post') do %>
+    <fieldset>
+      <legend>Please Log In</legend>
+      <div>
+        <%= label_tag :password, 'Password:' %>
+        <%= password_field_tag :password, params[:password] %>
+      </div>
+      <div>
+        <%= submit_tag 'Login' %>
+      </div>
+    </fieldset>
+<% end %>

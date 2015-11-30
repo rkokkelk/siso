@@ -40,9 +40,14 @@ class RepositoriesControllerTest < ActionController::TestCase
   end
 
   test 'should not show repository' do
-    assert_raises(SecurityError) do
-      get :show, id: @repository
-    end
+    get :show, id: @repository
+    assert_template :authenticate
+  end
+
+  test 'should authenticate user' do
+    post :authenticate, id: @repository.token, password: 'pass1'
+    assert_not_nil session[@repository.token]
+    assert_redirected_to(:controller => 'repositories', :action => 'show', :id => @repository.token)
   end
 
   test 'should not get edit' do

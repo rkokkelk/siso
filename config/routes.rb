@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
   root 'main#index'
 
-  get  'repositories/new' => 'repositories#new'
-  post 'repositories'     => 'repositories#create'
-  get  'repositories/:id' => 'repositories#show'
+  get  'repositories/new'                  => 'repositories#new'
+  post 'repositories'                      => 'repositories#create'
+  post 'repositories/:id/authenticate'     => 'repositories#authenticate'
+  get  'repositories/:id'                   => 'repositories#show'
+
 
 
   # The priority is based upon order of creation: first created -> highest priority.
