@@ -22,19 +22,26 @@ class RecordsController < ApplicationController
       file_io = file.read
       file.close true
 
+      # Ensure unique token for each file
+      token = generate_token
+      until valid_token token
+        token = generate_token
+      end
+
       @record = Record.new(file_name: file_name)
       @record.iv = generate_iv
-      @record.token = generate_token
+      @record.token = token
+      @record.size = file_io.size.to_s
       @record.creation = DateTime.now
+      @record.repositories_id = Repository.find_by(token: params[:id]).id
 
       key = b64_decode session[params[:id]]
       encrypted_io = encrypt_aes_256(@record.iv, key, file_io, false)
-      write_record(@record.token, encrypted_io)
 
-      logger.debug{"Record #{@record.file_name}"}
-      @record.iv = b64_encode @record.iv
+      @record.encrypt_data b64_decode(session[params[:id]])
 
       if @record.save
+        write_record(@record.token, encrypted_io)
         flash[:notice] = 'File was successfully uploaded'
         redirect_to(controller: :repositories, action: :show, id: params[:id])
       else

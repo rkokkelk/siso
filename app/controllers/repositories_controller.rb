@@ -15,6 +15,12 @@ class RepositoriesController < ApplicationController
     else
       @repository.master_key = b64_decode session[params[:id]]
       @repository.decrypt_data
+
+      @records = Record.where(repositories_id: @repository)
+      @records.each do |record|
+        logger.debug{"Found record #{record.file_name}"}
+        record.decrypt_data @repository.master_key
+      end
     end
   end
 

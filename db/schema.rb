@@ -11,27 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151130190843) do
-
-  create_table "keys", force: :cascade do |t|
-    t.string   "password_digest"
-    t.string   "master_key_enc"
-    t.string   "token"
-    t.integer  "repository_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-  end
-
-  add_index "keys", ["repository_id"], name: "index_keys_on_repository_id"
+ActiveRecord::Schema.define(version: 20151130222523) do
 
   create_table "records", force: :cascade do |t|
-    t.string   "iv"
-    t.string   "token"
-    t.string   "file_name"
-    t.integer  "size"
+    t.string   "iv_enc"
+    t.string   "token_enc"
+    t.string   "file_name_enc"
+    t.text     "size_enc"
     t.date     "creation"
     t.integer  "repositories_id"
-    t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
 

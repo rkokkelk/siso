@@ -1,4 +1,5 @@
 <p id="notice"><%= notice %></p>
+<p id="alert"><%= alert %></p>
 
 <p>
   <strong>Title:</strong>
@@ -15,7 +16,30 @@
   <%= @repository.creation %>
 </p>
 
-<%= form_tag({controller: :records, action: :create}, multipart: true) do%>
+<table>
+  <thead>
+    <tr>
+      <th>File name</th>
+      <th>Size</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @records.each do |record| %>
+      <tr>
+        <td>
+          <%= link_to(controller: :records, action: :show, id: @repository.token, record_id: record.token) do%>
+            <%=record.file_name%>
+          <% end %>
+        </td>
+        <td><%= record.size %></td>
+        <td><%= button_to('Destroy', {controller: :records, action: :delete, id: @repository.token, record_id: record.token}, method: 'delete')%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= form_tag({controller: :records, action: :create}, method: :put, multipart: true) do %>
     <%= file_field_tag 'file' %>
     <div class="actions">
       <%= submit_tag 'Upload' %>
