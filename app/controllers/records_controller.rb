@@ -2,13 +2,36 @@ class RecordsController < ApplicationController
   include CryptoHelper
   include RecordsHelper
 
-  # GET /records/1
-  # GET /records/1.json
+  # GET /repository/:id/records/:record_id
   def show
+    if not authenticated? params
+      flash[:notice] = 'Something went wrong'
+      redirect_to(controller: :repositories, action: :show)
+    else
+      # Todo: cleanup, multiple finds
+      @repository = Repository.find_by(token: params[:id])
+      @records = Record.where(repositories_id: @repository)
+      @records.each do |record|
+        record.decrypt_data b64_decode(session[params[:id]])
+        if record.token == params[:record_id]
+          @record = record
+          break
+        end
+      end
+
+      file_name = @record.file_name
+      file_ext = get_mime_type file_name
+      file_io = decrypt_aes_256(@record.iv,
+                                b64_decode(session[params[:id]]),
+                                read_record(@record.token),
+                                false)
+      send_data(file_io,
+                :filename => file_name,
+                :type => file_ext)
+    end
   end
 
-  # POST /records
-  # POST /records.json
+  # POST /repository/:id/records
   def create
 
     if session[params[:id]].nil?
@@ -51,8 +74,7 @@ class RecordsController < ApplicationController
     end
   end
 
-  # DELETE /records/1
-  # DELETE /records/1.json
+  # DELETE /repository/:id/records/:record_id
   def delete
 
     if not authenticated? params

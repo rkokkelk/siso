@@ -1,4 +1,5 @@
 require 'fileutils'
+require 'mime/types'
 
 module RecordsHelper
   include CryptoHelper
@@ -26,6 +27,11 @@ module RecordsHelper
   def token_exist(token)
     file_loc = file_location token
     File.exist?(file_loc)
+  end
+
+  def get_mime_type(file_name)
+    ext = File.extname(file_name)
+    MIME::Types.type_for(ext)
   end
 
   private
