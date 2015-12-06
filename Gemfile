@@ -6,6 +6,8 @@ gem 'bcrypt-ruby', '~> 3.1.2'
 gem 'pbkdf2', '~> 0.1.0'
 # Mime-Types gem, used to determine mime-types of extensions
 gem 'mime-types'
+# NetAddr used for IP whitelist
+gem 'netaddr', '~> 1.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
@@ -37,7 +39,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
+  #gem 'byebug'
 end
 
 group :development do

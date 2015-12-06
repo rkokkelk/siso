@@ -1,17 +1,1 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  iv: MyString
-  token: MyString
-  file_name: MyString
-  size: 
-  creation: 2015-11-30
-  repositories_id: 
-
-two:
-  iv: MyString
-  token: MyString
-  file_name: MyString
-  size: 
-  creation: 2015-11-30
-  repositories_id: 

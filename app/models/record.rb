@@ -3,10 +3,11 @@ class Record < ActiveRecord::Base
 
   belongs_to        :repository
   after_initialize  :decode
-  attr_accessor     :iv, :file_name, :size, :token
+  attr_accessor     :iv, :file_name, :size
 
   validates :file_name, presence: true, format: { with: /\A[\w\d]+\.\w{1,10}\z/, message: 'Not a valid file_name' }, length: { minimum: 3, maximum: 100 }
-  validates :token_enc, uniqueness: true
+  validates :size, presence: true,  :numericality => {:only_integer => true, :greater_than_or_equal_to => 0}
+  validates :token, uniqueness: true
 
   def decrypt_data(master_key)
 
@@ -14,7 +15,6 @@ class Record < ActiveRecord::Base
 
     self.size = decrypt_aes_256(iv, master_key, size_enc)
     self.file_name = decrypt_aes_256(iv, master_key, file_name_enc)
-
   end
 
   def encrypt_data(master_key)

@@ -1,4 +1,5 @@
 require 'base64'
+require 'date'
 
 class RepositoriesController < ApplicationController
   include CryptoHelper
@@ -25,7 +26,12 @@ class RepositoriesController < ApplicationController
 
   # GET /repositories/new
   def new
-    @repository = Repository.new
+
+    if IpHelper.verifyIP request.ip
+      @repository = Repository.new
+    else
+      redirect_to(controller: :main, action: :index)
+    end
   end
 
   # POST /repositories/b01e604fce20e8dab976a171fcce5a82/authenticate
@@ -47,20 +53,26 @@ class RepositoriesController < ApplicationController
   # POST /repositories.json
   def create
 
-    @repository = Repository.new(repository_params)
+    if IpHelper.verifyIP request.ip
 
-    @repository.iv = generate_iv
-    @repository.token = generate_token
-    @repository.master_key = generate_key
-    @repository.creation = Time.now
+      @repository = Repository.new(repository_params)
 
-    @repository.encrypt_master_key repository_params[:password]
-    session[@repository.token] = b64_encode @repository.master_key
+      @repository.iv = generate_iv
+      @repository.token = generate_token
+      @repository.master_key = generate_key
+      @repository.creation = DateTime.now
+      @repository.deletion = DateTime.now >> 1 # Add 1 month
 
-    if @repository.save
-      redirect_to({:action => 'show', :id => @repository.token}, notice: 'Repository was successfully created.')
+      @repository.encrypt_master_key repository_params[:password]
+      session[@repository.token] = b64_encode @repository.master_key
+
+      if @repository.save
+        redirect_to({:action => 'show', :id => @repository.token}, notice: 'Repository was successfully created.')
+      else
+        render :new
+      end
     else
-      render :new
+      redirect_to(controller: :main, action: :index)
     end
   end
 
