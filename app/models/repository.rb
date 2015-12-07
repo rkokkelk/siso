@@ -1,5 +1,6 @@
 class Repository < ActiveRecord::Base
   include CryptoHelper
+  include ActiveModel::Validations
 
   before_save       :encrypt_data
   after_initialize  :decode
@@ -10,6 +11,7 @@ class Repository < ActiveRecord::Base
   validates :title, presence: true, format: { with: /\A[\d\w!]+\z/, message: 'Only alphabetical characters are allowed.' }, length: { minimum: 1, maximum: 100 }
   validates :description, format: { with: /\A[\d\w!]*\z/, message: 'Only alphabetical characters are allowed.' }, length: { maximum: 1000 }
   validates :token, uniqueness: true
+  validates :password, password_strength: {min_entropy: 20, use_dictionary: true, min_word_length: 6}
 
   def decrypt_data
 

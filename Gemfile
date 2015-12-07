@@ -8,6 +8,8 @@ gem 'pbkdf2', '~> 0.1.0'
 gem 'mime-types'
 # NetAddr used for IP whitelist
 gem 'netaddr', '~> 1.5'
+# Password strength validator
+gem 'strong_password', '~> 0.0.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
