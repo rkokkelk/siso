@@ -1,13 +1,19 @@
 class Record < ActiveRecord::Base
   include CryptoHelper
+  include RecordsHelper
 
+  # Attributes
   belongs_to        :repository
-  after_initialize  :decode
   attr_accessor     :iv, :file_name, :size
 
-  validates :file_name, presence: true, format: { with: /\A[\w\d]+\.\w{1,10}\z/, message: 'Not a valid file_name' }, length: { minimum: 3, maximum: 100 }
-  validates :size, presence: true,  :numericality => {:only_integer => true, :greater_than_or_equal_to => 0}
-  validates :token, uniqueness: true
+  # Callbacks
+  after_initialize  :decode
+  before_destroy    :destroy_file
+
+  # Validations
+  validates         :file_name, presence: true, format: { with: /\A[\w\d]+\.\w{1,10}\z/, message: 'Not a valid file_name' }, length: { minimum: 3, maximum: 100 }
+  validates         :size, presence: true, :numericality => {:only_integer => true, :greater_than_or_equal_to => 0}
+  validates         :token, uniqueness: true
 
   def decrypt_data(master_key)
 
@@ -24,6 +30,10 @@ class Record < ActiveRecord::Base
   end
 
   private
+  def destroy_file
+    remove_record token
+  end
+
   def decode
     if iv_enc.present?
       self.iv = b64_decode(iv_enc)

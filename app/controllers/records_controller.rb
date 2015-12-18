@@ -77,7 +77,6 @@ class RecordsController < ApplicationController
       @record = Record.find_by(repositories_id: @repository, token: token)
 
       if @record.destroy
-        remove_record token
         flash[:notice] = 'File was successfully removed'
         redirect_to(controller: :repositories, action: :show, id: params[:id])
       else
