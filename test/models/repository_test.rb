@@ -10,7 +10,7 @@ class RepositoryTest < ActiveSupport::TestCase
   end
 
   test 'repository default constructor' do
-    repo = Repository.new(:title => 'Test', :password => '!s#fc*AcVB_')
+    repo = Repository.new(:title => 'Test', :password => '!s##_!%fc*AcVB_')
     assert repo.valid?
   end
 
@@ -21,13 +21,13 @@ class RepositoryTest < ActiveSupport::TestCase
   end
 
   test 'repository token should not be equal' do
-    repo = Repository.new(title: 'Test', password: '!s#fc*AcVB_', token: repositories(:one).token)
+    repo = Repository.new(title: 'Test', password: '!s##_!%fc*AcVB_', token: repositories(:one).token)
     assert repo.invalid?
     assert repo.errors[:token].any?
   end
 
   test 'repository invalid title' do
-    repo = Repository.new(title: 'foobar', password: '!s#fc*AcVB_',)
+    repo = Repository.new(title: 'foobar', password: '!s##_!%fc*AcVB_',)
     assert repo.valid?
 
     repo.title = 'Invalid_!@#$%^'
@@ -40,7 +40,7 @@ class RepositoryTest < ActiveSupport::TestCase
   end
 
   test 'repository invalid description' do
-    repo = Repository.new(title: 'Test', description: 'foobar', password: '!s#fc*AcVB_',)
+    repo = Repository.new(title: 'Test', description: 'foobar', password: '!s##_!%fc*AcVB_',)
     assert repo.valid?
 
     repo.description = 'Invalid_!@#$%^'

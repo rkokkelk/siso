@@ -34,11 +34,11 @@ module CryptoHelper
   end
 
   def b64_encode(data)
-    Base64.encode64(data).force_encoding('UTF-8')
+    Base64.strict_encode64(data).force_encoding('UTF-8')
   end
 
   def b64_decode(data)
-    Base64.decode64(data)
+    Base64.strict_decode64(data)
   end
 
   def generate_iv

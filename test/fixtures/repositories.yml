@@ -1,12 +1,21 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  iv_enc: Xr8f59B/w3Wjs5w7ecbi+iFKmk1mLyZwzusTKVHGD0M=
-  title_enc: cxZt6aimL5gIvErzoCcmvg==
-  master_key_enc: hU4GMySi2X7blAJUoCTOvjgq3rw235jiUrYd1TUwHTeXGR7t/eC9c5THzqKn
-              Cd7q
-  password_digest: $2a$10$0gX0acLQNp14VPIvIeGcRO04GRttsWnrzzto..s0WVqIwXThTxMK6
-  token: 44bbd0f23ebf6c81fd5080bf51cbcdd2
-  description_enc: 43KQk7SFBxI6zMpKyfk6Uw==
-  creation: 2015-11-27
-  deletion: 2015-11-27
+  title_enc:        zK/acvkbYFfrOt+eHtiZtg==                                         # repo1
+  description_enc:  8louuSqE2Vq3mXO0oRqhWUiTGhOw3lcjqjNAP3ffaHo=                     # repo1 description
+  password_digest:  $2a$10$43vEArxRa.PsiWTMTZYFXO8xGBGz9YL/f7QopO686MO2OAQpFT2h2     # )O(I*U&Y%R$E
+  iv_enc:           a0vpxG6ezj+AYWhybHEP5edn0RgTnxyeG1FV7Rwqve8=
+  master_key_enc:   98WLecjJKyFj3FKwHVjd09Hc658bSec3v48qmUx1a84Gu03DYokydmf90e87rY8e
+  token:            9101affe2ef31e8114767206385a6a62
+  creation:         2015-12-20
+  deletion:         2016-01-20
+
+two:
+  title_enc:        R24dc6+9lbqfofV5Fd/lYg==                                         # repo2
+  description_enc:  eEbsDFOBRQ39/F2eBdYT8cezrGQUVtT+pDspF2h7KDE=                     # repo2 description
+  password_digest:  $2a$10$sj/Ddh0SRd.fd4t4kIp0YeiKP0FYgVudCMg1fGD5LmUKDN5KTgPGi     # )O(I*U&Y%R$E
+  iv_enc:           UYgLDZdiYE+ATw4m8QmuIrWpZ5b81pq66W8iMf77SrM=
+  master_key_enc:   RB1sZ3NDrtJOf9qwKxjakkFJl+iOuig4Mt2XT51HhdfGkAMT8V2BD31pETjAewVY
+  token:            228d81c7cd89e3073152dcbc90421c5c
+  creation:         2015-11-20
+  deletion:         2015-12-20

@@ -8,8 +8,8 @@ class Repository < ActiveRecord::Base
 
   has_secure_password
 
-  validates :title, presence: true, format: { with: /\A[\d\w!]+\z/, message: 'Only alphabetical characters are allowed.' }, length: { minimum: 1, maximum: 100 }
-  validates :description, format: { with: /\A[\d\w!]*\z/, message: 'Only alphabetical characters are allowed.' }, length: { maximum: 1000 }
+  validates :title, presence: true, format: { with: /\A[ \d\w!]+\z/, message: 'Only alphabetical characters are allowed.' }, length: { minimum: 1, maximum: 100 }
+  validates :description, format: { with: /\A[ \d\w!]*\z/, message: 'Only alphabetical characters are allowed.' }, length: { maximum: 1000 }
   validates :token, uniqueness: true
   validates :password, password_strength: {min_entropy: 20, use_dictionary: true, min_word_length: 6}
 

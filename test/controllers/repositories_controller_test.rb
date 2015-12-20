@@ -20,7 +20,7 @@ class RepositoriesControllerTest < ActionController::TestCase
 
   test 'should create repository' do
     assert_difference('Repository.count') do
-      post :create, repository: { description: 'foobar', password: 'foobar!#FV8zc', title: 'foobar'}
+      post :create, repository: { description: 'foobar', password: '!@$!@$#@%SDFGVXCB',password_confirm: '!@$!@$#@%SDFGVXCB', title: 'foobar'}
     end
 
     assert_response :found
@@ -29,7 +29,7 @@ class RepositoriesControllerTest < ActionController::TestCase
   test 'should show repository' do
 
     iv = b64_decode @repository.iv_enc
-    key = pbkdf2(iv,'pass1')
+    key = pbkdf2(iv,')O(I*U&Y%R$E')
     master_key = decrypt_aes_256(iv, key, @repository.master_key_enc)
 
     session[@repository.token] = b64_encode master_key
@@ -45,7 +45,7 @@ class RepositoriesControllerTest < ActionController::TestCase
   end
 
   test 'should authenticate user' do
-    post :authenticate, id: @repository.token, password: 'pass1'
+    post :authenticate, id: @repository.token, password: ')O(I*U&Y%R$E'
     assert_not_nil session[@repository.token]
     assert_redirected_to(:controller => 'repositories', :action => 'show', :id => @repository.token)
   end
