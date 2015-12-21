@@ -120,7 +120,6 @@ class RepositoriesControllerTest < ActionController::TestCase
       assert_difference('Repository.count', -1) do
         delete :destroy, id: @repo1
       end
-      assert_response :failure
     end
   end
 end

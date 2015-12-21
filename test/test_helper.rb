@@ -6,6 +6,6 @@ require 'coveralls'
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
-  Coveralls.wear!
+  Coveralls.wear!('rails')
   # Add more helper methods to be used by all tests here...
 end

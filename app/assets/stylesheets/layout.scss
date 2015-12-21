@@ -1,0 +1,52 @@
+// Here are all
+
+div#header{
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+div#header h1{
+  color: #77216F;
+}
+
+div#content{
+  border-radius: 15px;
+  border: 2px solid #E05A2B;
+  background-color: #EAE9E7;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+div#content h2#header{
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  background-color: #E2E0DD;
+  border-color: #333333;
+  border-with: 2px;
+  border-bottom-style: solid;
+  width: calc(100% - 15px);
+  float: left;
+  height: 30px;
+  margin: 0px 0px 10px 0px;
+  padding-left: 15px;
+  padding-top: 10px;
+}
+
+div#content div#material{
+  margin: 15px;
+}
+
+div#footer{
+  position: fixed;
+  bottom:0;
+  border-color: #333333;
+  border-with: 2px;
+  border-top-style: solid;
+  padding: 25px;
+  margin-top: 25px;
+  width: 100%;
+  height: 50px;
+  background-color: #5E2750;
+}
