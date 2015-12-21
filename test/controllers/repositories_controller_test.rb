@@ -16,6 +16,7 @@ class RepositoriesControllerTest < ActionController::TestCase
 
   test 'should get new' do
     get :new
+    p request.ip
     assert_response :success
   end
 

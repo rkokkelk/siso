@@ -73,6 +73,7 @@ class RepositoriesController < ApplicationController
         render :new
       end
     else
+      p 'Not allowed'
       redirect_to(controller: :main, action: :index)
     end
   end

@@ -1,6 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  id:               1
   title_enc:        zK/acvkbYFfrOt+eHtiZtg==                                         # repo1
   description_enc:  8louuSqE2Vq3mXO0oRqhWUiTGhOw3lcjqjNAP3ffaHo=                     # repo1 description
   password_digest:  $2a$10$43vEArxRa.PsiWTMTZYFXO8xGBGz9YL/f7QopO686MO2OAQpFT2h2     # )O(I*U&Y%R$E
@@ -11,6 +12,7 @@ one:
   deletion:         2016-01-20
 
 two:
+  id:               2
   title_enc:        R24dc6+9lbqfofV5Fd/lYg==                                         # repo2
   description_enc:  eEbsDFOBRQ39/F2eBdYT8cezrGQUVtT+pDspF2h7KDE=                     # repo2 description
   password_digest:  $2a$10$sj/Ddh0SRd.fd4t4kIp0YeiKP0FYgVudCMg1fGD5LmUKDN5KTgPGi     # )O(I*U&Y%R$E

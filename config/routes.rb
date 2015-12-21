@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   # File Records
   get    'repositories/:id/record/:record_id'   => 'records#show'
-  put    'repositories/:id/record'       => 'records#create'
+  put    'repositories/:id/record'              => 'records#create'
   delete 'repositories/:id/record/:record_id'   => 'records#delete'
 
   # The priority is based upon order of creation: first created -> highest priority.

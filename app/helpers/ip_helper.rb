@@ -18,7 +18,7 @@ module IpHelper
 
   def IpHelper.verifyIP(ip)
     @ranges.each do |range|
-      if range.matches?(ip) then return true end
+      if range.matches? ip then return true end
     end
     false
   end
