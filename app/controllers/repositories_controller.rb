@@ -4,7 +4,7 @@ require 'date'
 class RepositoriesController < ApplicationController
   include CryptoHelper
 
-  before_action :set_repository, only: [:show, :authenticate]
+  before_action :set_repository, only: [:authenticate]
 
   # GET /repositories/b01e604fce20e8dab976a171fcce5a82
   # GET /repositories/b01e604fce20e8dab976a171fcce5a82.json
@@ -14,6 +14,7 @@ class RepositoriesController < ApplicationController
       flash[:alert] = 'Please login'
       render :authenticate
     else
+      @repository = Repository.find_by(token: params[:id])
       @repository.master_key = b64_decode session[params[:id]]
       @repository.decrypt_data
 

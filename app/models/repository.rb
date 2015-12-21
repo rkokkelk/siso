@@ -18,7 +18,11 @@ class Repository < ActiveRecord::Base
     if master_key.nil? then raise SecurityError, 'Master key not available' end
 
     self.title = decrypt_aes_256(iv, master_key, title_enc)
-    self.description = decrypt_aes_256(iv, master_key, description_enc)
+    if description_enc.empty?
+      self.description = description_enc
+    else
+      self.description = decrypt_aes_256(iv, master_key, description_enc)
+    end
   end
 
   def encrypt_master_key(password)
@@ -36,7 +40,11 @@ class Repository < ActiveRecord::Base
 
     self.iv_enc = b64_encode(iv)
     self.title_enc = encrypt_aes_256(iv, master_key, title)
-    self.description_enc = encrypt_aes_256(iv, master_key, description)
+    if description.empty?
+      self.description_enc = description
+    else
+      self.description_enc = encrypt_aes_256(iv, master_key, description)
+    end
   end
 
   def decode
