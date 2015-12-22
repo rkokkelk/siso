@@ -13,7 +13,11 @@
 </div>
 
 <div id="content">
-  <%= yield %>
+  <h2 id="header"><%= yield :header%></h2>
+
+  <div id="material">
+    <%= yield %>
+  </div>
 </div>
 
 <div id="footer">

@@ -1,8 +1,8 @@
-<h2 id="header">Repository</h2>
-<div id="material">
+<% content_for :header do %>
+    Repository
+<% end %>
 
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
+<%= render 'layouts/notifications.html.erb' %>
 
 <p>
   <strong>Title:</strong>
@@ -10,13 +10,12 @@
 </p>
 
 <p>
-  <strong>Description:</strong>
-  <%= @repository.description %>
+  <strong>Created:</strong>
+  <%= @repository.creation %>
 </p>
 
 <p>
-  <strong>Created:</strong>
-  <%= @repository.creation %>
+  <%= @repository.description %>
 </p>
 
 <table>
@@ -28,6 +27,11 @@
     </tr>
   </thead>
   <tbody>
+  <% if @records.length == 0 %>
+    <tr>
+      <td>No records</td><td colspan="2"></td>
+    </tr>
+  <% else %>
     <% @records.each do |record| %>
       <tr>
         <td>
@@ -35,19 +39,16 @@
             <%=record.file_name%>
           <% end %>
         </td>
-        <td><%= record.size %></td>
-        <td><%= button_to('Destroy', {controller: :records, action: :delete, id: @repository.token, record_id: record.token}, method: 'delete')%></td>
+        <td class="center"><%= record.size %></td>
+        <td><%= button_to('Delete', {controller: :records, action: :delete, id: @repository.token, record_id: record.token}, method: 'delete')%></td>
       </tr>
     <% end %>
+  <% end %>
   </tbody>
 </table>
 
-<%= form_tag({controller: :records, action: :create}, method: :put, multipart: true) do %>
-    <%= file_field_tag 'file' %>
-    <div class="actions">
-      <%= submit_tag 'Upload' %>
-    </div>
-<% end %>
 
-<%= link_to 'Back', repositories_path %>
-</div>
+<h3>File Upload</h3>
+<%= form_tag({controller: :records, action: :create}, method: :put, multipart: true) do %>
+    <%= file_field_tag 'file' %><%= submit_tag 'Upload' %>
+<% end %>

@@ -4,16 +4,36 @@ div.notice{
   border-radius: 15px;
   border: 2px solid #00CC00;
   background-color: #66CC66;
-  margin: 25px;
-  padding: 25px;
+  margin-bottom: 10px;
+  padding: 10px;
+  display: inline-block;
 }
 
 div.alert{
-  position: fixed;
   border-radius: 15px;
   border: 2px solid #FF0000;
   background-color: #FF3333;
-  padding: 5px;
+  margin-bottom: 10px;
+  padding: 10px;
+  display: inline-block;
+}
+
+p.notice{
+  margin: 0px;
+  padding: 10px;
+  border-radius: 15px;
+  border: 2px solid #00CC00;
+  background-color: #c4e2be;
+  display: inline-block;
+}
+
+p.alert{
+  margin: 0px;
+  padding: 10px;
+  border-radius: 15px;
+  border: 2px solid #FF0000;
+  background-color: #FF3333;
+  display: inline-block;
 }
 
 .field_with_errors {
@@ -25,8 +45,6 @@ div.alert{
 #error_explanation {
   width: 450px;
   border: 2px solid red;
-  padding: 7px;
-  padding-bottom: 0;
   margin-bottom: 20px;
   background-color: #f0f0f0;
 

@@ -32,6 +32,7 @@ class RecordsController < ApplicationController
 
     if session[params[:id]].nil?
       flash[:notice] = 'Something went wrong'
+      Rails.logger.warn{"Illegal access: #{request.ip}"}
       redirect_to(controller: :repositories, action: :show)
     else
       # Warning: rack automatically writes to a TempFile.
@@ -58,7 +59,8 @@ class RecordsController < ApplicationController
         flash[:notice] = 'File was successfully uploaded'
         redirect_to(controller: :repositories, action: :show, id: params[:id])
       else
-        flash[:alert] = 'Something went wrong'
+        flash[:alert] = @record.errors.full_messages['file_name']
+        Rails.logger.warn{"Error saving record: #{@record.errors}"}
         redirect_to(controller: :repositories, action: :show, id: params[:id])
       end
     end

@@ -1,18 +1,15 @@
-<h1>Login</h1>
-
-<% if flash[:alert] %>
-    <p id="notice"><%= flash[:alert] %></p>
+<% content_for :header do %>
+    Please login
 <% end %>
 
+<%= render 'layouts/notifications.html.erb' %>
+
 <%= form_tag(controller: 'repositories', action: 'authenticate', method: 'post') do %>
-    <fieldset>
-      <legend>Please Log In</legend>
-      <div>
+    <div>
         <%= label_tag :password, 'Password:' %>
         <%= password_field_tag :password, params[:password] %>
-      </div>
-      <div>
+    </div>
+    <div>
         <%= submit_tag 'Login' %>
-      </div>
-    </fieldset>
+    </div>
 <% end %>

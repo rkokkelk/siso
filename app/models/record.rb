@@ -11,7 +11,7 @@ class Record < ActiveRecord::Base
   before_destroy    :destroy_file
 
   # Validations
-  validates         :file_name, presence: true, format: { with: /\A[\w\d]+\.\w{1,10}\z/, message: 'Not a valid file_name' }, length: { minimum: 3, maximum: 100 }
+  validates         :file_name, presence: true, format: { with: /\A[\w\d \-()_\.]+\.\w{1,10}\z/, message: 'Not a valid file_name' }, length: { minimum: 3, maximum: 100 }
   validates         :size, presence: true, :numericality => {:only_integer => true, :greater_than_or_equal_to => 0}
   validates         :token, uniqueness: true
 

@@ -1,7 +1,7 @@
-<h2 id="header">New Repository</h2>
-<div id="material">
+<% content_for :header do %>
+    New Repository
+<% end %>
+
+<%= render 'layouts/notifications.html.erb' %>
 
 <%= render 'form' %>
-
-<%= link_to 'Back', repositories_path %>
-</div>

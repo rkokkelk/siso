@@ -1,8 +1,6 @@
 <%= form_for(@repository) do |f| %>
   <% if @repository.errors.any? %>
     <div class="alert">
-      <h3><%= pluralize(@repository.errors.count, "error") %> prohibited this repository from being saved:</h3>
-
       <ul>
       <% @repository.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -13,11 +11,11 @@
 
   <div class="field">
     <%= f.label :title %><br>
-    <%= f.text_field :title %>
+    <%= f.text_field :title, size: 30%>
   </div>
   <div class="field">
     <%= f.label :pass %><br>
-    <%= f.password_field :password, size: 100 %>
+    <%= f.password_field :password, size: 40 %>
   </div>
   <div class="field">
     <%= f.label :password_confirmation, 'Confirm:' %><br>
@@ -25,7 +23,7 @@
   </div>
   <div class="field">
     <%= f.label :description %><br>
-    <%= f.text_area :description %>
+    <%= f.text_area :description, size: '100x6' %>
   </div>
   <div class="actions">
     <%= f.submit %>

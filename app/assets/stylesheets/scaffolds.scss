@@ -12,14 +12,13 @@ h1{
 }
 
 h3{
-  margin: 0px;
-  padding: 0px;
+  padding: 5px;
+  border-bottom: 1px solid #333333;
+  width: 50%;
 }
 
 p, ol, ul, td {
   font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 13px;
-  line-height: 18px;
 }
 
 pre {
@@ -45,4 +44,17 @@ div {
   &.field, &.actions {
     margin-bottom: 10px;
   }
+}
+
+div.center{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.center{
+  text-align: center;
+}
+
+.vcenter{
+  vertical-align: middle;
 }
