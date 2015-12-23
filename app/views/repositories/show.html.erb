@@ -1,13 +1,15 @@
 <% content_for :header do %>
-    Repository
+    <%= @repository.title %>
 <% end %>
 
 <%= render 'layouts/notifications.html.erb' %>
 
-<p>
-  <strong>Title:</strong>
-  <%= @repository.title %>
-</p>
+<% if not @repository.description.blank? %>
+  <strong>Description</strong>
+  <p class="description">
+    <%= @repository.description %>
+  </p>
+<% end %>
 
 <p>
   <strong>Created:</strong>
@@ -15,7 +17,8 @@
 </p>
 
 <p>
-  <%= @repository.description %>
+  <strong>Deleted:</strong>
+  <%= @repository.deletion %>
 </p>
 
 <table>
@@ -39,8 +42,8 @@
             <%=record.file_name%>
           <% end %>
         </td>
-        <td class="center"><%= record.size %></td>
-        <td><%= button_to('Delete', {controller: :records, action: :delete, id: @repository.token, record_id: record.token}, method: 'delete')%></td>
+        <td class="center"><%= human_readable_bytes(record.size) %></td>
+        <td class="right"><%= button_to('Delete', {controller: :records, action: :delete, id: @repository.token, record_id: record.token}, method: 'delete')%></td>
       </tr>
     <% end %>
   <% end %>

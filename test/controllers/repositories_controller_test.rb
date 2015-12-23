@@ -19,7 +19,6 @@ class RepositoriesControllerTest < ActionController::TestCase
 
   test 'should get new' do
     get :new
-    p request.ip
     assert_response :success
   end
 
@@ -98,12 +97,15 @@ class RepositoriesControllerTest < ActionController::TestCase
     post :authenticate, id: @repo1.token, password: 'foobar'
     assert_nil session[@repo1.token]
     assert_template :authenticate
-    assert_equal 'Login failed. Please verify the correct URL and password.', flash[:alert]
+    flash_1 = flash[:alert]
 
-    post :authenticate, id: 'ASBCDFQWELIUDFASD', password: 'foobar'
-    assert_nil session['ASBCDFQWELIUDFASD']
+    post :authenticate, id: 'ABCD', password: 'foobar'
+    assert_nil session['ABCD']
     assert_template :authenticate
-    assert_equal 'Login failed. Please verify the correct URL and password.', flash[:alert]
+    flash_2 = flash[:alert]
+
+    # Ensure no information leakage due to invalid password or token
+    assert_equal flash_1, flash_2
   end
 
   test 'should not get edit' do

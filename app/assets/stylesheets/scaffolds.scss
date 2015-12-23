@@ -3,7 +3,7 @@ body{
   margin: 0px;
   color: #333;
   font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 18px;
 }
 
@@ -24,7 +24,7 @@ p, ol, ul, td {
 pre {
   background-color: #eee;
   padding: 10px;
-  font-size: 11px;
+  font-size: 13px;
 }
 
 a {
@@ -55,6 +55,19 @@ div.center{
   text-align: center;
 }
 
+.right{
+  text-align: right;
+}
+
 .vcenter{
   vertical-align: middle;
+}
+
+.description{
+  border-radius: 15px;
+  border: 1px solid #AEA79F;
+  font-style: italic;
+  background: #EEEDEB;
+  padding: 10px;
+  max-width: 45%;
 }
