@@ -6,6 +6,9 @@ class RepositoriesControllerTest < ActionController::TestCase
   setup do
     @repo1 = repositories(:one)
     @repo2 = repositories(:two)
+
+    # Copy record files to data folder
+    FileUtils.cp(Dir.glob('test/fixtures/assets/*.file'),'data/')
   end
 
   test 'should not get index' do

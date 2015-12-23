@@ -17,6 +17,9 @@ class RecordsControllerTest < ActionController::TestCase
     key = pbkdf2(iv,')O(I*U&Y%R$E')
     master_key = decrypt_aes_256(iv, key, @repo1.master_key_enc)
     session[@repo1.token] = b64_encode master_key
+
+    # Copy record files to data folder
+    FileUtils.cp(Dir.glob('test/fixtures/assets/*.file'),'data/')
   end
 
   test 'should get file' do

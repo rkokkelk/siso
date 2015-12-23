@@ -3,6 +3,7 @@ class Repository < ActiveRecord::Base
   include ActiveModel::Validations
 
   before_save       :encrypt_data
+  before_destroy    :clear_records
   after_initialize  :decode
   attr_accessor     :title, :description, :master_key, :iv
 
@@ -51,6 +52,10 @@ class Repository < ActiveRecord::Base
     if iv_enc.present?
       self.iv = b64_decode(iv_enc)
     end
+  end
+
+  def clear_records
+    Record.destroy_all "repositories_id = #{id}"
   end
 
 end

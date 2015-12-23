@@ -1,8 +1,13 @@
 require 'test_helper'
 
 class RecordTest < ActiveSupport::TestCase
-
   include CryptoHelper
+  include RecordsHelper
+
+  setup do
+    # Copy record files to data folder
+    FileUtils.cp(Dir.glob('test/fixtures/assets/*.file'),'data/')
+  end
 
   test 'record attributes should not be empty' do
     record = Record.new
@@ -12,6 +17,9 @@ class RecordTest < ActiveSupport::TestCase
 
   test 'record default constructor' do
     record = Record.new(:file_name => 'foobar.txt', :size => 10)
+    assert record.valid?
+
+    record = Record.new(:file_name => 'foobar.1.5.2-version(1).txt', :size => 123456789)
     assert record.valid?
   end
 
@@ -41,5 +49,13 @@ class RecordTest < ActiveSupport::TestCase
     record.size = -1
     assert record.invalid?
     assert record.errors[:size].any?
+  end
+
+  test 'record removes file during destroy' do
+    record = records(:repo1_one)
+    token = record.token
+    record.destroy
+
+    assert (not exists_token? token)
   end
 end

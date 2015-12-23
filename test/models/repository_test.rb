@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class RepositoryTest < ActiveSupport::TestCase
+  include RecordsHelper
 
   test 'repository attributes should not be empty' do
     repo = Repository.new
@@ -46,5 +47,26 @@ class RepositoryTest < ActiveSupport::TestCase
     repo.description = 'Invalid_!@#$%^'
     assert repo.invalid?
     assert repo.errors[:description].any?
+  end
+
+  test 'should destroy records of repository during destroy' do
+    tokens = []
+    repo = repositories(:one)
+    repo_records = Record.where('repositories_id = ?',repo.id)
+
+    repo_records.each do |record|
+      tokens << record.token
+    end
+
+    assert_difference('Repository.count',-1) do
+      assert_difference('Record.count', (-tokens.size)) do
+        repo.destroy
+      end
+    end
+
+    # Verify that all data files are deleted
+    tokens.each do |token|
+      assert (not exists_token? token)
+    end
   end
 end

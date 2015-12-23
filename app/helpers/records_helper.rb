@@ -16,15 +16,16 @@ module RecordsHelper
 
   def remove_record(token)
 
-    if not token_exist token
-      raise Exception, 'Unable to delete record, because it does not exist'
-    else
+    if exists_token? token
       file_loc = file_location token
       FileUtils.rm file_loc
+    else
+      raise Exception, "Unable to delete record (#{token}), it does not exist"
     end
+
   end
 
-  def token_exist(token)
+  def exists_token?(token)
     file_loc = file_location token
     File.exist?(file_loc)
   end
