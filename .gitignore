@@ -11,15 +11,10 @@ pickle-email-*.html
 # RubyMine config
 .idea/*
 
-# TODO Comment out these rules if you are OK with secrets being uploaded to the repo
 #config/secrets.yml
 
-# Add no content of data folder, except content unit tests
+# Add no content of data folder
 /data/*.file
-!/data/d57d89ed9fc0f112f82a3f403749f1f0.file
-!/data/0161af222a3cdaa6a8a27ecd1ce994a6.file
-!/data/cf678794afe813f56170e092fb217f61.file
-!/data/a170edeaa8eeb4c3749ccb9b3f69468f.file
 
 ## Environment normalisation:
 /.bundle

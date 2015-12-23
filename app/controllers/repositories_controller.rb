@@ -39,6 +39,7 @@ class RepositoriesController < ApplicationController
   def authenticate
 
     if @repository and @repository.authenticate(params[:password])
+      reset_session
 
       master_key = @repository.decrypt_master_key(params[:password])
       session[@repository.token] = b64_encode master_key

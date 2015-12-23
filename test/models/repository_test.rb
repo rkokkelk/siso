@@ -3,6 +3,11 @@ require 'test_helper'
 class RepositoryTest < ActiveSupport::TestCase
   include RecordsHelper
 
+  setup do
+    # Copy record files to data folder
+    FileUtils.cp(Dir.glob('test/fixtures/assets/*.file'),'data/')
+  end
+
   test 'repository attributes should not be empty' do
     repo = Repository.new
     assert repo.invalid?
