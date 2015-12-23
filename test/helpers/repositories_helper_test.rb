@@ -4,6 +4,11 @@ class RepositoriesHelperTest < ActiveSupport::TestCase
   include RepositoriesHelper
   include RecordsHelper
 
+  setup do
+    # Copy record files to data folder
+    FileUtils.cp(Dir.glob('test/fixtures/assets/*.file'),'data/')
+  end
+
   test 'should remove repository when old' do
     assert_difference('Repository.count', -1) do
       assert_difference('Record.count',-2) do
