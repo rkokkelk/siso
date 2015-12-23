@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class RecordsControllerTest < ActionController::TestCase
-
+  include RecordsHelper
   include CryptoHelper
 
   setup do
@@ -26,8 +26,8 @@ class RecordsControllerTest < ActionController::TestCase
     iv = b64_decode @repo1.iv_enc
     key = pbkdf2(iv,')O(I*U&Y%R$E')
     master_key = decrypt_aes_256(iv, key, @repo1.master_key_enc)
-    record_iv = b64_decode @record1_1.iv_enc
 
+    record_iv = b64_decode @record1_1.iv_enc
     #file_name = decrypt_aes_256(record_iv, master_key, @record1_1.file_name_enc)
     size = decrypt_aes_256(record_iv, master_key, @record1_1.size_enc)
 
@@ -55,25 +55,69 @@ class RecordsControllerTest < ActionController::TestCase
 
     get :show, id: @repo2.token, record_id: @record1_1.token
     assert_redirected_to(:controller => 'repositories', :action => 'show', :id => @repo2.token)
+
+    get :show, id: @repo2.token, record_id: @record2_1.token
+    assert_redirected_to(:controller => 'repositories', :action => 'show', :id => @repo2.token)
   end
 
-  #test 'should delete file' do TODO: find a way to verify this function without removing example data
-  #end
+  test 'should delete file' do
+
+    assert_difference('Record.count', -1) do
+      delete :delete, id: @repo1.token, record_id: @record1_2.token
+      assert_redirected_to(:controller => 'repositories', :action => 'show', :id => @repo1.token)
+    end
+    assert (not exists_token? @record1_2.token)
+
+    # Set session for repo2
+    iv = b64_decode @repo2.iv_enc
+    key = pbkdf2(iv,')O(I*U&Y%R$E')
+    master_key = decrypt_aes_256(iv, key, @repo2.master_key_enc)
+    session[@repo2.token] = b64_encode master_key
+
+    assert_difference('Record.count', -1) do
+      delete :delete, id: @repo2.token, record_id: @record2_1.token
+      assert_redirected_to(:controller => 'repositories', :action => 'show', :id => @repo2.token)
+    end
+
+    assert (not exists_token? @record2_1.token)
+  end
 
   test 'should not delete file' do
 
+    # No match between repository and record
     assert_no_difference('Record.count') do
       delete :delete, id: @repo2.token, record_id: @record1_2.token
       assert_redirected_to(:controller => 'repositories', :action => 'show', :id => @repo2.token)
     end
+    assert exists_token? @record1_2.token
 
+    # No match between repository and record
     assert_no_difference('Record.count') do
-      delete :delete, id: @repo1.token, record_id: @record2_2.token
+      delete :delete, id: @repo1.token, record_id: @record2_1.token
+      assert_redirected_to(:controller => 'repositories', :action => 'show', :id => @repo1.token)
+    end
+    assert exists_token? @record2_1.token
+
+    # No session
+    assert_no_difference('Record.count') do
+      delete :delete, id: @repo2.token, record_id: @record2_2.token
+      assert_redirected_to(:controller => 'repositories', :action => 'show', :id => @repo2.token)
+    end
+    assert exists_token? @record2_2.token
+  end
+
+  test 'should put file' do
+    assert_difference('Record.count') do
+      post :create, id: @repo1.token, :file => fixture_file_upload('assets/foobar1.pdf','application/pdf')
+      assert :success
       assert_redirected_to(:controller => 'repositories', :action => 'show', :id => @repo1.token)
     end
   end
 
-  test 'should put file' do
-
+  test 'should not put file' do
+    assert_no_difference('Record.count') do
+      post :create, id: @repo2.token, :file => fixture_file_upload('assets/foobar1.pdf','application/pdf')
+      assert_redirected_to(:controller => 'repositories', :action => 'show', :id => @repo2.token)
+    end
   end
 end
