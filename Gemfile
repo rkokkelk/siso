@@ -10,9 +10,6 @@ gem 'mime-types'
 gem 'netaddr', '~> 1.5'
 # Password strength validator
 gem 'strong_password', '~> 0.0.3'
-# Coverall
-gem 'coveralls', require: false
-gem 'simplecov', :require => false, :group => :test
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'

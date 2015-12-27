@@ -23,14 +23,16 @@ class RepositoriesControllerTest < ActionController::TestCase
   end
 
   test 'should create repository' do
+    pass = '!@$!@$#@%SDFGVXCB'
+
     assert_difference('Repository.count') do
-      post :create, repository: { description: 'foobar', password: '!@$!@$#@%SDFGVXCB',password_confirm: '!@$!@$#@%SDFGVXCB', title: 'foobar'}
+      post :create, repository: { description: 'foobar', password: pass, password_confirm: pass, title: 'foobar'}
     end
 
     assert_response :found
 
     assert_difference('Repository.count') do
-      post :create, repository: { description: '', password: '!@$!@$#@%SDFGVXCB',password_confirm: '!@$!@$#@%SDFGVXCB', title: 'foobar'}
+      post :create, repository: { description: '', password: pass,password_confirm: pass, title: 'foobar'}
     end
 
     assert_response :found
