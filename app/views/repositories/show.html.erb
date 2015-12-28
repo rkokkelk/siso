@@ -38,9 +38,7 @@
     <% @records.each do |record| %>
       <tr>
         <td>
-          <%= link_to(controller: :records, action: :show, id: @repository.token, record_id: record.token) do%>
-            <%=record.file_name%>
-          <% end %>
+          <%= link_to record.file_name, {controller: :records, action: :show, id: @repository.token, record_id: record.token}, {class: 'filename'} %>
         </td>
         <td class="center"><%= human_readable_bytes(record.size) %></td>
         <td class="right"><%= button_to('Delete', {controller: :records, action: :delete, id: @repository.token, record_id: record.token}, method: 'delete')%></td>
