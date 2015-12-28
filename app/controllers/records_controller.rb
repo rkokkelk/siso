@@ -7,7 +7,7 @@ class RecordsController < ApplicationController
     token = params[:record_id]
 
     if not authenticated?(params, token)
-      flash[:notice] = 'Something went wrong'
+      flash[:alert] = 'Something went wrong'
       redirect_to(controller: :repositories, action: :show)
     else
       @repository = Repository.find_by(token: params[:id])
@@ -31,7 +31,7 @@ class RecordsController < ApplicationController
   def create
 
     if session[params[:id]].nil?
-      flash[:notice] = 'Something went wrong'
+      flash[:alert] = 'Something went wrong'
       Rails.logger.warn{"Illegal access: #{request.ip}"}
       redirect_to(controller: :repositories, action: :show)
     else
@@ -72,7 +72,7 @@ class RecordsController < ApplicationController
     token = params[:record_id]
 
     if not authenticated?(params, token)
-      flash[:notice] = 'Something went wrong'
+      flash[:alert] = 'Something went wrong'
       redirect_to(controller: :repositories, action: :show)
     else
       @repository = Repository.find_by(token: params[:id])

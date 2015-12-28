@@ -4,12 +4,14 @@
 
 <%= render 'layouts/notifications.html.erb' %>
 
-<%= form_tag(controller: 'repositories', action: 'authenticate', method: 'post') do %>
-    <div>
-        <%= label_tag :password, 'Password:' %>
-        <%= password_field_tag :password, params[:password] %>
-    </div>
-    <div>
-        <%= submit_tag 'Login' %>
-    </div>
-<% end %>
+<div id="login">
+  <%= form_tag(controller: 'repositories', action: 'authenticate', method: 'post') do %>
+      <div>
+          <%= label_tag :password, 'Password:' %>
+          <%= password_field_tag :password, params[:password] %>
+      </div>
+      <div>
+          <%= submit_tag 'Login' %>
+      </div>
+  <% end %>
+</div>

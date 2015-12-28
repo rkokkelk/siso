@@ -11,7 +11,6 @@ class RepositoriesController < ApplicationController
   def show
 
     if session[params[:id]].nil?
-      flash[:alert] = 'Please login'
       render :authenticate
     else
       @repository = Repository.find_by(token: params[:id])

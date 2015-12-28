@@ -2,7 +2,7 @@
 
 div.notice{
   border-radius: 15px;
-  border: 2px solid #00CC00;
+  border: 3px solid #00CC00;
   background-color: #66CC66;
   margin-bottom: 10px;
   padding: 10px;
@@ -11,8 +11,8 @@ div.notice{
 
 div.alert{
   border-radius: 15px;
-  border: 2px solid #FF0000;
-  background-color: #FF3333;
+  border: 3px solid #FF0000;
+  background-color: #ff8a78;
   margin-bottom: 10px;
   padding: 10px;
   display: inline-block;
@@ -22,7 +22,7 @@ p.notice{
   margin: 0px;
   padding: 10px;
   border-radius: 15px;
-  border: 2px solid #00CC00;
+  border: 3px solid #00CC00;
   background-color: #c4e2be;
   display: inline-block;
 }
@@ -31,8 +31,8 @@ p.alert{
   margin: 0px;
   padding: 10px;
   border-radius: 15px;
-  border: 2px solid #FF0000;
-  background-color: #FF3333;
+  border: 3px solid #FF0000;
+  background-color: #ff8a78;
   display: inline-block;
 }
 

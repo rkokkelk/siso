@@ -5,7 +5,6 @@
 <%= render 'layouts/notifications.html.erb' %>
 
 <% if not @repository.description.blank? %>
-  <strong>Description</strong>
   <p class="description">
     <%= @repository.description %>
   </p>
@@ -13,12 +12,12 @@
 
 <p>
   <strong>Created:</strong>
-  <%= @repository.creation %>
+  <%= @repository.creation.to_s(:siso_date) %>
 </p>
 
 <p>
   <strong>Deleted:</strong>
-  <%= @repository.deletion %>
+  <%= @repository.deletion.to_s(:siso_date) %>
 </p>
 
 <table>
@@ -26,13 +25,14 @@
     <tr>
       <th>File name</th>
       <th>Size</th>
+      <th>Creation Time</th>
       <th></th>
     </tr>
   </thead>
   <tbody>
   <% if @records.length == 0 %>
     <tr>
-      <td>No records</td><td colspan="2"></td>
+      <td>No records</td><td colspan="3"></td>
     </tr>
   <% else %>
     <% @records.each do |record| %>
@@ -41,6 +41,7 @@
           <%= link_to record.file_name, {controller: :records, action: :show, id: @repository.token, record_id: record.token}, {class: 'filename'} %>
         </td>
         <td class="center"><%= human_readable_bytes(record.size) %></td>
+        <td class="center"><%= record.created_at.to_s(:date_time) %></td>
         <td class="right"><%= button_to('Delete', {controller: :records, action: :delete, id: @repository.token, record_id: record.token}, method: 'delete')%></td>
       </tr>
     <% end %>
