@@ -6,7 +6,6 @@ module FormatHelper
 
   def human_readable_bytes(size)
     size = Integer(size)
-    p size
     case
       when size == 1
         '1 Byte'

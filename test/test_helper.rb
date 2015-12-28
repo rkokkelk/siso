@@ -1,6 +1,7 @@
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
+require 'securerandom'
 require 'yaml'
 
 class ActiveSupport::TestCase
@@ -14,5 +15,20 @@ class ActiveSupport::TestCase
 
   def get_id_from_url(url)
     url.split('/')[-1]
+  end
+
+  def generate_titles
+    SecureRandom.hex 20
+  end
+
+  def generate_description
+    content = SecureRandom.hex 20
+    content += ' '
+    content += SecureRandom.hex 20
+    content
+  end
+
+  def generate_file_name
+    SecureRandom.hex 10 + '.file'
   end
 end
