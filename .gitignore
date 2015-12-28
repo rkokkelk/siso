@@ -14,7 +14,7 @@ pickle-email-*.html
 #config/secrets.yml
 
 # Add no content of data folder
-/data/*.file
+*.file
 
 ## Environment normalisation:
 /.bundle
@@ -39,8 +39,6 @@ bower.json
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
-# Ignore bundler config.
-/.bundle
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
