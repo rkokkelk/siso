@@ -4,19 +4,21 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def ip_authentication
-    if not IpHelper.verifyIP request.ip
+    unless IpHelper.verifyIP request.ip
       redirect_to(controller: :main, action: :index)
     end
   end
 
   def authentication
 
+    p params[:id]
+    p "Sessoin2 #{session[params[:id]]}"
     if session[params[:id]].nil?
       redirect_to(controller: :repositories, :action => :authenticate, :id => params[:id])
     else
-      if not params[:record_id].nil?
+      unless params[:record_id].nil?
         repo = Repository.find_by(token: params[:id])
-        if not Record.exists?(repositories_id: repo.id, token: params[:record_id])
+        unless Record.exists?(repositories_id: repo.id, token: params[:record_id])
           flash[:alert] = 'Something went wrong'
           redirect_to(controller: :repositories, action: :show, :id => params[:id])
         end

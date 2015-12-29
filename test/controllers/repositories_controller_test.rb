@@ -28,14 +28,19 @@ class RepositoriesControllerTest < ActionController::TestCase
     assert_difference('Repository.count') do
       post :create, repository: { description: 'foobar', password: pass, password_confirm: pass, title: 'foobar'}
     end
-
-    assert_response :found
+    assert_response :redirect
 
     assert_difference('Repository.count') do
       post :create, repository: { description: '', password: pass,password_confirm: pass, title: 'foobar'}
     end
+    assert_response :redirect
 
-    assert_response :found
+    assert_difference('Repository.count') do
+      post :create, repository: { description: '', password: '',password_confirm: '', title: 'foobar'}
+    end
+    assert_response :redirect
+    assert_not_nil flash[:alert]
+    assert_not_nil flash[:notice]
   end
 
   test 'should not create repository' do
@@ -53,10 +58,6 @@ class RepositoriesControllerTest < ActionController::TestCase
 
     assert_no_difference('Repository.count') do
       post :create, repository: { description: '', password: '!@$!@$#@%SDFGVXCB',password_confirm: '!@$!@$#@%SDFGVXCB', title: ''}
-    end
-
-    assert_no_difference('Repository.count') do
-      post :create, repository: { description: 'test', password: '',password_confirm: '', title: 'test'}
     end
   end
 

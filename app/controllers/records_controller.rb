@@ -2,7 +2,7 @@ class RecordsController < ApplicationController
   include CryptoHelper
   include RecordsHelper
 
-  before_action :authentication,  only: [:show, :create, :delete]
+  before_action :authentication
   before_action :set_objects,     only: [:show, :delete]
 
   # GET /repository/:id/records/:record_id
@@ -36,12 +36,12 @@ class RecordsController < ApplicationController
     @record.size = file_io.size.to_s
     @record.repositories_id = Repository.find_by(token: params[:id]).id
 
-    key = b64_decode session[params[:id]]
-    encrypted_io = encrypt_aes_256(@record.iv, key, file_io, false)
-
     @record.encrypt_data b64_decode(session[params[:id]])
 
     if @record.save
+      key = b64_decode session[params[:id]]
+      encrypted_io = encrypt_aes_256(@record.iv, key, file_io, false)
+
       write_record(@record.token, encrypted_io)
       flash[:notice] = 'File was successfully uploaded'
     else

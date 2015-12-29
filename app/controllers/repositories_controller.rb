@@ -11,7 +11,6 @@ class RepositoriesController < ApplicationController
   # GET /repositories/b01e604fce20e8dab976a171fcce5a82
   # GET /repositories/b01e604fce20e8dab976a171fcce5a82.json
   def show
-
     @repository.master_key = b64_decode session[params[:id]]
     @repository.decrypt_data
 
@@ -67,8 +66,9 @@ class RepositoriesController < ApplicationController
     if @repository.save
       if show_pass
         flash[:notice] = 'A password has been generated. This password will only be shown once so save it somewhere securely.'
-        flash[:alert] = pass
+        flash[:alert] = "Password: #{pass}"
       end
+      logger.debug{"Repository #{@repository.token}, session #{session[@repository.token]}"}
       redirect_to(:action => 'show', :id => @repository.token)
     else
       render :new

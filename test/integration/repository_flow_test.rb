@@ -92,6 +92,7 @@ class RepositoryFlowTest < ActionDispatch::IntegrationTest
       assert_difference('Repository.count') do
         post_via_redirect('/repositories', :repository => {:description => @desc, :password => @pass, :password_confirm => @pass, :title => @title})
       end
+      assert_template 'repositories/show'
       @repo = Repository.last
     end
 

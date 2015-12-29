@@ -12,7 +12,7 @@ class Record < ActiveRecord::Base
 
   # Validations
   validates         :file_name, presence: true, format: { with: /\A[\w\d \-()_\.]+\.\w{1,10}\z/, message: 'Not a valid file_name' }, length: { minimum: 3, maximum: 100 }
-  validates         :size, presence: true, :numericality => {:only_integer => true, :greater_than_or_equal_to => 0}
+  validates         :size, presence: true, :numericality => {:only_integer => true, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 150000000, message: 'File size should not be larger then 150MB'}
   validates         :token, uniqueness: true
 
   def decrypt_data(master_key)
