@@ -53,4 +53,11 @@ class CryptoHelperTest < ActiveSupport::TestCase
     assert_equal data, plain
   end
 
+  test 'Password generate' do
+    pass = generate_password
+    assert_equal pass.size, 8
+
+    pass = generate_password 20
+    assert_equal pass.size, 20
+  end
 end

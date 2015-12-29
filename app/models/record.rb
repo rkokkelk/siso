@@ -29,6 +29,12 @@ class Record < ActiveRecord::Base
     self.file_name_enc = encrypt_aes_256(iv, master_key, file_name)
   end
 
+  def setup
+    self.iv = generate_iv
+    self.token = generate_token
+    self.creation = DateTime.now
+  end
+
   private
   def destroy_file
     remove_record token

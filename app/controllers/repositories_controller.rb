@@ -50,18 +50,26 @@ class RepositoriesController < ApplicationController
   # POST /repositories.json
   def create
     @repository = Repository.new(repository_params)
+    @repository.setup
 
-    @repository.iv = generate_iv
-    @repository.token = generate_token
-    @repository.master_key = generate_key
-    @repository.creation = DateTime.now
-    @repository.deletion = DateTime.now >> 1   # Add 1 month
+    show_pass = false
+    pass = repository_params[:password]
+    if pass.blank?
+      show_pass = true
+      pass = generate_password
+      @repository.password = pass
+      @repository.password_confirmation = pass
+    end
 
-    @repository.encrypt_master_key repository_params[:password]
+    @repository.encrypt_master_key pass
     session[@repository.token] = b64_encode @repository.master_key
 
     if @repository.save
-      redirect_to({:action => 'show', :id => @repository.token}, notice: 'Repository was successfully created.')
+      if show_pass
+        flash[:notice] = 'A password has been generated. This password will only be shown once so save it somewhere securely.'
+        flash[:alert] = pass
+      end
+      redirect_to(:action => 'show', :id => @repository.token)
     else
       render :new
     end

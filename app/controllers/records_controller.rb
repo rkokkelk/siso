@@ -31,10 +31,9 @@ class RecordsController < ApplicationController
     file.close true
 
     @record = Record.new(file_name: file_name)
-    @record.iv = generate_iv
-    @record.token = generate_token
+
+    @record.setup
     @record.size = file_io.size.to_s
-    @record.creation = DateTime.now
     @record.repositories_id = Repository.find_by(token: params[:id]).id
 
     key = b64_decode session[params[:id]]

@@ -12,13 +12,13 @@ class ApplicationController < ActionController::Base
   def authentication
 
     if session[params[:id]].nil?
-      redirect_to(controller: :repositories, :action => 'authenticate', :id => params[:id])
+      redirect_to(controller: :repositories, :action => :authenticate, :id => params[:id])
     else
       if not params[:record_id].nil?
         repo = Repository.find_by(token: params[:id])
         if not Record.exists?(repositories_id: repo.id, token: params[:record_id])
           flash[:alert] = 'Something went wrong'
-          redirect_to(controller: :repositories, action: :show)
+          redirect_to(controller: :repositories, action: :show, :id => params[:id])
         end
       end
     end

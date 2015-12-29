@@ -12,7 +12,7 @@ class Repository < ActiveRecord::Base
   validates :title, presence: true, format: { with: /\A[ \d\w!]+\z/, message: 'Only alphabetical characters are allowed.' }, length: { minimum: 1, maximum: 100 }
   validates :description, format: { with: /\A[\s\d\w!?\.\-_,()\{}\[\]\*\$\+=@"'#]*\z/, message: 'Illegal characters found.' }, length: { maximum: 1000 }
   validates :token, uniqueness: true
-  validates :password, password_strength: {min_entropy: 20, use_dictionary: true, min_word_length: 6}
+  validates :password, password_strength: {min_entropy: 10, use_dictionary: true, min_word_length: 6}
 
   def decrypt_data
 
@@ -37,7 +37,15 @@ class Repository < ActiveRecord::Base
   end
 
   def days_to_deletion
-    (DateTime.now - self.deletion).to_i
+    (self.deletion - DateTime.now).to_i
+  end
+
+  def setup
+    self.iv = generate_iv
+    self.token = generate_token
+    self.master_key = generate_key
+    self.creation = DateTime.now
+    self.deletion = DateTime.now >> 1   # Add 1 month
   end
 
   private
