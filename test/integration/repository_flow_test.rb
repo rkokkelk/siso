@@ -97,7 +97,7 @@ class RepositoryFlowTest < ActionDispatch::IntegrationTest
 
     def authenticate
       get "/repositories/#{@repo.token}"
-      assert_template 'repositories/authenticate'
+      assert_redirected_to "/repositories/#{@repo.token}/authenticate"
 
       post "/repositories/#{@repo.token}/authenticate", :password => @pass
       assert_redirected_to "/repositories/#{@repo.token}"

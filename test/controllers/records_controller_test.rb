@@ -54,10 +54,10 @@ class RecordsControllerTest < ActionController::TestCase
     assert_redirected_to(:controller => 'repositories', :action => 'show', :id => @repo1.token)
 
     get :show, id: @repo2.token, record_id: @record1_1.token
-    assert_redirected_to(:controller => 'repositories', :action => 'show', :id => @repo2.token)
+    assert_redirected_to(:controller => 'repositories', :action => 'authenticate', :id => @repo2.token)
 
     get :show, id: @repo2.token, record_id: @record2_1.token
-    assert_redirected_to(:controller => 'repositories', :action => 'show', :id => @repo2.token)
+    assert_redirected_to(:controller => 'repositories', :action => 'authenticate', :id => @repo2.token)
   end
 
   test 'should delete file' do
@@ -87,7 +87,7 @@ class RecordsControllerTest < ActionController::TestCase
     # No match between repository and record
     assert_no_difference('Record.count') do
       delete :delete, id: @repo2.token, record_id: @record1_2.token
-      assert_redirected_to(:controller => 'repositories', :action => 'show', :id => @repo2.token)
+      assert_redirected_to(:controller => 'repositories', :action => 'authenticate', :id => @repo2.token)
     end
     assert exists_token? @record1_2.token
 
@@ -101,7 +101,7 @@ class RecordsControllerTest < ActionController::TestCase
     # No session
     assert_no_difference('Record.count') do
       delete :delete, id: @repo2.token, record_id: @record2_2.token
-      assert_redirected_to(:controller => 'repositories', :action => 'show', :id => @repo2.token)
+      assert_redirected_to(:controller => 'repositories', :action => 'authenticate', :id => @repo2.token)
     end
     assert exists_token? @record2_2.token
   end
@@ -117,7 +117,7 @@ class RecordsControllerTest < ActionController::TestCase
   test 'should not put file' do
     assert_no_difference('Record.count') do
       post :create, id: @repo2.token, :file => fixture_file_upload('assets/foobar1.pdf','application/pdf')
-      assert_redirected_to(:controller => 'repositories', :action => 'show', :id => @repo2.token)
+      assert_redirected_to(:controller => 'repositories', :action => 'authenticate', :id => @repo2.token)
     end
   end
 end

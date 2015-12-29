@@ -75,7 +75,7 @@ class RepositoriesControllerTest < ActionController::TestCase
 
   test 'should not show repository' do
     get :show, id: @repo1.token
-    assert_template :authenticate
+    assert_redirected_to action: :authenticate, id: @repo1.token
 
     iv = b64_decode @repo1.iv_enc
     key = pbkdf2(iv,')O(I*U&Y%R$E')
@@ -85,7 +85,7 @@ class RepositoriesControllerTest < ActionController::TestCase
     get :show, id: @repo2.token
 
     assert_nil assigns(:repository)
-    assert_template :authenticate
+    assert_redirected_to action: :authenticate, id: @repo2.token
   end
 
   test 'should redirect user to repository' do

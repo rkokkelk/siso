@@ -36,6 +36,10 @@ class Repository < ActiveRecord::Base
     decrypt_aes_256(iv, key, master_key_enc)
   end
 
+  def days_to_deletion
+    (DateTime.now - self.deletion).to_i
+  end
+
   private
   def encrypt_data
 
@@ -57,5 +61,4 @@ class Repository < ActiveRecord::Base
   def clear_records
     Record.destroy_all "repositories_id = #{id}"
   end
-
 end

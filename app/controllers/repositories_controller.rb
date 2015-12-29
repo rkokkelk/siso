@@ -4,34 +4,30 @@ require 'date'
 class RepositoriesController < ApplicationController
   include CryptoHelper
 
-  before_action :set_repository, only: [:authenticate]
+  before_action :ip_authentication, only: [:new, :create]
+  before_action :authentication,    only: [:show]
+  before_action :set_repository,    only: [:authenticate, :show]
 
   # GET /repositories/b01e604fce20e8dab976a171fcce5a82
   # GET /repositories/b01e604fce20e8dab976a171fcce5a82.json
   def show
 
-    if session[params[:id]].nil?
-      render :authenticate
-    else
-      @repository = Repository.find_by(token: params[:id])
-      @repository.master_key = b64_decode session[params[:id]]
-      @repository.decrypt_data
+    @repository.master_key = b64_decode session[params[:id]]
+    @repository.decrypt_data
 
-      @records = Record.where(repositories_id: @repository)
-      @records.each do |record|
-        record.decrypt_data @repository.master_key
-      end
+    @records = Record.where(repositories_id: @repository)
+    @records.each do |record|
+      record.decrypt_data @repository.master_key
+    end
+
+    if @repository.days_to_deletion <= 7   # Display warning if repository is deleted within 1 week
+      flash.now[:alert] = "Repository will deleted within #{@repository.days_to_deletion+1} day(s)."
     end
   end
 
   # GET /repositories/new
   def new
-
-    if IpHelper.verifyIP request.ip
-      @repository = Repository.new
-    else
-      redirect_to(controller: :main, action: :index)
-    end
+    @repository = Repository.new
   end
 
   # POST /repositories/b01e604fce20e8dab976a171fcce5a82/authenticate
@@ -45,7 +41,7 @@ class RepositoriesController < ApplicationController
 
       redirect_to({:action => 'show', :id => @repository.token})
     else
-      flash[:alert] = 'Login failed. Please verify the correct URL and password.'
+      flash.now[:alert] = 'Login failed. Please verify the correct URL and password.'
       render :authenticate
     end
   end
@@ -53,27 +49,21 @@ class RepositoriesController < ApplicationController
   # POST /repositories/b01e604fce20e8dab976a171fcce5a82
   # POST /repositories.json
   def create
+    @repository = Repository.new(repository_params)
 
-    if IpHelper.verifyIP request.ip
+    @repository.iv = generate_iv
+    @repository.token = generate_token
+    @repository.master_key = generate_key
+    @repository.creation = DateTime.now
+    @repository.deletion = DateTime.now >> 1   # Add 1 month
 
-      @repository = Repository.new(repository_params)
+    @repository.encrypt_master_key repository_params[:password]
+    session[@repository.token] = b64_encode @repository.master_key
 
-      @repository.iv = generate_iv
-      @repository.token = generate_token
-      @repository.master_key = generate_key
-      @repository.creation = DateTime.now
-      @repository.deletion = DateTime.now >> 1 # Add 1 month
-
-      @repository.encrypt_master_key repository_params[:password]
-      session[@repository.token] = b64_encode @repository.master_key
-
-      if @repository.save
-        redirect_to({:action => 'show', :id => @repository.token}, notice: 'Repository was successfully created.')
-      else
-        render :new
-      end
+    if @repository.save
+      redirect_to({:action => 'show', :id => @repository.token}, notice: 'Repository was successfully created.')
     else
-      redirect_to(controller: :main, action: :index)
+      render :new
     end
   end
 
