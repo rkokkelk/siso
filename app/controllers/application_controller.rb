@@ -11,8 +11,6 @@ class ApplicationController < ActionController::Base
 
   def authentication
 
-    p params[:id]
-    p "Sessoin2 #{session[params[:id]]}"
     if session[params[:id]].nil?
       redirect_to(controller: :repositories, :action => :authenticate, :id => params[:id])
     else

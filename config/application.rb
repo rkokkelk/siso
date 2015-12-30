@@ -34,8 +34,6 @@ module Siso
     # Generate the CIDR ranges
     config.after_initialize do
 
-      #APP_CONFIG = YAML.load_file(Rails.root.join('/config/config.yml'))[Rails.env]
-      #ApplicationHelper.createCIDR  APP_CONFIG['IP_range']
     end
   end
 end

@@ -17,6 +17,11 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = false
 
   # Print deprecation notices to the Rails logger.
+  # Use the lowest log level to ensure availability of diagnostic information
+  # when problems arise.
+  config.logger = Logger.new(STDOUT)
+  config.log_level = :debug
+
   config.active_support.deprecation = :log
 
   # Raise an error on page load if there are pending migrations.

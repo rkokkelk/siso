@@ -45,7 +45,13 @@ class RecordsController < ApplicationController
       write_record(@record.token, encrypted_io)
       flash[:notice] = 'File was successfully uploaded'
     else
-      flash[:alert] = @record.errors.full_messages['file_name']
+
+      message = ''
+      @record.errors.full_messages.each do |msg|
+        message += "#{msg}\n"
+      end
+
+      flash[:alert] = message
     end
 
     redirect_to(controller: :repositories, action: :show, id: params[:id])
