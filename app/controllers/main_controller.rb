@@ -14,6 +14,10 @@ class MainController < ApplicationController
     render :not_found, status: 400
   end
 
+  def retry_later
+    render :retry_later, :status => 429
+  end
+
   def server_error
     render :server_error, status: 500
   end

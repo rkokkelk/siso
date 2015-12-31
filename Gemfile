@@ -10,7 +10,9 @@ gem 'mime-types'
 gem 'netaddr', '~> 1.5'
 # Password strength validator
 gem 'strong_password', '~> 0.0.3'
-
+# Rack Attack middleware. Against brute-force attack, etc
+gem 'rack-attack'
+# Web server
 gem 'thin'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   delete 'repositories/:id/record/:record_id'   => 'records#delete'
 
   # Error pages
-  get '404', :to => 'main#page_not_found'
-  get '500', :to => 'main#server_error'
+  get '/404', :to => 'main#page_not_found'
+  get '/429', :to => 'main#retry_later'
+  get '/500', :to => 'main#server_error'
 end
