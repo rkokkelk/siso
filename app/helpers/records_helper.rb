@@ -10,19 +10,19 @@ module RecordsHelper
   end
 
   def read_record(token)
+
+    raise IOError, "Unable to read record (#{token}), does not exist" unless exists_token? token
+
     file_loc = file_location token
     IO.binread(file_loc)
   end
 
   def remove_record(token)
 
-    if exists_token? token
-      file_loc = file_location token
-      FileUtils.rm file_loc
-    else
-      raise Exception, "Unable to delete record (#{token}), it does not exist"
-    end
+    raise IOError, "Unable to delete record (#{token}), does not exist" unless exists_token? token
 
+    file_loc = file_location token
+    FileUtils.rm file_loc
   end
 
   def exists_token?(token)

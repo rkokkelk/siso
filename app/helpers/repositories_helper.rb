@@ -5,7 +5,7 @@ module RepositoriesHelper
     repositories.each do |repository|
       if repository.deletion.past?
         if repository.destroy
-          Rails.logger.info{"Deleted repository: #{repository.id}"}
+          Rails.logger.info{"Deleted repository: #{repository.token}"}
         else
           Rails.logger.error{"Error removing repository: #{repository.errors}"}
         end

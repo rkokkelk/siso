@@ -37,7 +37,11 @@ class Record < ActiveRecord::Base
 
   private
   def destroy_file
-    remove_record token
+    begin
+      remove_record token
+    rescue IOError => e
+      logger.warn{"Error destroying record: #{e.message}"}
+    end
   end
 
   def decode
