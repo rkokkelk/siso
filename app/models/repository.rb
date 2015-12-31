@@ -2,6 +2,8 @@ class Repository < ActiveRecord::Base
   include CryptoHelper
   include ActiveModel::Validations
 
+  has_many          :records
+
   before_save       :encrypt_data
   before_destroy    :clear_records
   after_initialize  :decode

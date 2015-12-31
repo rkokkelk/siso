@@ -29,6 +29,10 @@ class RepositoriesController < ApplicationController
     @repository = Repository.new
   end
 
+  def show_authenticate
+    render :authenticate
+  end
+
   # POST /repositories/b01e604fce20e8dab976a171fcce5a82/authenticate
   def authenticate
 

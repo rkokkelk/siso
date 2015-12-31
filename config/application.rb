@@ -28,7 +28,8 @@ module Siso
     config.action_dispatch.default_headers = {
         'X-Frame-Options' => 'SAMEORIGIN',
         'X-XSS-Protection' => '1; mode=block',
-        'X-Content-Type-Options' => 'nosniff'
+        'X-Content-Type-Options' => 'nosniff',
+        'Content-Security-Policy' => "default-src 'none'; script-src 'self'; img-src 'self'; style-src 'self';"
     }
 
     # Generate the CIDR ranges

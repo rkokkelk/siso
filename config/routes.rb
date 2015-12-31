@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   # Repositories
   get    'repositories/new'                     => 'repositories#new'
   post   'repositories'                         => 'repositories#create'
+  get    'repositories/:id/authenticate'        => 'repositories#show_authenticate'
   post   'repositories/:id/authenticate'        => 'repositories#authenticate'
   get    'repositories/:id'                     => 'repositories#show'
 
