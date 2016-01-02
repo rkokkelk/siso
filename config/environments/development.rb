@@ -19,18 +19,11 @@ Rails.application.configure do
   # Print deprecation notices to the Rails logger.
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
-  config.logger = Logger.new(STDOUT)
-  config.log_level = :debug
-
-  config.active_support.deprecation = :log
+  config.log_level = :info
+ # config.active_support.deprecation = :log
 
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
-
-  # Debug mode disables concatenation and preprocessing of assets.
-  # This option may cause significant delays in view rendering with a large
-  # number of complex assets.
-  config.assets.debug = true
 
   # Asset digests allow you to set far-future HTTP expiration dates on all assets,
   # yet still be able to expire them through the digest params.
