@@ -3,7 +3,7 @@
 repo1_one:
   file_name_enc:  zQiAKq7e/PV8x21XH2gEZg==               # repo1_one.txt
   size_enc:       UmgKzFJ+b8pDmGdhQOQxGQ==               # 10 bytes
-  creation:       2015-12-20                             # File content: repo1_one
+  created_at:     2015-12-20                             # File content: repo1_one
   token:          d57d89ed9fc0f112f82a3f403749f1f0
   iv_enc:         oVa/VwWx8apV5XWYo2gfkZr+GTpimWHsOoUanjK6Mts=
   repositories_id: 1
@@ -11,7 +11,7 @@ repo1_one:
 repo1_two:
   file_name_enc:  6427D1Rv9C6lGuZUxBNp9Q==               # repo1_two.txt
   size_enc:       aRJbT5lK25rsb4wuQtTraA==               # 10 bytes
-  creation:       2015-12-20                             # File content: repo1_two
+  created_at:     2015-12-20                             # File content: repo1_two
   token:          0161af222a3cdaa6a8a27ecd1ce994a6
   iv_enc:         VBCQ+7clACi6WpvDwMKBiCXBJ3zQGJ2UrDZ6nM4rYJE=
   repositories_id: 1
@@ -19,7 +19,7 @@ repo1_two:
 repo2_one:
   file_name_enc:  DiRdxfx+to06X5gNtMZ5MA==               # repo2_one.txt
   size_enc:       2c+nkF7UjniTFKHsnLH+ug==               # 10 bytes
-  creation:       2015-12-20                             # File content: repo2_one
+  created_at:     2015-12-20                             # File content: repo2_one
   token:          cf678794afe813f56170e092fb217f61
   iv_enc:         jIjXkrP9j2DKkVzX8Wl8dSBGNeeokhP4HQUOX4b745g=
   repositories_id: 2
@@ -27,7 +27,7 @@ repo2_one:
 repo2_two:
   file_name_enc:  dbVw0zW+XSiwC349oh5c8g==               # repo2_two.txt
   size_enc:       XFEQb9H5bL+uPAiT55V6Mg==               # 10 bytes
-  creation:       2015-11-20                             # File content: repo2_two
+  created_at:     2015-11-20                             # File content: repo2_two
   token:          a170edeaa8eeb4c3749ccb9b3f69468f
   iv_enc:         ZE6dNAUPGlwWjARO9J8rDIoZIA4PUb+q8PIr1vUSEUs=
   repositories_id: 2

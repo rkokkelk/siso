@@ -32,7 +32,6 @@ class Record < ActiveRecord::Base
   def setup
     self.iv = generate_iv
     self.token = generate_token
-    self.creation = DateTime.now
   end
 
   private

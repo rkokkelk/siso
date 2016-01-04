@@ -11,7 +11,8 @@ class ApplicationController < ActionController::Base
 
   def authentication
 
-    if session[params[:id]].nil?
+    if session[params[:id]].nil? or not Repository.exists?(token: params[:id])
+      # Always redirect to login even if repo does not exists, in order to prevent information leakage
       redirect_to(controller: :repositories, :action => :authenticate, :id => params[:id])
     else
       unless params[:record_id].nil?

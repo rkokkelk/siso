@@ -39,15 +39,15 @@ class Repository < ActiveRecord::Base
   end
 
   def days_to_deletion
-    (self.deletion - DateTime.now).to_i
+    (self.deleted_at - DateTime.now).to_i
   end
 
   def setup
     self.iv = generate_iv
     self.token = generate_token
     self.master_key = generate_key
-    self.creation = DateTime.now
-    self.deletion = DateTime.now >> 1   # Add 1 month
+    self.created_at = DateTime.now
+    self.deleted_at = DateTime.now >> 1   # Add 1 month
   end
 
   private

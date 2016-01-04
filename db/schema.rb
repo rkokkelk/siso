@@ -11,30 +11,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151206130351) do
+ActiveRecord::Schema.define(version: 20160104220701) do
 
-  create_table "records", force: :cascade do |t|
-    t.string   "iv_enc"
-    t.string   "token"
-    t.string   "file_name_enc"
-    t.string   "size_enc"
-    t.date     "creation"
-    t.integer  "repositories_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+  create_table 'records', force: :cascade do |t|
+    t.string   'iv_enc',          null: false
+    t.string   'token',           null: false
+    t.string   'file_name_enc',   null: false
+    t.string   'size_enc',        null: false
+    t.integer  'repositories_id', null: false
+    t.datetime 'created_at',      null: false
+    t.datetime 'updated_at',      null: false
   end
 
-  add_index "records", ["repositories_id"], name: "index_records_on_repositories_id"
+  add_index 'records', ['repositories_id'], name: 'index_records_on_repositories_id'
 
-  create_table "repositories", force: :cascade do |t|
-    t.string "iv_enc"
-    t.string "master_key_enc"
-    t.string "password_digest"
-    t.string "title_enc"
-    t.text   "description_enc"
-    t.date   "deletion"
-    t.string "token"
-    t.date   "creation"
+  create_table 'repositories', force: :cascade do |t|
+    t.string    'iv_enc',           null: false
+    t.string    'master_key_enc',   null: false
+    t.string    'password_digest',  null: false
+    t.string    'title_enc',        null: false
+    t.text      'description_enc'
+    t.string    'token',            null: false
+    t.datetime  'created_at',       null: false
+    t.datetime  'deleted_at',       null: false
+    t.datetime  'updated_at',       null: false
   end
 
 end

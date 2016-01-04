@@ -119,7 +119,7 @@ class RepositoriesControllerTest < ActionController::TestCase
 
   test 'should not update repository' do
     assert_raises(ActionController::UrlGenerationError) do
-      patch :update, id: @repo1, repository: { creation: @repo1.creation, deletion: @repo1.deletion, description: @repo1.description, iv: @repo1.iv, master_key: @repo1.master_key, password: @repo1.password, title: @repo1.title, token: @repo1.token }
+      patch :update, id: @repo1, repository: { created_at: @repo1.created_at, deleted_at: @repo1.deleted_at, description: @repo1.description, iv: @repo1.iv, master_key: @repo1.master_key, password: @repo1.password, title: @repo1.title, token: @repo1.token }
     end
   end
 

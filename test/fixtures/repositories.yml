@@ -8,8 +8,8 @@ one:
   iv_enc:           a0vpxG6ezj+AYWhybHEP5edn0RgTnxyeG1FV7Rwqve8=
   master_key_enc:   98WLecjJKyFj3FKwHVjd09Hc658bSec3v48qmUx1a84Gu03DYokydmf90e87rY8e
   token:            9101affe2ef31e8114767206385a6a62
-  creation:         2015-12-20
-  deletion:         2116-01-20
+  created_at:       2015-12-20
+  deleted_at:       2116-01-20
 
 two:
   id:               2
@@ -19,5 +19,5 @@ two:
   iv_enc:           UYgLDZdiYE+ATw4m8QmuIrWpZ5b81pq66W8iMf77SrM=
   master_key_enc:   RB1sZ3NDrtJOf9qwKxjakkFJl+iOuig4Mt2XT51HhdfGkAMT8V2BD31pETjAewVY
   token:            228d81c7cd89e3073152dcbc90421c5c
-  creation:         2015-11-20
-  deletion:         2015-12-20
+  created_at:       2015-11-20
+  deleted_at:       2015-12-20

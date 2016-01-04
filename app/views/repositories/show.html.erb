@@ -12,12 +12,12 @@
 
 <p>
   <strong>Created:</strong>
-  <%= @repository.creation.to_s(:siso_date) %>
+  <%= @repository.created_at.to_s(:siso_date) %>
 </p>
 
 <p>
   <strong>Deleted:</strong>
-  <%= @repository.deletion.to_s(:siso_date) %>
+  <%= @repository.deleted_at.to_s(:siso_date) %>
 </p>
 
 <table>
