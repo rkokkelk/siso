@@ -10,22 +10,28 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title, size: 30, :autocomplete => :off%>
+    <%= f.label :title, 'Title:', class: 'right' %>
+    <%= f.text_field :title, size: 40, :autocomplete => :off%>
   </div>
   <div class="field">
-    <%= f.label :pass %><br>
+    <%= f.label :pass, 'Password*:', class: 'right' %>
     <%= f.password_field :password, size: 40, :autocomplete => :off%>
   </div>
   <div class="field">
-    <%= f.label :password_confirmation, 'Confirm:' %><br>
+    <%= f.label :password_confirmation, 'Confirm*:', class: 'right' %>
     <%= f.password_field :password_confirmation, size: 40, :autocomplete => :off%>
   </div>
   <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description, size: '100x6', :autocomplete => :off%>
+    <%= f.label :description, 'Description:', class: 'right' %>
+    <%= f.text_area :description, size: '52x6', :autocomplete => :off%>
   </div>
   <div class="actions">
     <%= f.submit %>
+  </div>
+<% end %>
+
+<% content_for :info do %>
+  <div id="info">
+    <p>* If the password remains empty, a secure random password will be generated</p>
   </div>
 <% end %>

@@ -4,6 +4,7 @@ div#header{
   width: 50%;
   margin-left: auto;
   margin-right: auto;
+  margin-top: 50px;
 }
 
 div#header h1{
@@ -15,7 +16,7 @@ div#content{
   border: 2px solid #E05A2B;
   background-color: #EAE9E7;
   width: 50%;
-  margin-top: 75px;
+  margin-top: 50px;
   margin-left: auto;
   margin-right: auto;
   min-height: 200px;
@@ -41,12 +42,21 @@ div#content div#material{
   width: 98%;
 }
 
+div#content div#info{
+  position: relative;
+  bottom: 0;
+  margin: 0px;
+  padding-left: 15px;
+  border-top: 1px solid #333333;
+  background-color: #E2E0DD;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
 div#footer{
   position: fixed;
-  bottom:0;
-  border-color: #333333;
-  border-with: 2px;
-  border-top-style: solid;
+  bottom: 0;
+  border: 2px solid #333333;
   padding: 25px;
   margin-top: 25px;
   width: 100%;

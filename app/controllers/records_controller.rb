@@ -43,7 +43,6 @@ class RecordsController < ApplicationController
       encrypted_io = encrypt_aes_256(@record.iv, key, file_io, false)
 
       write_record(@record.token, encrypted_io)
-      flash[:notice] = 'File was successfully uploaded'
     else
 
       message = ''

@@ -11,7 +11,7 @@ class Repository < ActiveRecord::Base
 
   has_secure_password
 
-  validates :title, presence: true, format: { with: /\A[ \d\w!]+\z/, message: 'Only alphabetical characters are allowed.' }, length: { minimum: 1, maximum: 100 }
+  validates :title, presence: true, format: { with: /\A[ \d\w!,\.]+\z/, message: 'Only alphabetical characters are allowed.' }, length: { minimum: 1, maximum: 100 }
   validates :description, format: { with: /\A[\s\d\w!?\.\-_,()\{}\[\]\*\$\+=@"'#]*\z/, message: 'Illegal characters found.' }, length: { maximum: 1000 }
   validates :token, uniqueness: true
   validates :password, password_strength: {min_entropy: 10, use_dictionary: true, min_word_length: 6}

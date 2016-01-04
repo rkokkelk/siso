@@ -36,10 +36,8 @@ p.alert{
   display: inline-block;
 }
 
-.field_with_errors {
-  padding: 2px;
-  background-color: red;
-  display: table;
+.field_with_errors label{
+  border-bottom: 2px solid #FF0000;
 }
 
 #error_explanation {
