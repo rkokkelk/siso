@@ -65,14 +65,17 @@ class RepositoriesController < ApplicationController
     end
 
     @repository.encrypt_master_key pass
-    session[@repository.token] = b64_encode @repository.master_key
 
     if @repository.save
+      reset_session
+
       if show_pass
         flash[:notice] = 'A password has been generated. This password will only be shown once so save it somewhere securely.'
         flash[:alert] = "Password: #{pass}"
       end
-      logger.debug{"Repository #{@repository.token}, session #{session[@repository.token]}"}
+
+      session[@repository.token] = b64_encode @repository.master_key
+      logger.debug{"Repository created: #{@repository.token}"}
       redirect_to(:action => 'show', :id => @repository.token)
     else
       render :new

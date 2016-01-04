@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # BCrypt module
-gem 'bcrypt-ruby', '~> 3.1.2'
+gem 'bcrypt', '~> 3.1.2'
 # PBKDF2 module
 gem 'pbkdf2', '~> 0.1.0'
 # Mime-Types gem, used to determine mime-types of extensions
