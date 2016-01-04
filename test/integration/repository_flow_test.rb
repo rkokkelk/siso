@@ -59,7 +59,7 @@ class RepositoryFlowTest < ActionDispatch::IntegrationTest
     assert_template 'repositories/new'
 
     assert_difference('Repository.count') do
-      post_via_redirect('/repositories', :repository => {:description => desc, :password => pass, :password_confirm => pass, :title => title})
+      post_via_redirect('/repositories/new', :repository => {:description => desc, :password => pass, :password_confirm => pass, :title => title})
     end
     assert_select 'h2#header', title
     assert_select 'p.description', desc
@@ -90,7 +90,7 @@ class RepositoryFlowTest < ActionDispatch::IntegrationTest
 
     def create_repo
       assert_difference('Repository.count') do
-        post_via_redirect('/repositories', :repository => {:description => @desc, :password => @pass, :password_confirm => @pass, :title => @title})
+        post_via_redirect('/repositories/new', :repository => {:description => @desc, :password => @pass, :password_confirm => @pass, :title => @title})
       end
       assert_template 'repositories/show'
       @repo = Repository.last

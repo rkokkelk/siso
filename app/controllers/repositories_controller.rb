@@ -42,7 +42,7 @@ class RepositoriesController < ApplicationController
       master_key = @repository.decrypt_master_key(params[:password])
       session[@repository.token] = b64_encode master_key
 
-      redirect_to({:action => 'show', :id => @repository.token})
+      redirect_to({action: :show, :id => @repository.token})
     else
       flash.now[:alert] = 'Login failed. Please verify the correct URL and password.'
       render :authenticate
@@ -76,7 +76,7 @@ class RepositoriesController < ApplicationController
 
       session[@repository.token] = b64_encode @repository.master_key
       logger.debug{"Repository created: #{@repository.token}"}
-      redirect_to(:action => 'show', :id => @repository.token)
+      redirect_to(action: :show, :id => @repository.token)
     else
       render :new
     end
