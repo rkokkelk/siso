@@ -34,6 +34,7 @@ module Siso
         'X-Frame-Options' => 'SAMEORIGIN',
         'X-XSS-Protection' => '1; mode=block',
         'X-Content-Type-Options' => 'nosniff',
+        'Cache-Control' => 'no-store, no-cache',
         'Content-Security-Policy' => "default-src 'none'; script-src 'self'; img-src 'self'; style-src 'self';"
     }
 

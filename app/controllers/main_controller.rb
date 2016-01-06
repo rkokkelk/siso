@@ -21,4 +21,8 @@ class MainController < ApplicationController
   def server_error
     render :server_error, status: 500
   end
+
+  def unprocessable_entity
+    render :unprocessable_entity, status: 422
+  end
 end

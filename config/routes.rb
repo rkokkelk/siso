@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   # Error pages
   get '/404', :to => 'main#page_not_found'
+  get '/422', :to => 'main#unprocessable_entity'
   get '/429', :to => 'main#retry_later'
   get '/500', :to => 'main#server_error'
 end
