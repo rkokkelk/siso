@@ -35,6 +35,10 @@ module RecordsHelper
     MIME::Types.type_for(ext)
   end
 
+  def get_token(file)
+    File.basename(file, '.file')
+  end
+
   private
   def file_location(value)
     file_name = '%s.file' % value

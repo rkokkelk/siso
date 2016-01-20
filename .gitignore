@@ -16,6 +16,9 @@ pickle-email-*.html
 # Add no content of data folder
 *.file
 
+# Public assets
+public/assets
+
 ## Environment normalisation:
 /.bundle
 /vendor/bundle
