@@ -23,12 +23,15 @@ class RecordsController < ApplicationController
   # POST /repository/:id/records
   def create
 
-    # Warning: rack automatically writes to a TempFile.
-    # File content should be written to memory a.s.a.p and TempFile Removed
     file = params[:file]
+
+    unless file.tempfile.is_a?(StringIO)
+      if file.tempfile.is_a?(Tempfile) then file.close true end
+      raise SecurityError('File has been saved on hard disk')
+    end
+
     file_name = file.original_filename
     file_io = file.read
-    file.close true
 
     @record = Record.new(file_name: file_name)
 
