@@ -13,7 +13,7 @@ gem 'strong_password', '~> 0.0.3'
 # Rack Attack middleware. Against brute-force attack, etc
 gem 'rack-attack'
 # Web server
-gem 'thin'
+#gem 'thin'
 # Cron gemfile
 gem 'rufus-scheduler', '~> 3.1', '>= 3.1.10'
 
