@@ -2,8 +2,6 @@
 # Start thin server hosting the SISO web application
 # in production environment
 
-ENV['RAILS_ENV'] = 'production'
-
 puts '== Precompile assets =='
 system 'rake assets:precompile'
 
@@ -11,6 +9,6 @@ puts '== Generate secret keys =='
 ENV['SECRET_KEY_BASE'] = `rake secret`
 
 puts '== Start the server =='
-system 'thin -e production --ssl start'
+system 'rails server'
 
 puts '== End =='

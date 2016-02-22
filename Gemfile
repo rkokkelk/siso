@@ -17,8 +17,6 @@ gem 'rufus-scheduler', '~> 3.1', '>= 3.1.10'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.1'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -35,9 +33,19 @@ gem 'turbolinks'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+group :heroku do
+  # Use postgres as the database for Active Record
+  gem 'pg'
+end
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  #gem 'byebug'
+  gem 'byebug'
+end
+
+group :production, :development, :test do
+  # Use sqlite3 as the database for Active Record
+  gem 'sqlite3'
 end
 
 group :development do

@@ -23,3 +23,11 @@ test:
 production:
   <<: *default
   database: db/production.sqlite3
+
+heroku:
+  adapter: postgresql
+  encoding: unicode
+  database: siso
+  pool: 5
+  username: rk
+  password:
