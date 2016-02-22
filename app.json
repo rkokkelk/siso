@@ -13,8 +13,8 @@
     "generator": "secret"
    },
   "IP_WHITE_LIST": {
-    "Description": "A comma separated list of IP ranges which can create repositories using CIDR format, e.g. 10.10.10.0/24 ",
-    "Value": ""
+    "description": "A comma separated list of IP ranges which can create repositories using CIDR format, e.g. 10.10.10.0/24 ",
+    "value": "0.0.0.0/0"
   }
 },
 "addons": [ 

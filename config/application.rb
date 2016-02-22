@@ -4,7 +4,7 @@ require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
-Bundler.require(*Rails.groups)
+Bundler.require(:default, Rails.env)
 
 module Siso
   class Application < Rails::Application
@@ -37,10 +37,5 @@ module Siso
         'Cache-Control' => 'no-store, no-cache',
         'Content-Security-Policy' => "default-src 'none'; script-src 'self'; img-src 'self'; style-src 'self';"
     }
-
-    # Generate the CIDR ranges
-    config.after_initialize do
-
-    end
   end
 end
