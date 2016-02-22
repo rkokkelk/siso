@@ -12,5 +12,9 @@
     "description": "A secret key for verifying the integrity of signed cookies.",
     "generator": "secret"
     }
+  },
+  "IP_WHITE_LIST": {
+    "Description": "A comma separated list of IP ranges which can create repositories using CIDR format, e.g. 10.10.10.0/24 ",
+    "Value": ""
   }
 }

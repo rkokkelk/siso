@@ -3,4 +3,9 @@
 require 'yaml'
 
 APP_CONFIG = YAML.load_file(Rails.root.join('config/config.yml'))
-IpHelper.createCIDR APP_CONFIG['IP_range']
+if ENV['IP_WHITE_LIST']
+  list = ENV['IP_WHITE_LIST']
+else
+  list = APP_CONFIG['IP_range']
+end
+IpHelper.createCIDR list
