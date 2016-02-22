@@ -27,7 +27,7 @@ class RecordsController < ApplicationController
 
     unless file.tempfile.is_a?(StringIO)
       if file.tempfile.is_a?(Tempfile) then file.close true end
-      raise Exception('Tempfile is not a StringIO instance, could lead to disclosure on hard drive')
+      raise SecurityError, 'Tempfile is not a StringIO instance, could lead to disclosure on hard drive'
     end
 
     if file.tempfile.size == 0

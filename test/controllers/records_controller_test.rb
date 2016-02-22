@@ -1,4 +1,7 @@
 require 'test_helper'
+require 'rack/test'
+
+ENV['RACK_ENV'] = 'test'
 
 class RecordsControllerTest < ActionController::TestCase
   include RecordsHelper
@@ -104,20 +107,5 @@ class RecordsControllerTest < ActionController::TestCase
       assert_redirected_to(:controller => 'repositories', :action => 'authenticate', :id => @repo2.token)
     end
     assert exists_token? @record2_2.token
-  end
-
-  test 'should put file' do
-    assert_difference('Record.count') do
-      post :create, id: @repo1.token, :file => fixture_file_upload('assets/foobar1.pdf','application/pdf')
-      assert :success
-      assert_redirected_to(:controller => 'repositories', :action => 'show', :id => @repo1.token)
-    end
-  end
-
-  test 'should not put file' do
-    assert_no_difference('Record.count') do
-      post :create, id: @repo2.token, :file => fixture_file_upload('assets/foobar1.pdf','application/pdf')
-      assert_redirected_to(:controller => 'repositories', :action => 'authenticate', :id => @repo2.token)
-    end
   end
 end
