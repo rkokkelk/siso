@@ -12,8 +12,6 @@ gem 'netaddr', '~> 1.5'
 gem 'strong_password', '~> 0.0.3'
 # Rack Attack middleware. Against brute-force attack, etc
 gem 'rack-attack'
-# Web server
-#gem 'thin'
 # Cron gemfile
 gem 'rufus-scheduler', '~> 3.1', '>= 3.1.10'
 
@@ -42,7 +40,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   #gem 'byebug'
-  #gem 'rack-test'
 end
 
 group :development do
