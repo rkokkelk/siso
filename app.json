@@ -1,0 +1,16 @@
+{
+"name": "SISO secure file transfer",
+"description": "A secure file transfer app using Ruby on Rails",
+"repository": "https://github.com/rkokkelk/siso",
+"keywords": [
+        "secure",
+        "file",
+        "transfer"
+          ],
+"env": {
+  "SECRET_TOKEN": {
+    "description": "A secret key for verifying the integrity of signed cookies.",
+    "generator": "secret"
+    }
+  }
+}
