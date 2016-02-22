@@ -1,28 +1,30 @@
 {
-"name": "SISO secure file transfer",
-"description": "A secure file transfer app using Ruby on Rails",
-"repository": "https://github.com/rkokkelk/siso",
-"keywords": [
-        "secure",
-        "file",
-        "transfer"
+  "name": "SISO secure file transfer",
+  "description": "A secure file transfer app using Ruby on Rails",
+  "repository": "https://github.com/rkokkelk/siso",
+  "keywords": [
+    "secure",
+    "file",
+    "transfer"
   ],
-"env": {
-  "RAILS_ENV": "heroku",
-  "SECRET_TOKEN": {
-    "description": "A secret key for verifying the integrity of signed cookies.",
-    "generator": "secret"
-   },
-  "IP_WHITE_LIST": {
-    "description": "A comma separated list of IP ranges which can create repositories using CIDR format, e.g. 10.10.10.0/24 ",
-    "value": "0.0.0.0/0"
+  "env": {
+    "SECRET_TOKEN": {
+      "description": "A secret key for verifying the integrity of signed cookies.",
+      "generator": "secret"
+    },
+    "IP_WHITE_LIST": {
+      "description": "A comma separated list of IP ranges which can create repositories using CIDR format, e.g. 10.10.10.0/24 ",
+        "value": "0.0.0.0/0"
+    },
+    "BUNDLE_WITHOUT": {
+      "description": "Do not alter!",
+      "value": "development:test:production"
+    }
   },
-  "BUNDLE_WITHOUT": {
-    "description": "Do not alter!",
-    "value": "development:test:production"
+  "addons": [
+    "heroku-postgresql"
+  ],
+  "scripts":{
+    "postdeploy": "bundle exec rake db:setup"
   }
-},
-"addons": [ 
-        "heroku-postgresql"
-    ]
 }
