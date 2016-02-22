@@ -39,7 +39,7 @@ class Record < ActiveRecord::Base
     begin
       remove_record token
     rescue IOError => e
-      logger.err{"Error destroying record: #{e.message}"}
+      logger.error{"Error destroying record: #{e.message}"}
     end
   end
 

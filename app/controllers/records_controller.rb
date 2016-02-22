@@ -27,28 +27,26 @@ class RecordsController < ApplicationController
 
     unless file.tempfile.is_a?(StringIO)
       if file.tempfile.is_a?(Tempfile) then file.close true end
-      raise SecurityError('File has been saved on hard disk')
+      raise Exception('Tempfile is not a StringIO instance, could lead to disclosure on hard drive')
     end
 
-    file_name = file.original_filename
-    file_io = file.read
-
-    @record = Record.new(file_name: file_name)
-
-    @record.setup
-    @record.size = file_io.size.to_s
-    @record.repositories_id = Repository.find_by(token: params[:id]).id
-
-    if @record.size == 0
+    if file.tempfile.size == 0
       flash[:alert] = 'It is not possible to upload empty files'
       redirect_to(controller: :repositories, action: :show, id: params[:id])
+      return
     end
+
+    @record = Record.new(file_name: file.original_filename)
+
+    @record.setup
+    @record.size = file.tempfile.size.to_s
+    @record.repositories_id = Repository.find_by(token: params[:id]).id
 
     @record.encrypt_data b64_decode(session[params[:id]])
 
     if @record.save
       key = b64_decode session[params[:id]]
-      encrypted_io = encrypt_aes_256(@record.iv, key, file_io, false)
+      encrypted_io = encrypt_aes_256(@record.iv, key, file.read, false)
 
       write_record(@record.token, encrypted_io)
     else
