@@ -26,11 +26,9 @@ class RecordsControllerTest < ActionController::TestCase
   end
 
   test 'should get file' do
-    iv = b64_decode @repo1.iv_enc
-    key = pbkdf2(iv,')O(I*U&Y%R$E')
-    master_key = decrypt_aes_256(iv, key, @repo1.master_key_enc)
-
+    master_key = b64_decode session[@repo1.token]
     record_iv = b64_decode @record1_1.iv_enc
+
     #file_name = decrypt_aes_256(record_iv, master_key, @record1_1.file_name_enc)
     size = decrypt_aes_256(record_iv, master_key, @record1_1.size_enc)
 

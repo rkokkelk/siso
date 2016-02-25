@@ -5,8 +5,8 @@ class RepositoriesController < ApplicationController
   include CryptoHelper
 
   before_action :ip_authentication, only: [:new, :create]
-  before_action :authentication,    only: [:show]
-  before_action :set_repository,    only: [:authenticate, :show]
+  before_action :authentication,    only: [:show, :delete]
+  before_action :set_repository,    only: [:authenticate, :show, :delete]
 
   # GET /repositories/b01e604fce20e8dab976a171fcce5a82
   # GET /repositories/b01e604fce20e8dab976a171fcce5a82.json
@@ -50,7 +50,6 @@ class RepositoriesController < ApplicationController
   end
 
   # POST /repositories/b01e604fce20e8dab976a171fcce5a82
-  # POST /repositories.json
   def create
     @repository = Repository.new(repository_params)
     @repository.setup
@@ -79,6 +78,17 @@ class RepositoriesController < ApplicationController
       redirect_to(action: :show, :id => @repository.token)
     else
       render :new
+    end
+  end
+
+  # DELETE /repositories/b01e604fce20e8dab976a171fcce5a82
+  def delete
+    if @repository.destroy
+      Rails.logger.info{"Deleted repository: #{@repository.token}"}
+      redirect_to(controller: :main, action: :index)
+    else
+      flash[:alert] = 'Something went wrong'
+      redirect_to(action: :show, :id => @repository.token)
     end
   end
 
