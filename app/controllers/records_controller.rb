@@ -1,6 +1,7 @@
 class RecordsController < ApplicationController
   include CryptoHelper
   include RecordsHelper
+  include AuditHelper
 
   before_action :authentication
   before_action :set_objects,     only: [:show, :delete]
@@ -18,6 +19,8 @@ class RecordsController < ApplicationController
     send_data(file_io,
               :filename => file_name,
               :type => file_ext)
+
+    audit(params[:id], 'File downloaded')
   end
 
   # POST /repository/:id/records
@@ -49,6 +52,7 @@ class RecordsController < ApplicationController
       encrypted_io = encrypt_aes_256(@record.iv, key, file.read, false)
 
       write_record(@record.token, encrypted_io)
+      audit(params[:id], 'File uploaded')
     else
 
       message = ''
@@ -67,6 +71,7 @@ class RecordsController < ApplicationController
 
     if @record.destroy
       flash[:notice] = 'File was successfully removed'
+      audit(params[:id], 'File deleted')
     else
       flash[:alert] = 'Cannot delete file, something went wrong'
     end

@@ -3,6 +3,7 @@ require 'date'
 
 class RepositoriesController < ApplicationController
   include CryptoHelper
+  include AuditHelper
 
   before_action :ip_authentication, only: [:new, :create]
   before_action :authentication,    only: [:show, :delete]
@@ -74,7 +75,10 @@ class RepositoriesController < ApplicationController
       end
 
       session[@repository.token] = b64_encode @repository.master_key
+
       logger.debug{"Repository created: #{@repository.token}"}
+      audit(@repository.token, 'Repository created')
+
       redirect_to(action: :show, :id => @repository.token)
     else
       render :new
@@ -84,7 +88,7 @@ class RepositoriesController < ApplicationController
   # DELETE /repositories/b01e604fce20e8dab976a171fcce5a82
   def delete
     if @repository.destroy
-      Rails.logger.info{"Deleted repository: #{@repository.token}"}
+      audit(@repository.token, 'Repository deleted')
       redirect_to(controller: :main, action: :index)
     else
       flash[:alert] = 'Something went wrong'
