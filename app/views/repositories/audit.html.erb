@@ -1,0 +1,16 @@
+<% content_for :header do %>
+    <%= @repository.title %> [Audit log]
+<% end %>
+
+<%= render 'layouts/notifications.html.erb' %>
+
+<p class="logs">
+  <%= @audit %>
+</p>
+
+<% content_for :info do %>
+<div id="info">
+  <%= button_to('Go back', {controller: :repositories, action: :show, id: @repository.token},
+                method: 'get')%>
+</div>
+<% end %>

@@ -5,15 +5,12 @@ class RepositoriesController < ApplicationController
   include CryptoHelper
   include AuditHelper
 
-  before_action :ip_authentication, only: [:new, :create]
-  before_action :authentication,    only: [:show, :delete]
-  before_action :set_repository,    only: [:authenticate, :show, :delete]
+  before_action :ip_authentication,       only: [:new, :create]
+  before_action :authentication,          only: [:show, :delete, :audit]
+  before_action :set_decrypt_repository,  only: [:show, :delete, :audit]
 
   # GET /repositories/b01e604fce20e8dab976a171fcce5a82
-  # GET /repositories/b01e604fce20e8dab976a171fcce5a82.json
   def show
-    @repository.master_key = b64_decode session[params[:id]]
-    @repository.decrypt_data
 
     @records = Record.where(repositories_id: @repository)
     @records.each do |record|
@@ -23,6 +20,11 @@ class RepositoriesController < ApplicationController
     if @repository.days_to_deletion <= 7   # Display warning if repository is deleted within 1 week
       flash.now[:alert] = "Repository will deleted within #{@repository.days_to_deletion+1} day(s)."
     end
+  end
+
+  # GET /repositories/b01e604fce20e8dab976a171fcce5a82/audit
+  def audit
+    @audit = read_logs(@repository.token)
   end
 
   # GET /repositories/new
@@ -36,6 +38,7 @@ class RepositoriesController < ApplicationController
 
   # POST /repositories/b01e604fce20e8dab976a171fcce5a82/authenticate
   def authenticate
+    @repository = Repository.find_by(token: params[:id])
 
     if @repository and @repository.authenticate(params[:password])
       reset_session
@@ -77,7 +80,7 @@ class RepositoriesController < ApplicationController
       session[@repository.token] = b64_encode @repository.master_key
 
       logger.debug{"Repository created: #{@repository.token}"}
-      audit(@repository.token, 'Repository created')
+      audit_log(@repository.token, 'Repository created')
 
       redirect_to(action: :show, :id => @repository.token)
     else
@@ -88,7 +91,7 @@ class RepositoriesController < ApplicationController
   # DELETE /repositories/b01e604fce20e8dab976a171fcce5a82
   def delete
     if @repository.destroy
-      audit(@repository.token, 'Repository deleted')
+      audit_log(@repository.token, 'Repository deleted')
       redirect_to(controller: :main, action: :index)
     else
       flash[:alert] = 'Something went wrong'
@@ -97,9 +100,10 @@ class RepositoriesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_repository
+    def set_decrypt_repository
       @repository = Repository.find_by(token: params[:id])
+      @repository.master_key = b64_decode session[@repository.token]
+      @repository.decrypt_data
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

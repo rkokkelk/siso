@@ -57,6 +57,12 @@ div.center{
 
 .right{
   text-align: right;
+  float: right;
+}
+
+.left{
+  text-align: left;
+  float: left;
 }
 
 .description{
@@ -66,4 +72,13 @@ div.center{
   background: #EEEDEB;
   padding: 10px;
   max-width: 45%;
+}
+
+.logs{
+  border-radius: 15px;
+  border: 1px solid #AEA79F;
+  background: #EEEDEB;
+  padding: 10px;
+  max-width: 90%;
+  white-space: pre-line;
 }

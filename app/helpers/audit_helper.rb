@@ -4,7 +4,7 @@ module AuditHelper
 
   @logs ||= Hash.new
 
-  def audit(token, audit)
+  def audit_log(token, audit)
     ip = request.ip
     date = DateTime.now
     message = "[%s] (%s) %s\n" % [date.to_s(:date_time), ip, audit]
@@ -22,7 +22,6 @@ module AuditHelper
   end
 
   private
-
   def get_log(token)
     @logs ||= Hash.new
 

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   post   'repositories/:id/authenticate'        => 'repositories#authenticate'
   get    'repositories/:id'                     => 'repositories#show'
   delete 'repositories/:id'                     => 'repositories#delete'
+  get    'repositories/:id/audit'               => 'repositories#audit'
 
   # File Records
   get    'repositories/:id/record/:record_id'   => 'records#show'
