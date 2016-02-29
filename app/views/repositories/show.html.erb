@@ -58,7 +58,7 @@
 <% content_for :info do %>
 <div id="info">
   <%= button_to('Delete Repository', {controller: :repositories, action: :delete, id: @repository.token},
-                data: { confirm: 'Are you sure you want to delete this repository? All files will be deleted.' }, method: 'delete', form_class: 'delete, right', id: 'delete_btn')%>
+                data: { confirm: 'Are you sure you want to delete this repository? All files will be deleted.' }, method: 'delete', form_class: 'delete, float_right', id: 'delete_btn')%>
   <%= button_to('Audit log', {controller: :repositories, action: :audit, id: @repository.token},
                 method: 'get', form_class: 'right')%>
   <div id="clear"></div>

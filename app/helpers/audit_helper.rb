@@ -2,16 +2,15 @@ require 'logger'
 
 module AuditHelper
 
-  @logs ||= Hash.new
+  @@logs = Hash.new
 
   def audit_log(token, audit)
     ip = request.ip
     date = DateTime.now
     message = "[%s] (%s) %s\n" % [date.to_s(:date_time), ip, audit]
 
-    log = get_log token
-    log << message
-    log.close
+    @@logs[token] ||= create_audit_log token
+    @@logs[token] << message
   end
 
   def read_logs(token)
@@ -22,22 +21,10 @@ module AuditHelper
   end
 
   private
-  def get_log(token)
-    @logs ||= Hash.new
-
-    log = @logs[token]
-    if log.nil?
-      log = create_audit_log token
-      @logs[token] = log
-    else
-      log.reopen
-    end
-    log
-  end
-
   def create_audit_log(token)
     path = generate_path token
     file = File.open(path, 'a')
+    file.sync = true
     Logger.new(file)
   end
 
