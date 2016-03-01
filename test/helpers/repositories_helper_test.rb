@@ -16,7 +16,7 @@ class RepositoriesHelperTest < ActiveSupport::TestCase
       end
     end
 
-    assert (not exists_token? 'cf678794afe813f56170e092fb217f61')
-    assert (not exists_token? 'a170edeaa8eeb4c3749ccb9b3f69468f')
+    assert (not exists_token? '7cb79fc60c4d15a68fc5d94008c1f128')
+    assert (not exists_token? '0ef32b37113953c02229b7b3c48ce2f8')
   end
 end

@@ -46,7 +46,7 @@ div#content div#info{
   position: relative;
   bottom: 0;
   margin: 30px 0 0 0;
-  padding-left: 15px;
+  padding: 10px 10px 10px 15px;
   border-top: 1px solid #333333;
   #background-color: #E2E0DD;
   border-bottom-left-radius: 15px;
@@ -62,4 +62,8 @@ div#footer{
   width: 100%;
   height: 50px;
   background-color: #84377D;
+}
+
+div#clear{
+  clear: both;
 }

@@ -2,30 +2,36 @@ require 'base64'
 
 module CryptoHelper
 
-  MODE = :CBC
-  KEY_SIZE = 256
   PBKDF_ROUNDS = 20000
 
-  def encrypt_aes_256(iv, key, data, encode=true)
-    cipher = OpenSSL::Cipher::AES.new(KEY_SIZE, MODE)
-
+  def encrypt_aes_256(iv, key, data, encode=true, auth_data='')
+    cipher = OpenSSL::Cipher.new 'aes-256-gcm'
     cipher.encrypt
-    cipher.iv = iv
+
     cipher.key = key
+    cipher.iv = iv
+    cipher.auth_data = auth_data
 
     encrypt = cipher.update(data) + cipher.final
-    encode ? b64_encode(encrypt) : encrypt
+    auth_encrypt = cipher.auth_tag + encrypt
+    encode ? b64_encode(auth_encrypt) : auth_encrypt
   end
 
-  def decrypt_aes_256(iv, key, data, encode=true)
-    cipher = OpenSSL::Cipher::AES.new(KEY_SIZE, MODE)
-
+  def decrypt_aes_256(iv, key, data, encode=true, auth_data='')
+    cipher = OpenSSL::Cipher.new 'aes-256-gcm'
     cipher.decrypt
-    cipher.iv = iv
-    cipher.key = key
 
     encrypted = encode ? b64_decode(data) : data
-    cipher.update(encrypted) + cipher.final
+    auth = encrypted[0,16]
+    enc_data = encrypted[16..-1]
+
+
+    cipher.key = key
+    cipher.iv = iv
+    cipher.auth_tag = auth
+    cipher.auth_data = auth_data
+
+    cipher.update(enc_data) + cipher.final
   end
 
   def pbkdf2(iv, pass)
@@ -61,5 +67,4 @@ module CryptoHelper
     end
     result
   end
-
 end

@@ -1,33 +1,33 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 repo1_one:
-  file_name_enc:  zQiAKq7e/PV8x21XH2gEZg==               # repo1_one.txt
-  size_enc:       UmgKzFJ+b8pDmGdhQOQxGQ==               # 10 bytes
-  created_at:     2015-12-20                             # File content: repo1_one
-  token:          d57d89ed9fc0f112f82a3f403749f1f0
-  iv_enc:         oVa/VwWx8apV5XWYo2gfkZr+GTpimWHsOoUanjK6Mts=
+  file_name_enc:  IT5/hGu0k0uFi8orcMCWKcgMMA4XhyiJJ0EQKR8=  # repo1_one.txt
+  size_enc:       DZy+zaLpPWQ973nVov17MItZ                  # 10 bytes
+  created_at:     2015-12-20                                # File content: repo1_one
+  token:          0e9d87d5bcb7e254f591a2e374bd94bb
+  iv_enc:         Imbewnys3C4PZo50vgc89n2IyJ73jku+jDJjanc9WZc=
   repositories_id: 1
 
 repo1_two:
-  file_name_enc:  6427D1Rv9C6lGuZUxBNp9Q==               # repo1_two.txt
-  size_enc:       aRJbT5lK25rsb4wuQtTraA==               # 10 bytes
-  created_at:     2015-12-20                             # File content: repo1_two
-  token:          0161af222a3cdaa6a8a27ecd1ce994a6
-  iv_enc:         VBCQ+7clACi6WpvDwMKBiCXBJ3zQGJ2UrDZ6nM4rYJE=
+  file_name_enc:  OcOzVCb+5LB3iAfABD8GBtdDKcfMaaPievcY6fo=  # repo1_two.txt
+  size_enc:       l4kUPGQIIug4YsJqiKAXAZQW                  # 10 bytes
+  created_at:     2015-12-20                                # File content: repo1_two
+  token:          3f63619e16cd1c28b68b897b18e6069b
+  iv_enc:         br/meaDSBbnuduRGEe8ExfpuEwb0lLZon7zORErLOUc=
   repositories_id: 1
 
 repo2_one:
-  file_name_enc:  DiRdxfx+to06X5gNtMZ5MA==               # repo2_one.txt
-  size_enc:       2c+nkF7UjniTFKHsnLH+ug==               # 10 bytes
-  created_at:     2015-12-20                             # File content: repo2_one
-  token:          cf678794afe813f56170e092fb217f61
-  iv_enc:         jIjXkrP9j2DKkVzX8Wl8dSBGNeeokhP4HQUOX4b745g=
+  file_name_enc:  pXoFIz32AHiLWAmAcQbFBt3j/NgO7HG1E7UDQlE=  # repo2_one.txt
+  size_enc:       lQEkkRCTuk5HwcVaja+zQp62                  # 10 bytes
+  created_at:     2015-12-20                                # File content: repo2_one
+  token:          c443f8c0e90698314da4058f3946170a
+  iv_enc:         lMmyFXWNB+P9XiyIsTnu4EYANe7k2pBvGtduIQiZCXg=
   repositories_id: 2
 
 repo2_two:
-  file_name_enc:  dbVw0zW+XSiwC349oh5c8g==               # repo2_two.txt
-  size_enc:       XFEQb9H5bL+uPAiT55V6Mg==               # 10 bytes
-  created_at:     2015-11-20                             # File content: repo2_two
-  token:          a170edeaa8eeb4c3749ccb9b3f69468f
-  iv_enc:         ZE6dNAUPGlwWjARO9J8rDIoZIA4PUb+q8PIr1vUSEUs=
+  file_name_enc:  j0lDAwUXLcRl4VWjLtv6rX6K4/4eoPBDCcSzqlY=  # repo2_two.txt
+  size_enc:       fY+MGCZdaI7Kr+leq6Sa6T3f                  # 10 bytes
+  created_at:     2015-11-20                                # File content: repo2_two
+  token:          e631e2d71b8ab39a84dfbc241d3b4361
+  iv_enc:         hSTwcn8YEbdQE6iddJkW9FkaDkeVPidy7DzlTEGo0WM=
   repositories_id: 2

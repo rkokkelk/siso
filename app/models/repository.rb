@@ -1,11 +1,13 @@
 class Repository < ActiveRecord::Base
   include CryptoHelper
+  include AuditHelper
+
   include ActiveModel::Validations
 
   has_many          :records
 
   before_save       :encrypt_data
-  before_destroy    :clear_records
+  before_destroy    :before_destroy
   after_initialize  :decode
   attr_accessor     :title, :description, :master_key, :iv
 
@@ -68,7 +70,8 @@ class Repository < ActiveRecord::Base
     end
   end
 
-  def clear_records
+  def before_destroy
     Record.destroy_all "repositories_id = #{id}"
+    Rails.logger.info{"Deleted repository: #{self.token}"}
   end
 end

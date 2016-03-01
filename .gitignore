@@ -15,6 +15,7 @@ pickle-email-*.html
 
 # Add no content of data folder
 *.file
+!test/fixtures/assets/*.file
 
 # Public assets
 public/assets
