@@ -3,3 +3,7 @@ rvm:
   - 2.1.4
   - 2.1.5
   #Todo: Add more support for other versions
+  
+addons:
+  code_climate:
+    repo_token: dfd3b1f1d202ed41de6cb4d8c8cad05574d9f1c7a98e21c64e2c5bf8a46b0b31

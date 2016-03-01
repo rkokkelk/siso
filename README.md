@@ -1,7 +1,7 @@
 # siso
 Simple and Secure File Transfer
 
-[![Build Status](https://travis-ci.org/rkokkelk/siso.svg?branch=master)](https://travis-ci.org/rkokkelk/siso) [![security](https://hakiri.io/github/rkokkelk/siso/master.svg)](https://hakiri.io/github/rkokkelk/siso/master)
+[![Build Status](https://travis-ci.org/rkokkelk/siso.svg?branch=master)](https://travis-ci.org/rkokkelk/siso) [![security](https://hakiri.io/github/rkokkelk/siso/master.svg)](https://hakiri.io/github/rkokkelk/siso/master) [![Code Climate](https://codeclimate.com/github/rkokkelk/siso/badges/gpa.svg)](https://codeclimate.com/github/rkokkelk/siso) [![Test Coverage](https://codeclimate.com/github/rkokkelk/siso/badges/coverage.svg)](https://codeclimate.com/github/rkokkelk/siso/coverage)
 
 ## Heroku Deploy
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?env[RAILS_ENV]=heroku)

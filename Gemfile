@@ -38,6 +38,11 @@ group :heroku do
   gem 'pg'
 end
 
+group :test do
+  # Use codeclimate to show code coverage
+  gem 'codeclimate-test-reporter', require: nil
+end
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
