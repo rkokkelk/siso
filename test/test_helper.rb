@@ -1,10 +1,10 @@
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
-require "codeclimate-test-reporter"
+require 'codeclimate-test-reporter'
 require 'rails/test_help'
 require 'securerandom'
+require 'fileutils'
 require 'yaml'
-
 
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
@@ -35,5 +35,18 @@ class ActiveSupport::TestCase
 
   def generate_file_name
     SecureRandom.hex 10 + '.file'
+  end
+
+  def setup
+    @@files = Dir[Rails.root.join('data','*')]
+  end
+
+  def teardown
+    files = Dir[Rails.root.join('data','*')]
+    files.each do |file_name|
+      unless @@files.include? file_name
+        FileUtils.rm Rails.root.join('data', file_name)
+      end
+    end
   end
 end
