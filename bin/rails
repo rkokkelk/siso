@@ -12,19 +12,22 @@ rescue LoadError => e
   raise unless e.message.include?('spring')
 end
 
-module Rails
-  class Server < ::Rack::Server
-    def default_options
-      cert_name = [['CN', WEBrick::Utils::getservername]]
-      cert, rsa = WEBrick::Utils::create_self_signed_cert(2048, cert_name, '')
-      cert.serial = rand(0..1000000000) # Generate unique serial prevent Serial Reuse errors
-      super.merge({ :BindAddress => '0.0.0.0',
-                    :Port => 3000,
-                    :SSLEnable => true,
-                    :SSLPrivateKey => rsa,
-                    :SSLCertificate => cert,
-                    :SSLCertName => cert_name
-                  })
+unless Rails.env.heroku?
+  module Rails
+    class Server < ::Rack::Server
+      def default_options
+        cert_name = [['CN', WEBrick::Utils::getservername]]
+        cert, rsa = WEBrick::Utils::create_self_signed_cert(2048, cert_name, '')
+        cert.serial = rand(0..1000000000) # Generate unique serial prevent Serial Reuse errors
+        super.merge({ :BindAddress => '0.0.0.0',
+                      :Host => '0.0.0.0',
+                      :Port => 3000,
+                      :SSLEnable => true,
+                      :SSLPrivateKey => rsa,
+                      :SSLCertificate => cert,
+                      :SSLCertName => cert_name
+                    })
+      end
     end
   end
 end
