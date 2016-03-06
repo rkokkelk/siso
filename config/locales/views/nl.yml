@@ -1,0 +1,40 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+
+nl:
+  repo_file_name: 'Bestandsnaam'
+  repo_size: 'Groote'
+  repo_file_created: 'Creation Time'
+  repo_no_records: 'Geen bestanden'
+  repo_file_upload: 'Upload bestand'
+  repo_new: 'Nieuwe repositorie'
+  repo_login: 'Please login'
+  repo_password: 'Password'
+  repo_created: 'Creatie datum:'
+  repo_deleted: 'Verwijder datum:'
+
+  repo_form_title: 'Titel:'
+  repo_form_desc: 'Beschrijving:'
+  repo_form_pass: 'Wachtwoord*:'
+  repo_form_confirm: 'Confirmatie*:'
+  repo_form_info: '* Als het wachtwoord leeg blijft, zal een veilig wachtwoord automatisch gegenereerd worden'
+
+  repo_btn_audit: 'Audit log'
+  repo_btn_delete: 'Verwijder Repositorie'
+  repo_btn_delete_confirm: 'Wilt u deze repository verwijderen? Alle bestanden worden dan verwijderd.'
+  repo_btn_login: 'Login'
+  repo_btn_upload: 'Upload'
+  repo_btn_back: 'Ga terug'
+  repo_btn_create: 'Creëer repositorie'
+
+  main_welcome: 'Welkom bij de SISO applicatie'
+
+  not_found_code: '404 Niet gevonden'
+  not_found_desc: 'Pagina niet gevonden'
+  retry_later_code: '429 Probeer later'
+  retry_later_desc: 'Probeer later'
+  server_error_code: '500 Server Error'
+  server_error_desc: 'Een probleem is voorgekomen'
+  unprocess_entity_code: '422 Aanvraag niet verwerkt'
+  unprocess_entity_desc: 'De huidige aanvraag kan niet worden verwerkt.'
