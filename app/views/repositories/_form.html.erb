@@ -10,19 +10,19 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :title, 'Title:', class: 'right' %>
+    <%= f.label :title, translate(:repo_form_title), class: 'right' %>
     <%= f.text_field :title, size: 40, :autocomplete => :off%>
   </div>
   <div class="field">
-    <%= f.label :pass, 'Password*:', class: 'right' %>
+    <%= f.label :pass, translate(:repo_form_pass), class: 'right' %>
     <%= f.password_field :password, size: 40, :autocomplete => :off%>
   </div>
   <div class="field">
-    <%= f.label :password_confirmation, 'Confirm*:', class: 'right' %>
+    <%= f.label :password_confirmation, translate(:repo_form_confirm), class: 'right' %>
     <%= f.password_field :password_confirmation, size: 40, :autocomplete => :off%>
   </div>
   <div class="field">
-    <%= f.label :description, 'Description:', class: 'right' %>
+    <%= f.label :description, translate(:repo_form_desc), class: 'right' %>
     <%= f.text_area :description, size: '52x6', :autocomplete => :off%>
   </div>
   <div class="actions">
@@ -32,6 +32,6 @@
 
 <% content_for :info do %>
   <div id="info">
-    <p>* If the password remains empty, a secure random password will be generated</p>
+    <p><%=translate :repo_form_info%></p>
   </div>
 <% end %>

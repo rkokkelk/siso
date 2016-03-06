@@ -4,7 +4,6 @@ require 'date'
 class RepositoriesController < ApplicationController
   include CryptoHelper
   include AuditHelper
-  include I18n
 
   before_action :ip_authentication,       only: [:new, :create]
   before_action :authentication,          only: [:show, :delete, :audit]
@@ -74,14 +73,14 @@ class RepositoriesController < ApplicationController
       reset_session
 
       if show_pass
-        flash[:notice] = 'A password has been generated. This password will only be shown once so save it somewhere securely.'
-        flash[:alert] = "Password: #{pass}"
+        flash[:notice] = translate :pass_generated
+        flash[:alert] = translate(:pass_show, :pass => pass)
       end
 
       session[@repository.token] = b64_encode @repository.master_key
 
       logger.debug{"Repository created: #{@repository.token}"}
-      audit_log(@repository.token, 'Repository created')
+      audit_log(@repository.token, translate(:audit_repo_created))
 
       redirect_to(action: :show, :id => @repository.token)
     else
@@ -92,10 +91,10 @@ class RepositoriesController < ApplicationController
   # DELETE /repositories/b01e604fce20e8dab976a171fcce5a82
   def delete
     if @repository.destroy
-      audit_log(@repository.token, 'Repository deleted')
+      audit_log(@repository.token, translate(:audit_repo_deleted))
       redirect_to(controller: :main, action: :index)
     else
-      flash[:alert] = 'Something went wrong'
+      flash[:alert] = translate :error
       redirect_to(action: :show, :id => @repository.token)
     end
   end
