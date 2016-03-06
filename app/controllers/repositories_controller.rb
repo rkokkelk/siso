@@ -4,6 +4,7 @@ require 'date'
 class RepositoriesController < ApplicationController
   include CryptoHelper
   include AuditHelper
+  include I18n
 
   before_action :ip_authentication,       only: [:new, :create]
   before_action :authentication,          only: [:show, :delete, :audit]
@@ -18,7 +19,7 @@ class RepositoriesController < ApplicationController
     end
 
     if @repository.days_to_deletion <= 7   # Display warning if repository is deleted within 1 week
-      flash.now[:alert] = "Repository will deleted within #{@repository.days_to_deletion+1} day(s)."
+      flash.now[:alert] = translate :repo_deletion
     end
   end
 
@@ -54,7 +55,7 @@ class RepositoriesController < ApplicationController
       BCrypt::Password.create(password)
       pbkdf2(generate_iv, password)
 
-      flash.now[:alert] = 'Login failed. Please verify the correct URL and password.'
+      flash.now[:alert] = translate :fail_login
       render :authenticate
     end
   end
