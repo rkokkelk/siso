@@ -6,3 +6,10 @@ en:
   fail_login: 'Login failed! Please verify the correct URL and password.'
 
   repo_deletion: 'Repository will deleted within %{days} day(s).'
+  file_removed: 'File was successfully removed'
+
+  pass_generated: 'A password has been generated. This password will only be shown once so save it somewhere securely.'
+  pass_show: 'Password: %{pass}'
+
+  empty_file_error: 'It is not possible to upload empty files'
+  error: 'Cannot perform action, something went wrong'

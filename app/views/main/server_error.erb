@@ -1,6 +1,6 @@
 <% content_for :header do %>
-    500 Server Error
+    <%=translate :server_error_code_code %>
 <% end %>
 
 <%= render 'layouts/notifications.html.erb' %>
-<p class="center vcenter">Error has occured</p>
+<p class="center vcenter"> <%=translate :server_error_desc %></p>

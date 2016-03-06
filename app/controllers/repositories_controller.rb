@@ -71,12 +71,12 @@ class RepositoriesController < ApplicationController
       reset_session
 
       if repository_params[:password].blank?
-        flash[:notice] = 'A password has been generated. This password will only be shown once so save it somewhere securely.'
-        flash[:alert] = "Password: #{@repository.password}"
+        flash[:notice] = translate :pass_generated
+        flash[:alert] = translate(:pass_show, :pass => @repository.password)
       end
 
       set_session_key @repository
-      audit_log(@repository.token, 'Repository created')
+      audit_log(@repository.token, translate(:audit_repo_created))
 
       redirect_to(action: :show, :id => @repository.token)
     else
@@ -87,10 +87,10 @@ class RepositoriesController < ApplicationController
   # DELETE /repositories/b01e604fce20e8dab976a171fcce5a82
   def delete
     if @repository.destroy
-      audit_log(@repository.token, 'Repository deleted')
+      audit_log(@repository.token, translate(:audit_repo_deleted))
       redirect_to(controller: :main, action: :index)
     else
-      flash[:alert] = 'Something went wrong'
+      flash[:alert] = translate :error
       redirect_to(action: :show, :id => @repository.token)
     end
   end

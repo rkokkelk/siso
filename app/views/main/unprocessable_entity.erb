@@ -1,6 +1,6 @@
 <% content_for :header do %>
-    422 Unprocessable Entity
+    <%=translate :unprocess_entity_code %>
 <% end %>
 
 <%= render 'layouts/notifications.html.erb' %>
-<p class="center vcenter">Your request cannot be processed.</p>
+<p class="center vcenter"> <%=translate :unprocess_entity_desc %></p>

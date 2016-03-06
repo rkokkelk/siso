@@ -1,0 +1,39 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+
+en:
+  repo_file_name: 'File name'
+  repo_size: 'Size'
+  repo_file_created: 'Creation Time'
+  repo_no_records: 'No records'
+  repo_file_upload: 'File Upload'
+  repo_new: 'New Repository'
+  repo_login: 'Please login'
+  repo_password: 'Password'
+  repo_created: 'Created:'
+  repo_deleted: 'Deleted:'
+
+  repo_form_title: 'Title:'
+  repo_form_desc: 'Description:'
+  repo_form_pass: 'Password*:'
+  repo_form_confirm: 'Confirm*:'
+  repo_form_info: '* If the password remains empty, a secure random password will be generated'
+
+  repo_btn_audit: 'Audit log'
+  repo_btn_delete: 'Delete Repository'
+  repo_btn_delete_confirm: 'Are you sure you want to delete this repository? All files will be deleted.'
+  repo_btn_login: 'Login'
+  repo_btn_upload: 'upload'
+  repo_btn_back: 'Go back'
+
+  main_welcome: 'Welcome to the SISO application'
+
+  not_found_code: '404 Not Found'
+  not_found_desc: 'Page not found'
+  retry_later_code: '429 Retry Later'
+  retry_later_desc: 'Retry Later'
+  server_error_code: '500 Server Error'
+  server_error_desc: 'Error has occurred'
+  unprocess_entity_code: '422 Unprocessable Entity'
+  unprocess_entity_desc: 'Your request cannot be processed.'
