@@ -10,6 +10,8 @@ en:
         invalid: 'contains illegal characters'
         too_short: 'is too short'
         too_long: 'is too long'
+        password_strength: 'is too weak'
+        confirmation: 'is not equal'
 
       models:
         record:
