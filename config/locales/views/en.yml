@@ -26,6 +26,7 @@ en:
   repo_btn_login: 'Login'
   repo_btn_upload: 'upload'
   repo_btn_back: 'Go back'
+  repo_btn_create: 'Create Repository'
 
   main_welcome: 'Welcome to the SISO application'
 
