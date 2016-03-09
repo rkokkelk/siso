@@ -15,7 +15,7 @@ module AuditHelper
 
   def read_logs(token)
     path = generate_path token
-    raise Exception, 'Cannot find log' unless File.exists?(path)
+    raise Exception, 'Cannot find log' unless File.exist?(path)
 
     File.open(path, 'r').read
   end

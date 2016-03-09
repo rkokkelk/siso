@@ -29,4 +29,12 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+
+  def set_session_key(repository)
+    session[repository.token] = b64_encode repository.master_key
+  end
+
+  def get_session_key(repository)
+    b64_decode session[repository.token]
+  end
 end

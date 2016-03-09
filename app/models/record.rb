@@ -17,7 +17,7 @@ class Record < ActiveRecord::Base
 
   def decrypt_data(master_key)
 
-    if master_key.nil? then raise SecurityError, 'Master key not available' end
+    raise SecurityError, 'Master key not available' if master_key.nil?
 
     self.size = decrypt_aes_256(iv, master_key, size_enc)
     self.file_name = decrypt_aes_256(iv, master_key, file_name_enc)

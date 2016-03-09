@@ -59,7 +59,7 @@ module CryptoHelper
     SecureRandom.random_bytes 32
   end
 
-  def generate_password(size=8)
+  def generate_secure_password(size=8)
     result = ''
     valid_chars = 'abcdefghijklmnoqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890!@@#$%^&*()_+=-][<>:;{}?.,'.split(//)
     size.times do

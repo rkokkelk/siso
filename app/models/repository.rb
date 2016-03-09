@@ -30,14 +30,14 @@ class Repository < ActiveRecord::Base
     end
   end
 
-  def encrypt_master_key(password)
-    key = pbkdf2(iv, password)
+  def encrypt_master_key
+    key = pbkdf2(iv, self.password)
     self.master_key_enc = encrypt_aes_256(iv, key, master_key)
   end
 
   def decrypt_master_key(password)
     key = pbkdf2(iv, password)
-    decrypt_aes_256(iv, key, master_key_enc)
+    self.master_key = decrypt_aes_256(iv, key, master_key_enc)
   end
 
   def days_to_deletion
@@ -52,9 +52,14 @@ class Repository < ActiveRecord::Base
     self.deleted_at = DateTime.now >> 1   # Add 1 month
   end
 
+  def generate_password
+    pass = generate_secure_password
+    self.password = pass
+    self.password_confirmation = pass
+  end
+
   private
   def encrypt_data
-
     self.iv_enc = b64_encode(iv)
     self.title_enc = encrypt_aes_256(iv, master_key, title)
     if description.empty?

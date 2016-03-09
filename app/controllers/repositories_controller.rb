@@ -38,13 +38,13 @@ class RepositoriesController < ApplicationController
 
   # POST /repositories/b01e604fce20e8dab976a171fcce5a82/authenticate
   def authenticate
-    @repository = Repository.find_by(token: params[:id])
+    @repository = Repository.find_by(token: params[:id]).try(:authenticate, params[:password])
 
-    if @repository and @repository.authenticate(params[:password])
+    if @repository
       reset_session
 
-      master_key = @repository.decrypt_master_key(params[:password])
-      session[@repository.token] = b64_encode master_key
+      @repository.decrypt_master_key params[:password]
+      set_session_key @repository
 
       redirect_to({action: :show, :id => @repository.token})
     else
@@ -58,26 +58,18 @@ class RepositoriesController < ApplicationController
     @repository = Repository.new(repository_params)
     @repository.setup
 
-    show_pass = false
-    pass = repository_params[:password]
-    if pass.blank?
-      show_pass = true
-      pass = generate_password
-      @repository.password = pass
-      @repository.password_confirmation = pass
-    end
-
-    @repository.encrypt_master_key pass
+    if repository_params[:password].blank? then @repository.generate_password end
+    @repository.encrypt_master_key
 
     if @repository.save
       reset_session
 
-      if show_pass
+      if repository_params[:password].blank?
         flash[:notice] = 'A password has been generated. This password will only be shown once so save it somewhere securely.'
-        flash[:alert] = "Password: #{pass}"
+        flash[:alert] = "Password: #{@repository.password}"
       end
 
-      session[@repository.token] = b64_encode @repository.master_key
+      set_session_key @repository
 
       logger.debug{"Repository created: #{@repository.token}"}
       audit_log(@repository.token, 'Repository created')
@@ -102,7 +94,7 @@ class RepositoriesController < ApplicationController
   private
     def set_decrypt_repository
       @repository = Repository.find_by(token: params[:id])
-      @repository.master_key = b64_decode session[@repository.token]
+      @repository.master_key = get_session_key @repository
       @repository.decrypt_data
     end
 

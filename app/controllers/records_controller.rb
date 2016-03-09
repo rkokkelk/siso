@@ -4,16 +4,17 @@ class RecordsController < ApplicationController
   include AuditHelper
 
   before_action :authentication
-  before_action :set_objects,     only: [:show, :delete]
+  before_action :set_objects,     only: [:show, :create, :delete]
 
   # GET /repository/:id/records/:record_id
   def show
-    @record.decrypt_data b64_decode(session[params[:id]])
+    key = get_session_key(@repository)
+    @record.decrypt_data key
 
     file_name = @record.file_name
     file_ext = get_mime_type file_name
     file_io = decrypt_aes_256(@record.iv,
-                              b64_decode(session[params[:id]]),
+                              key,
                               read_record(@record.token),
                               false)
     send_data(file_io,
@@ -39,16 +40,16 @@ class RecordsController < ApplicationController
       return
     end
 
+    key = get_session_key(@repository)
     @record = Record.new(file_name: file.original_filename)
 
     @record.setup
     @record.size = file.tempfile.size.to_s
-    @record.repositories_id = Repository.find_by(token: params[:id]).id
+    @record.repositories_id = @repository.id
 
-    @record.encrypt_data b64_decode(session[params[:id]])
+    @record.encrypt_data key
 
     if @record.save
-      key = b64_decode session[params[:id]]
       encrypted_io = encrypt_aes_256(@record.iv, key, file.read, false)
 
       write_record(@record.token, encrypted_io)
