@@ -43,7 +43,7 @@ class Record < ActiveRecord::Base
       self.iv = b64_decode(iv_enc)
     end
 
-    if iv.nil?
+    if token.nil?
       self.iv = generate_iv
       self.token = generate_token
     end

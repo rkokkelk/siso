@@ -46,7 +46,7 @@ class Repository < ActiveRecord::Base
       self.iv = b64_decode(iv_enc)
     end
 
-    if iv.nil? # Repository is created using new
+    if token.nil? # Repository is created using new
       self.iv = generate_iv
       self.token = generate_token
       self.master_key = generate_key
