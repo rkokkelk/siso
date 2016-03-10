@@ -56,7 +56,6 @@ class RepositoriesController < ApplicationController
   # POST /repositories/b01e604fce20e8dab976a171fcce5a82
   def create
     @repository = Repository.new(repository_params)
-    @repository.setup
 
     if repository_params[:password].blank? then @repository.generate_password end
     @repository.encrypt_master_key
@@ -70,8 +69,6 @@ class RepositoriesController < ApplicationController
       end
 
       set_session_key @repository
-
-      logger.debug{"Repository created: #{@repository.token}"}
       audit_log(@repository.token, 'Repository created')
 
       redirect_to(action: :show, :id => @repository.token)

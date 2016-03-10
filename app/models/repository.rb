@@ -1,18 +1,19 @@
 class Repository < ActiveRecord::Base
   include CryptoHelper
   include AuditHelper
-
   include ActiveModel::Validations
 
+  # Attributes
+  has_secure_password
   has_many          :records
-
-  before_save       :encrypt_data
-  before_destroy    :before_destroy
-  after_initialize  :decode
   attr_accessor     :title, :description, :master_key, :iv
 
-  has_secure_password
+  # Callbacks
+  before_save       :encrypt_data
+  before_destroy    :before_destroy
+  after_initialize  :setup
 
+  # Validations
   validates :title, presence: true, format: { with: /\A[ \d\w!,\.]+\z/, message: 'Only alphabetical characters are allowed.' }, length: { minimum: 1, maximum: 100 }
   validates :description, format: { with: /\A[\s\d\w!?\.\-_,()\{}\[\]\*\$\+=@"'#]*\z/, message: 'Illegal characters found.' }, length: { maximum: 1000 }
   validates :token, uniqueness: true
@@ -20,7 +21,7 @@ class Repository < ActiveRecord::Base
 
   def decrypt_data
 
-    if master_key.nil? then raise SecurityError, 'Master key not available' end
+    raise SecurityError, 'Master key not available' if master_key.nil?
 
     self.title = decrypt_aes_256(iv, master_key, title_enc)
     if description_enc.empty?
@@ -45,11 +46,17 @@ class Repository < ActiveRecord::Base
   end
 
   def setup
-    self.iv = generate_iv
-    self.token = generate_token
-    self.master_key = generate_key
-    self.created_at = DateTime.now
-    self.deleted_at = DateTime.now >> 1   # Add 1 month
+    if iv_enc.present?
+      self.iv = b64_decode(iv_enc)
+    end
+
+    if iv.nil? # Repository is created using new
+      self.iv = generate_iv
+      self.token = generate_token
+      self.master_key = generate_key
+      self.created_at = DateTime.now
+      self.deleted_at = DateTime.now >> 1   # Add 1 month
+    end
   end
 
   def generate_password
@@ -69,14 +76,7 @@ class Repository < ActiveRecord::Base
     end
   end
 
-  def decode
-    if iv_enc.present?
-      self.iv = b64_decode(iv_enc)
-    end
-  end
-
   def before_destroy
     Record.destroy_all "repositories_id = #{id}"
-    Rails.logger.info{"Deleted repository: #{self.token}"}
   end
 end

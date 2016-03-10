@@ -7,7 +7,7 @@ class Record < ActiveRecord::Base
   attr_accessor     :iv, :file_name, :size
 
   # Callbacks
-  after_initialize  :decode
+  after_initialize  :setup
   before_destroy    :destroy_file
 
   # Validations
@@ -29,11 +29,6 @@ class Record < ActiveRecord::Base
     self.file_name_enc = encrypt_aes_256(iv, master_key, file_name)
   end
 
-  def setup
-    self.iv = generate_iv
-    self.token = generate_token
-  end
-
   private
   def destroy_file
     begin
@@ -43,9 +38,14 @@ class Record < ActiveRecord::Base
     end
   end
 
-  def decode
+  def setup
     if iv_enc.present?
       self.iv = b64_decode(iv_enc)
+    end
+
+    if iv.nil?
+      self.iv = generate_iv
+      self.token = generate_token
     end
   end
 end

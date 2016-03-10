@@ -41,10 +41,7 @@ class RecordsController < ApplicationController
     end
 
     key = get_session_key(@repository)
-    @record = Record.new(file_name: file.original_filename)
-
-    @record.setup
-    @record.size = file.tempfile.size.to_s
+    @record = Record.new(file_name: file.original_filename, size: file.tempfile.size.to_s)
     @record.repositories_id = @repository.id
 
     @record.encrypt_data key
@@ -71,7 +68,6 @@ class RecordsController < ApplicationController
   def delete
 
     if @record.destroy
-      flash[:notice] = 'File was successfully removed'
       audit_log(params[:id], 'File deleted')
     else
       flash[:alert] = 'Cannot delete file, something went wrong'

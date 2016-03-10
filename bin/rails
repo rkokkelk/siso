@@ -12,7 +12,7 @@ rescue LoadError => e
   raise unless e.message.include?('spring')
 end
 
-unless Rails.env.heroku?
+unless Rails.env.heroku? or Rails.env.development?
   module Rails
     class Server < ::Rack::Server
       def default_options

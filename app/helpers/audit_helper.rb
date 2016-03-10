@@ -11,6 +11,7 @@ module AuditHelper
 
     @@logs[token] ||= create_audit_log token
     @@logs[token] << message
+    logger.info{"(#{token}) #{audit}"}
   end
 
   def read_logs(token)
