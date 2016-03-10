@@ -17,11 +17,12 @@ SISO is a simple and secure file transfer system. It aims to provide functionali
 ## Usage
 
 Sharing files is done using the following steps:
-    1. The user creates a repository and assigns a title and password
-    2. A random URL is generated for the repository
-    3. The URL can be send by email and the password by text message
-    4. Every person with access to both the URL and password can upload and share files
-    5. The repository is automatically destroyed after 1 month  
+
+1. The user creates a repository and assigns a title and password
+2. A random URL is generated for the repository
+3. The URL can be send by email and the password by text message
+4. Every person with access to both the URL and password can upload and share files
+5. The repository is automatically destroyed after 1 month  
      
 ## IP authentication
  
