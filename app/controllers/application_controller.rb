@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def ip_authentication
-    unless IpHelper.verifyIP request.ip
+    unless IpHelper.verifyIP request.remote_ip
       redirect_to(controller: :main, action: :index)
     end
   end

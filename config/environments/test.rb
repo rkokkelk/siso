@@ -37,7 +37,7 @@ Rails.application.configure do
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
   config.logger = Logger.new(STDOUT)
-  config.log_level = :debug
+  config.log_level = :info
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
