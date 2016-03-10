@@ -48,6 +48,12 @@ class RepositoriesController < ApplicationController
 
       redirect_to({action: :show, :id => @repository.token})
     else
+      # Perform resource intensive task equal to other if
+      # to prevent side-channel information leakage
+      password = generate_token
+      BCrypt::Password.create(password)
+      pbkdf2(generate_iv, password)
+
       flash.now[:alert] = 'Login failed. Please verify the correct URL and password.'
       render :authenticate
     end
