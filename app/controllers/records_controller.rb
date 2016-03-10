@@ -34,12 +34,6 @@ class RecordsController < ApplicationController
       raise SecurityError, 'Tempfile is not a StringIO instance, could lead to disclosure on hard drive'
     end
 
-    if file.tempfile.size == 0
-      flash[:alert] = 'It is not possible to upload empty files'
-      redirect_to(controller: :repositories, action: :show, id: params[:id])
-      return
-    end
-
     key = get_session_key(@repository)
     @record = Record.new(file_name: file.original_filename, size: file.tempfile.size.to_s)
     @record.repositories_id = @repository.id

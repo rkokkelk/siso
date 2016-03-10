@@ -25,10 +25,5 @@ class RecordsFlowTest < ActionDispatch::IntegrationTest
         assert_equal response.body, IO.binread('test/fixtures/assets/foobar1.pdf')
       end
     end
-
-    # No empty files should be uploaded
-    assert_no_difference('Record.count') do
-      put_via_redirect("/repositories/#{@repo1.token}/record/", :file => fixture_file_upload('test/fixtures/assets/empty.txt','application/text'))
-    end
   end
 end

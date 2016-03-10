@@ -5,6 +5,9 @@ module CryptoHelper
   PBKDF_ROUNDS = 20000
 
   def encrypt_aes_256(iv, key, data, encode=true, auth_data='')
+
+    if data.nil? or data.empty? then return data end # Empty data cannot be encrypted, so return
+
     cipher = OpenSSL::Cipher.new 'aes-256-gcm'
     cipher.encrypt
 
@@ -18,13 +21,15 @@ module CryptoHelper
   end
 
   def decrypt_aes_256(iv, key, data, encode=true, auth_data='')
+
+    if data.nil? or data.empty? then return data end # Empty data cannot be decrypted, so return
+
     cipher = OpenSSL::Cipher.new 'aes-256-gcm'
     cipher.decrypt
 
     encrypted = encode ? b64_decode(data) : data
     auth = encrypted[0,16]
     enc_data = encrypted[16..-1]
-
 
     cipher.key = key
     cipher.iv = iv

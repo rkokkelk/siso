@@ -36,6 +36,36 @@ class CryptoHelperTest < ActiveSupport::TestCase
     assert_equal data, decrypt
   end
 
+  test 'AES-256 encryption with empty and nil values' do
+    iv = generate_iv
+    key = generate_key
+    data = nil
+
+    encrypt = encrypt_aes_256(iv,key,data, false)
+    decrypt = decrypt_aes_256(iv,key,encrypt, false)
+
+    assert_equal data, decrypt
+
+    data = ''
+    encrypt = encrypt_aes_256(iv,key,data, false)
+    decrypt = decrypt_aes_256(iv,key,encrypt, false)
+
+    assert_equal data, decrypt
+  end
+
+  test 'AES-256 encryption normal values should be encrypted' do
+    iv = generate_iv
+    key = generate_key
+    data = 'a'
+
+    encrypt = encrypt_aes_256(iv,key,data, false)
+    assert_not_equal data, encrypt
+
+    data = generate_token
+    encrypt = encrypt_aes_256(iv,key,data, false)
+    assert_not_equal data, encrypt
+  end
+
   test 'Base64 encoding with static values' do
 
     encode = b64_encode data

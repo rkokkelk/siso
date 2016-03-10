@@ -7,8 +7,8 @@ module FormatHelper
   def human_readable_bytes(size)
     size = Integer(size)
     case
-      when size == 1
-        '1 Byte'
+      when size == 0 || size == 1
+        '%d byte' % size
       when size < KILO_SIZE
         '%.d bytes' % size
       when size < MEGA_SIZE
