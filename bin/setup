@@ -6,15 +6,12 @@ APP_ROOT = Pathname.new File.expand_path('../../',  __FILE__)
 
 Dir.chdir APP_ROOT do
 
-  # Setup is usually run for production environment
-  #ENV['RAILS_ENV'] = 'production'
-
   puts '== Installing dependencies =='
   system 'gem install bundler --conservative'
   system 'bundle check || bundle install'
 
   puts "\n== Preparing database =="
-  system 'bin/rake db:setup'
+  system 'rake db:setup'
 
   puts '== Removing old logs and tempfiles =='
   system 'rm -f log/*'
