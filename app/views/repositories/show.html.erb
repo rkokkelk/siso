@@ -55,6 +55,8 @@
     <%= file_field_tag 'file' %><%= submit_tag 'Upload' %>
 <% end %>
 
+<%-#<p class="description"><b>How to share: </b>send the URL of this page by email. Send the password of this repository by text-message.</p>-%>
+
 <% content_for :info do %>
 <div id="info">
   <%= button_to('Delete Repository', {controller: :repositories, action: :delete, id: @repository.token},

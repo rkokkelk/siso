@@ -75,7 +75,7 @@ class RecordsController < ApplicationController
   def verify_file_type(file)
     # Rake test automatically generate Tempfile, for tests this is allowed
     # other instances should be reported immediately
-    if not Rails.env.test? and file.tempfile.is_a?(StringIO)
+    if not Rails.env.test? and not file.tempfile.is_a?(StringIO)
       if file.tempfile.is_a?(Tempfile) then file.close true end
       error = 'Tempfile is not a StringIO instance, could lead to information disclosure on hard drive'
       logger.error(error)
