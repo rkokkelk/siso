@@ -12,7 +12,8 @@ rescue LoadError => e
   raise unless e.message.include?('spring')
 end
 
-unless Rails.env.heroku? or Rails.env.development?
+# Do not generate certificates when SISO is used as reverse proxy
+unless Rails.env.heroku? or Rails.env.development? or ENV['SISO_PROXY']
   module Rails
     class Server < ::Rack::Server
       def default_options

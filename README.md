@@ -35,6 +35,18 @@ Setting this to the IP range of the organisations ensures that only employees ca
 ### Heroku Deploy
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?env[RAILS_ENV]=heroku)
 
+### Docker
+
+A docker image can be retrieved using the following docker command:
+`docker pull rkokkelk/siso` 
+
+### Reverse Proxy setup
+
+SISO automatically uses Webrick with TLS enabled and therefore generates new certificates. If SISO is used as an reverse proxy behind a webserver run SISO with the following variable set:
+`SISO_PROXY=true rails server`
+
+This will prevent Webrick running with new TLS certificates. 
+
 ### Setup
 
 Follow the instructions listed below to setup a working environment. 
