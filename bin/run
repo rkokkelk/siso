@@ -6,7 +6,7 @@ puts '== Precompile assets =='
 system 'rake assets:precompile'
 
 puts '== Generate secret keys =='
-ENV['SECRET_KEY_BASE'] = `rake secret`
+ENV['SECRET_KEY_BASE'] = 'rake secret'
 
 puts '== Start the server =='
 system 'rails server'
