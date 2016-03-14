@@ -2,7 +2,7 @@
 # and are automatically loaded by Rails. If you want to use locales other
 # than English, add the necessary files in this directory.
 
-en:
+nl:
   audit_repo_created: 'Repositorie gecreëerd'
   audit_repo_deleted: 'Repositorie verwijderd'
   audit_file_created: 'Bestand geupload'

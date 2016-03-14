@@ -20,3 +20,8 @@ nl:
               invalid: 'is niet valide'
             size:
               less_than_or_equal_to: 'mag niet groter zijn dan 150MB'
+        repository:
+          attributes:
+            password:
+              password:
+                password_strength: 'is te zwak'
