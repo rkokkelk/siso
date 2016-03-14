@@ -8,7 +8,7 @@ nl:
   repo_file_created: 'Geupload'
   repo_no_records: 'Geen bestanden'
   repo_file_upload: 'Upload bestand'
-  repo_new: 'Nieuwe repositorie'
+  repo_new: 'Nieuwe bewaarplek'
   repo_login: 'Log in'
   repo_password: 'Wachtwoord'
   repo_created: 'Aangemaakt:'
@@ -18,15 +18,15 @@ nl:
   repo_form_desc: 'Beschrijving:'
   repo_form_pass: 'Wachtwoord*:'
   repo_form_confirm: 'Confirmatie*:'
-  repo_form_info: '* Indien het wachtwoord leeg is dan zal er een wachtwoord automatisch gegenereerd worden'
+  repo_form_info: '* Indien leeg, zal er een wachtwoord automatisch gegenereerd worden'
 
   repo_btn_audit: 'Audit log'
-  repo_btn_delete: 'Verwijder Repositorie'
+  repo_btn_delete: 'Verwijder'
   repo_btn_delete_confirm: 'Wilt u deze repositorie verwijderen? Alle bestanden worden dan verwijderd.'
   repo_btn_login: 'Login'
   repo_btn_upload: 'Upload'
   repo_btn_back: 'Ga terug'
-  repo_btn_create: 'Creëer repositorie'
+  repo_btn_create: 'Creëer'
 
   main_welcome: 'Welkom bij de SISO applicatie'
 

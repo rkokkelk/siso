@@ -10,19 +10,19 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :title, translate(:repo_form_title), class: 'right' %>
+    <%= f.label :title, class: 'right' %>
     <%= f.text_field :title, size: 40, :autocomplete => :off%>
   </div>
   <div class="field">
-    <%= f.label :pass, translate(:repo_form_pass), class: 'right' %>
+    <%= f.label :pass, class: 'right' %>
     <%= f.password_field :password, size: 40, :autocomplete => :off%>
   </div>
   <div class="field">
-    <%= f.label :password_confirmation, translate(:repo_form_confirm), class: 'right' %>
+    <%= f.label :password_confirmation, class: 'right' %>
     <%= f.password_field :password_confirmation, size: 40, :autocomplete => :off%>
   </div>
   <div class="field">
-    <%= f.label :description, translate(:repo_form_desc), class: 'right' %>
+    <%= f.label :description, class: 'right' %>
     <%= f.text_area :description, size: '52x6', :autocomplete => :off%>
   </div>
   <div class="actions">

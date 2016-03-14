@@ -3,9 +3,9 @@
 # than English, add the necessary files in this directory.
 
 nl:
-  fail_login: 'Kan niet inloggen! Verifieer of u de goede URL of wachtwoord heeft opgegeven.'
+  fail_login: 'Kan niet inloggen! Verifieer de URL en het wachtwoord dat is opgegeven.'
 
-  repo_deletion: 'De repositorie zal verwijderd worden in %{days} dag(en).'
+  repo_deletion: 'Deze bewaarplek zal verwijderd worden in %{days} dag(en).'
   file_removed: 'Bestand is succesvol verwijderd'
 
   pass_generated: 'Een wachtwoord is gegenereerd. Deze is alleen nu zichtbaar, sla het daarom veilig op.'
