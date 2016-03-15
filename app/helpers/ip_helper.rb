@@ -16,7 +16,12 @@ module IpHelper
   end
 
   def IpHelper.verifyIP(ip)
-    Rails.logger.debug{"Current ip (#{ip}), Ranges (#{@ranges})"}
+    unless @ranges
+      Rails.logger.error{"Cannot verify IP, @ranges(#{@ranges})"}
+      return false
+    end
+
+    Rails.logger.debug{"Current ip(#{ip}), @ranges(#{@ranges})"}
     @ranges.each do |range|
       begin
         if range.matches? ip then return true end
