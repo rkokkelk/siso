@@ -12,6 +12,7 @@ Dir.chdir APP_ROOT do
 
   puts "\n== Preparing database =="
   system 'rake db:setup'
+  system 'rake db:migrate'
 
   puts '== Removing old logs and tempfiles =='
   system 'rm -f log/*'
