@@ -17,17 +17,39 @@ unless Rails.env.heroku? or Rails.env.development? or ENV['SISO_PROXY']
   module Rails
     class Server < ::Rack::Server
       def default_options
-        cert_name = [['CN', WEBrick::Utils::getservername]]
-        cert, rsa = WEBrick::Utils::create_self_signed_cert(2048, cert_name, '')
-        cert.serial = rand(0..1000000000) # Generate unique serial prevent Serial Reuse errors
+        cert_name, cert, key = get_tls_keys
         super.merge({ :BindAddress => '0.0.0.0',
                       :Host => '0.0.0.0',
                       :Port => 3000,
                       :SSLEnable => true,
-                      :SSLPrivateKey => rsa,
+                      :SSLPrivateKey => key,
                       :SSLCertificate => cert,
                       :SSLCertName => cert_name
                     })
+      end
+
+      def get_tls_keys
+
+        if File.exist?('tls/siso.pem') and File.exists?('tls/siso.key')
+          cert = OpenSSL::X509::Certificate.new IO.binread('tls/siso.pem')
+          key =  OpenSSL::PKey::RSA.new IO.binread('tls/siso.key')
+          cert_name = cert.subject
+        else
+          cert_name, cert, key = generate_tls_keys
+        end
+
+        return cert_name, cert, key
+      end
+
+      def generate_tls_keys
+        cert_name = [['CN', WEBrick::Utils::getservername]]
+        cert, key = WEBrick::Utils::create_self_signed_cert(2048, cert_name, '')
+
+        Dir.mkdir('tls') unless Dir.exist?('tls')
+        IO.binwrite('tls/siso.pem', cert.to_pem)
+        IO.binwrite('tls/siso.key', key.export)
+
+        return cert_name, cert, key
       end
     end
   end
