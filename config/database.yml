@@ -26,5 +26,5 @@ heroku:
   encoding: unicode
   database: siso
   pool: 5
-  username: rk
+  username: siso
   password:
