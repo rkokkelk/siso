@@ -12,7 +12,7 @@ nl:
       repository:
         title: 'Titel'
         pass: 'Wachtwoord'
-        password_confirmation: 'Confirmatie'
+        password_confirmation: 'Bevestiging'
         description: 'Beschrijving'
 
   helpers:
@@ -20,7 +20,7 @@ nl:
       repository:
         title: 'Titel: '
         pass: 'Wachtwoord*: '
-        password_confirmation: 'Confirmatie*: '
+        password_confirmation: 'Bevestiging*: '
         description: 'Beschrijving: '
 
 

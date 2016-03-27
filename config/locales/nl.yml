@@ -11,5 +11,5 @@ nl:
   pass_generated: 'Een wachtwoord is gegenereerd. Deze is alleen nu zichtbaar, sla het daarom veilig op.'
   pass_show: 'Wachtwoord: %{pass}'
 
-  empty_file_error: 'het is niet mogelijk om lege bestanden te uploaden.'
+  empty_file_error: 'Het is niet mogelijk om lege bestanden te uploaden.'
   error: 'Kan huidige actie niet uitvoeren, een fout is geconstateerd'

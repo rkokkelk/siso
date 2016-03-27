@@ -17,7 +17,7 @@ nl:
         record:
           attributes:
             file_name:
-              invalid: 'is niet valide'
+              invalid: 'is niet geldig'
             size:
               less_than_or_equal_to: 'mag niet groter zijn dan 150MB'
 
