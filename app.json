@@ -14,7 +14,11 @@
     },
     "IP_WHITE_LIST": {
       "description": "A comma separated list of IP ranges which can create repositories using CIDR format, e.g. 10.10.10.0/24 ",
-        "value": "0.0.0.0/0"
+      "value": "0.0.0.0/0"
+    },
+    "LOCALE": {
+      "description": " Set Language, default is set to English. Possible settings: en nl",
+      "value": "en"
     },
     "BUNDLE_WITHOUT": {
       "description": "Do not alter!",
