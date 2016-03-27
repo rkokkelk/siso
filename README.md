@@ -41,7 +41,7 @@ A docker image can be retrieved using the following docker command:
 `docker pull rkokkelk/siso` 
 
 Run the container as following:
-`docker run -p 3000:3000 -it --name siso rkokkelk/siso`
+`docker run -e RAILS_ENV=production -p 3000:3000 -it --name siso rkokkelk/siso`
 
 #### TLS Configuration
 
