@@ -17,7 +17,7 @@ en:
   repo_form_title: 'Title:'
   repo_form_desc: 'Description:'
   repo_form_pass: 'Password*:'
-  repo_form_confirm: 'Confirm*:'
+  repo_form_confirm: 'Confirm:'
   repo_form_info: '* If the password remains empty, a secure random password will be generated'
 
   repo_btn_audit: 'Audit log'

@@ -20,7 +20,7 @@ en:
       repository:
         title: 'Title: '
         pass: 'Password*: '
-        password_confirmation: 'Confirmation*: '
+        password_confirmation: 'Confirm: '
         description: 'Description: '
 
 

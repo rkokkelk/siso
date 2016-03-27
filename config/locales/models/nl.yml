@@ -20,7 +20,7 @@ nl:
       repository:
         title: 'Titel: '
         pass: 'Wachtwoord*: '
-        password_confirmation: 'Bevestiging*: '
+        password_confirmation: 'Bevestiging: '
         description: 'Beschrijving: '
 
 

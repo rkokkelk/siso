@@ -17,7 +17,7 @@ nl:
   repo_form_title: 'Titel:'
   repo_form_desc: 'Beschrijving:'
   repo_form_pass: 'Wachtwoord*:'
-  repo_form_confirm: 'Bevestiging*:'
+  repo_form_confirm: 'Bevestiging:'
   repo_form_info: '* Indien leeg, zal er automatisch een wachtwoord gegenereerd worden'
 
   repo_btn_audit: 'Audit log'

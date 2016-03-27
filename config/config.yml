@@ -9,4 +9,4 @@ IP_WHITE_LIST: 0.0.0.0/0
 
 # Set Language, default is set to English
 # Possible settings: en nl
-# LOCALE: en
+LOCALE: en
