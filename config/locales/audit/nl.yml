@@ -1,0 +1,10 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+
+nl:
+  audit_repo_created: 'Bewaarplek aangemaakt'
+  audit_repo_deleted: 'Bewaarplek verwijderd'
+  audit_file_created: 'Bestand geupload'
+  audit_file_deleted: 'Bestand verwijderd'
+  audit_file_accessed: 'Bestand gedownload'

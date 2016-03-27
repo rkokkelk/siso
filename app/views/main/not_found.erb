@@ -1,6 +1,6 @@
 <% content_for :header do %>
-    404 Not Found
+    <%=translate :not_found_code %>
 <% end %>
 
 <%= render 'layouts/notifications.html.erb' %>
-<p class="center vcenter">Page not found</p>
+<p class="center vcenter"><%=translate :not_found_desc%></p>

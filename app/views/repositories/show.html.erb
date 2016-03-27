@@ -11,28 +11,28 @@
 <% end %>
 
 <p>
-  <strong>Created:</strong>
-  <%= @repository.created_at.to_s(:siso_date) %>
+  <strong><%=translate :repo_created%></strong>
+  <%= @repository.created_at.in_time_zone.to_s(:siso_date) %>
 </p>
 
 <p>
-  <strong>Deleted:</strong>
-  <%= @repository.deleted_at.to_s(:siso_date) %>
+  <strong><%=translate :repo_deleted%></strong>
+  <%= @repository.deleted_at.in_time_zone.to_s(:siso_date) %>
 </p>
 
 <table>
   <thead>
     <tr>
-      <th>File name</th>
-      <th>Size</th>
-      <th>Creation Time</th>
+      <th><%=translate :repo_file_name%></th>
+      <th><%=translate :repo_size%></th>
+      <th><%=translate :repo_file_created%></th>
       <th></th>
     </tr>
   </thead>
   <tbody>
   <% if @records.length == 0 %>
     <tr>
-      <td>No records</td><td colspan="3"></td>
+      <td><%=translate :repo_no_records%></td><td colspan="3"></td>
     </tr>
   <% else %>
     <% @records.each do |record| %>
@@ -50,18 +50,18 @@
 </table>
 
 
-<h3>File Upload</h3>
+<h3><%=translate :repo_file_upload%></h3>
 <%= form_tag({controller: :records, action: :create}, method: :put, multipart: true) do %>
-    <%= file_field_tag 'file' %><%= submit_tag 'Upload' %>
+    <%= file_field_tag 'file' %><%= submit_tag translate(:repo_btn_upload) %>
 <% end %>
 
 <%-#<p class="description"><b>How to share: </b>send the URL of this page by email. Send the password of this repository by text-message.</p>-%>
 
 <% content_for :info do %>
 <div id="info">
-  <%= button_to('Delete Repository', {controller: :repositories, action: :delete, id: @repository.token},
-                data: { confirm: 'Are you sure you want to delete this repository? All files will be deleted.' }, method: 'delete', form_class: 'delete, float_right', id: 'delete_btn')%>
-  <%= button_to('Audit log', {controller: :repositories, action: :audit, id: @repository.token},
+  <%= button_to(translate(:repo_btn_delete), {controller: :repositories, action: :delete, id: @repository.token},
+                data: { confirm: translate(:repo_btn_delete_confirm)}, method: 'delete', form_class: 'delete, float_right', id: 'delete_btn')%>
+  <%= button_to(translate(:repo_btn_audit), {controller: :repositories, action: :audit, id: @repository.token},
                 method: 'get', form_class: 'right')%>
   <div id="clear"></div>
 </div>

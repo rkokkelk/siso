@@ -1,0 +1,15 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+
+nl:
+  fail_login: 'Kan niet inloggen! Verifieer de URL en het wachtwoord dat is opgegeven.'
+
+  repo_deletion: 'Deze bewaarplek zal verwijderd worden in %{days} dag(en).'
+  file_removed: 'Bestand is succesvol verwijderd'
+
+  pass_generated: 'Een wachtwoord is gegenereerd. Deze is alleen nu zichtbaar, sla het daarom veilig op.'
+  pass_show: 'Wachtwoord: %{pass}'
+
+  empty_file_error: 'Het is niet mogelijk om lege bestanden te uploaden.'
+  error: 'Kan huidige actie niet uitvoeren, een fout is geconstateerd'

@@ -1,0 +1,28 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+
+nl:
+  activerecord:
+    errors:
+      messages:
+        blank: 'kan niet leeg zijn'
+        invalid: 'bevat illegale karakters'
+        too_short: 'is te kort'
+        too_long: 'is te lang'
+        password_strength: 'is te zwak'
+        confirmation: 'is niet gelijk'
+
+      models:
+        record:
+          attributes:
+            file_name:
+              invalid: 'is niet geldig'
+            size:
+              less_than_or_equal_to: 'mag niet groter zijn dan 150MB'
+
+        repository:
+          attributes:
+            password:
+              password:
+                password_strength: 'is te zwak'

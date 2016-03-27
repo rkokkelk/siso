@@ -4,6 +4,7 @@ require 'date'
 class RepositoriesController < ApplicationController
   include CryptoHelper
   include AuditHelper
+  include I18n
 
   before_action :ip_authentication,       only: [:new, :create]
   before_action :authentication,          only: [:show, :delete, :audit]
@@ -12,13 +13,15 @@ class RepositoriesController < ApplicationController
   # GET /repositories/b01e604fce20e8dab976a171fcce5a82
   def show
 
+    logger.debug{"Time zone: #{Time.zone}"}
     @records = Record.where(repositories_id: @repository)
     @records.each do |record|
       record.decrypt_data @repository.master_key
+      logger.debug{"Current time: #{record.created_at.in_time_zone}"}
     end
 
     if @repository.days_to_deletion <= 7   # Display warning if repository is deleted within 1 week
-      flash.now[:alert] = "Repository will deleted within #{@repository.days_to_deletion+1} day(s)."
+      flash.now[:alert] = translate :repo_deletion
     end
   end
 
@@ -54,7 +57,7 @@ class RepositoriesController < ApplicationController
       BCrypt::Password.create(password)
       pbkdf2(generate_iv, password)
 
-      flash.now[:alert] = 'Login failed. Please verify the correct URL and password.'
+      flash.now[:alert] = translate :fail_login
       render :authenticate
     end
   end
@@ -70,12 +73,12 @@ class RepositoriesController < ApplicationController
       reset_session
 
       if repository_params[:password].blank?
-        flash[:notice] = 'A password has been generated. This password will only be shown once so save it somewhere securely.'
-        flash[:alert] = "Password: #{@repository.password}"
+        flash[:notice] = translate :pass_generated
+        flash[:alert] = translate(:pass_show, :pass => @repository.password)
       end
 
       set_session_key @repository
-      audit_log(@repository.token, 'Repository created')
+      audit_log(@repository.token, translate(:audit_repo_created))
 
       redirect_to(action: :show, :id => @repository.token)
     else
@@ -86,10 +89,10 @@ class RepositoriesController < ApplicationController
   # DELETE /repositories/b01e604fce20e8dab976a171fcce5a82
   def delete
     if @repository.destroy
-      audit_log(@repository.token, 'Repository deleted')
+      audit_log(@repository.token, translate(:audit_repo_deleted))
       redirect_to(controller: :main, action: :index)
     else
-      flash[:alert] = 'Something went wrong'
+      flash[:alert] = translate :error
       redirect_to(action: :show, :id => @repository.token)
     end
   end
