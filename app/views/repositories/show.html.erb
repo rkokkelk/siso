@@ -12,12 +12,12 @@
 
 <p>
   <strong><%=translate :repo_created%></strong>
-  <%= @repository.created_at.to_s(:siso_date) %>
+  <%= @repository.created_at.in_time_zone.to_s(:siso_date) %>
 </p>
 
 <p>
   <strong><%=translate :repo_deleted%></strong>
-  <%= @repository.deleted_at.to_s(:siso_date) %>
+  <%= @repository.deleted_at.in_time_zone.to_s(:siso_date) %>
 </p>
 
 <table>

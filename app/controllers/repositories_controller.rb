@@ -13,9 +13,11 @@ class RepositoriesController < ApplicationController
   # GET /repositories/b01e604fce20e8dab976a171fcce5a82
   def show
 
+    logger.debug{"Time zone: #{Time.zone}"}
     @records = Record.where(repositories_id: @repository)
     @records.each do |record|
       record.decrypt_data @repository.master_key
+      logger.debug{"Current time: #{record.created_at.in_time_zone}"}
     end
 
     if @repository.days_to_deletion <= 7   # Display warning if repository is deleted within 1 week
