@@ -40,12 +40,13 @@ Setting this to the IP range of the organisations ensures that only employees ca
 A docker image can be retrieved using the following docker command:
 `docker pull rkokkelk/siso` 
 
-### Reverse Proxy setup
+Run the container as following:
+`docker run -p 3000:3000 -it --name siso rkokkelk/siso`
 
-SISO automatically uses Webrick with TLS enabled and therefore generates new certificates. If SISO is used as an reverse proxy behind a webserver run SISO with the following variable set:
-`SISO_PROXY=true rails server`
+#### TLS Configuration
 
-This will prevent Webrick running with new TLS certificates. 
+If no TLS certificates are present, unsigned certificates will be generated. Own TLS certificates can be used by adding PEM certificates to the following location within the image:
+`/usr/src/siso/tls/siso.{pem,key}`
 
 ### Setup
 
@@ -53,5 +54,5 @@ Follow the instructions listed below to setup a working environment.
 
 1. Install ruby
 2. Run setup script `bin/setup`, this will install the GemFiles and create the databases
-3. Configure the whitelisted IP addresses in `config/config.yml`
+3. Configure the white-listed IP addresses in `config/config.yml`
 4. Run server `bin/run`, this will run the server which will be available from port 3000
