@@ -4,9 +4,10 @@ require 'codeclimate-test-reporter'
 require 'rails/test_help'
 require 'securerandom'
 require 'fileutils'
-require 'yaml'
 
 class ActiveSupport::TestCase
+
+  include ConfigHelper
 
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
@@ -14,8 +15,7 @@ class ActiveSupport::TestCase
   CodeClimate::TestReporter.start
 
   # Load IP helper
-  APP_CONFIG = YAML.load_file(Rails.root.join('config/config.yml'))
-  IpHelper.createCIDR APP_CONFIG['IP_range']
+  IpHelper.createCIDR get_config('IP_WHITE_LIST')
 
   def get_id_from_url(url)
     url.split('/')[-1]

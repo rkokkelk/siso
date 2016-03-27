@@ -4,6 +4,8 @@ module IpHelper
 
   def IpHelper.createCIDR(config_range)
     @ranges ||= []
+    #raise SystemExit, 'No IP whitelist specified' unless config_range
+
     config_range.split(',').each do |range|
       range.strip!
       begin

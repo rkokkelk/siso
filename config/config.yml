@@ -3,6 +3,6 @@
 # Please restart the application after changing this file
 
 # IP-range from which user allowed to create repositories
-# Specify using a comma seperated value in CIDR format.
+# Specify using a comma separated value in CIDR format.
 # e.g 192.168.0.0/24, 127.0.0.1/24, 144.212.233.1/32
-IP_range: 0.0.0.0/0
+IP_WHITE_LIST: 0.0.0.0/0
