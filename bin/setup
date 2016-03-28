@@ -4,6 +4,10 @@ require 'pathname'
 # path to your application root.
 APP_ROOT = Pathname.new File.expand_path('../../',  __FILE__)
 
+# Set default env to production
+# used by dockerfile
+ENV['RAILS_ENV'] ||= 'production'
+
 Dir.chdir APP_ROOT do
 
   puts '== Installing dependencies =='
@@ -12,7 +16,6 @@ Dir.chdir APP_ROOT do
 
   puts "\n== Preparing database =="
   system 'rake db:setup'
-  system 'rake db:migrate'
 
   puts '== Removing old logs and tempfiles =='
   system 'rm -f log/*'
