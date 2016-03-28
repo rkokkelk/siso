@@ -20,6 +20,9 @@ pickle-email-*.html
 # Public assets
 public/assets
 
+# Generate TLS certificates
+tls/
+
 ## Environment normalisation:
 /.bundle
 /vendor/bundle
