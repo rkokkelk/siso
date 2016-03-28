@@ -2,6 +2,7 @@ language: ruby
 rvm:
   - 2.1.4
   - 2.1.5
+  - 2.2.4 # Ruby version used by Docker
   #Todo: Add more support for other versions
   
 addons:

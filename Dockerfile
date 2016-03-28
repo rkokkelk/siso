@@ -1,6 +1,6 @@
 # Dockerfile for building of SISO application
 
-FROM ruby:2.2
+FROM ruby:2.2.4
 MAINTAINER Roy Kokkelkoren <roy.kokkelkoren@gmail.com>
 
 RUN apt-get update && apt-get install -y nodejs --no-install-recommends && rm -rf /var/lib/apt/lists/*
