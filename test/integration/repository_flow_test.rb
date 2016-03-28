@@ -66,7 +66,7 @@ class RepositoryFlowTest < ActionDispatch::IntegrationTest
     assert_template 'repositories/new'
 
     assert_difference('Repository.count') do
-      post_via_redirect('/repositories/new', :repository => {:description => desc, :password => pass, :password_confirm => pass, :title => title})
+      post_via_redirect('/new', :repository => {:description => desc, :password => pass, :password_confirm => pass, :title => title})
     end
     assert_select 'h2#header', title
     assert_select 'p.description', desc
@@ -97,22 +97,22 @@ class RepositoryFlowTest < ActionDispatch::IntegrationTest
 
     def create_repo
       assert_difference('Repository.count') do
-        post_via_redirect('/repositories/new', :repository => {:description => @desc, :password => @pass, :password_confirm => @pass, :title => @title})
+        post_via_redirect('/new', :repository => {:description => @desc, :password => @pass, :password_confirm => @pass, :title => @title})
       end
       assert_template 'repositories/show'
       @repo = Repository.last
     end
 
     def authenticate
-      get "/repositories/#{@repo.token}"
-      assert_redirected_to "/repositories/#{@repo.token}/authenticate"
+      get "/#{@repo.token}"
+      assert_redirected_to "/#{@repo.token}/authenticate"
 
-      post "/repositories/#{@repo.token}/authenticate", :password => @pass
-      assert_redirected_to "/repositories/#{@repo.token}"
+      post "/#{@repo.token}/authenticate", :password => @pass
+      assert_redirected_to "/#{@repo.token}"
     end
 
     def show_repo
-      get "/repositories/#{@repo.token}"
+      get "/#{@repo.token}"
 
       @records = Record.where(repositories_id: @repo.id)
 
@@ -133,20 +133,20 @@ class RepositoryFlowTest < ActionDispatch::IntegrationTest
 
     def upload_file
       assert_difference('Record.count') do
-        put_via_redirect("/repositories/#{@repo.token}/record/", :file => fixture_file_upload('test/fixtures/assets/foobar1.pdf','application/pdf'))
+        put_via_redirect("/#{@repo.token}/record/", :file => fixture_file_upload('test/fixtures/assets/foobar1.pdf','application/pdf'))
       end
       @record = Record.last
     end
 
     def download_file
-      get "/repositories/#{@repo.token}/record/#{@record.token}"
+      get "/#{@repo.token}/#{@record.token}"
       assert_equal response.body, IO.binread('test/fixtures/assets/foobar1.pdf')
     end
 
     def delete_file
       # Verify if data can be deleted
       assert_difference('Record.count', -1) do
-        delete_via_redirect("/repositories/#{@repo.token}/record/#{@record.token}")
+        delete_via_redirect("/#{@repo.token}/#{@record.token}")
       end
     end
 

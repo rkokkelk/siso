@@ -51,7 +51,7 @@ class RecordsController < ApplicationController
       flash[:alert] = message
     end
 
-    redirect_to(controller: :repositories, action: :show, id: params[:id])
+    redirect_to(:controller => :repositories, :action => :show, :id => params[:id])
   end
 
   # DELETE /repository/:id/records/:record_id
@@ -63,7 +63,7 @@ class RecordsController < ApplicationController
       flash[:alert] = translate :error
     end
 
-    redirect_to(controller: :repositories, action: :show, id: params[:id])
+    redirect_to(:controller => :repositories, :action => :show, :id => params[:id])
   end
 
   private
