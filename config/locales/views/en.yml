@@ -27,6 +27,19 @@ en:
   repo_btn_upload: 'upload'
   repo_btn_back: 'Go back'
   repo_btn_create: 'Create Repository'
+  repo_btn_share: 'Share'
+
+  share_subject: 'Share files'
+  share_body: 'Hi,
+
+
+   I would like to share some files with you. I therefore created a repository that we can use. Use the link below to download the files.
+
+
+   I will send the necessary password using a different method.
+
+
+   %{url}'
 
   main_welcome: 'Welcome to the SISO application'
 

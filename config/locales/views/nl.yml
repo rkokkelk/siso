@@ -27,6 +27,19 @@ nl:
   repo_btn_upload: 'Upload'
   repo_btn_back: 'Ga terug'
   repo_btn_create: 'Aanmaken'
+  repo_btn_share: 'Delen'
+
+  share_subject: 'Bestanden delen'
+  share_body: 'Hallo,
+
+
+  Ik wil graag een aantal bestanden met u delen. Ik heb daarvoor een gezamenlijke plek aangemaakt. Gebruik de volgende link om de bestanden te downloaden.
+
+
+  Het wachtwoord hiervoor zal ik op een andere manier naar u toe sturen.
+
+
+  %{url}'
 
   main_welcome: 'Welkom bij de SISO applicatie'
 

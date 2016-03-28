@@ -51,16 +51,15 @@
 
 
 <h3><%=translate :repo_file_upload%></h3>
-<%= form_tag({controller: :records, action: :create}, method: :put, multipart: true) do %>
+<%= form_tag({controller: :records, action: :create}, method: :put, multipart: true, form_class: 'float_left') do %>
     <%= file_field_tag 'file' %><%= submit_tag translate(:repo_btn_upload) %>
 <% end %>
 
-<%-#<p class="description"><b>How to share: </b>send the URL of this page by email. Send the password of this repository by text-message.</p>-%>
-
 <% content_for :info do %>
 <div id="info">
+  <%= mail_to '', translate(:repo_btn_share), subject: translate(:share_subject), body: translate(:share_body, :url => request.original_url), class: 'button float_left' %>
   <%= button_to(translate(:repo_btn_delete), {controller: :repositories, action: :delete, id: @repository.token},
-                data: { confirm: translate(:repo_btn_delete_confirm)}, method: 'delete', form_class: 'delete, float_right', id: 'delete_btn')%>
+                data: { confirm: translate(:repo_btn_delete_confirm)}, method: 'delete', form_class: 'delete  float_right', id: 'delete_btn')%>
   <%= button_to(translate(:repo_btn_audit), {controller: :repositories, action: :audit, id: @repository.token},
                 method: 'get', form_class: 'right')%>
   <div id="clear"></div>

@@ -33,11 +33,15 @@ a {
   &:visited {
     color: #666;
   }
+}
 
-  &:hover {
-    color: #fff;
-    background-color: #000;
-  }
+a.button {
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+
+  text-decoration: none;
+  color: initial;
 }
 
 div {
