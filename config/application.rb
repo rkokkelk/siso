@@ -31,6 +31,7 @@ module Siso
     end
 
     # Default HTTP headers
+    # Include headers for Anti-Clickjacking & XSS protection
     config.action_dispatch.default_headers = {
         'X-Frame-Options' => 'SAMEORIGIN',
         'X-XSS-Protection' => '1; mode=block',
