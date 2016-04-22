@@ -1,12 +1,11 @@
 require 'logger'
 
 module AuditHelper
-  @@logs = {}
 
   def audit_log(token, audit)
     ip = request.ip
     date = DateTime.now
-    message = format("[%s] (%s) %s\n", date.to_s(:date_time), ip, audit)
+    message = format("[%s] (%s) %s", date.to_s(:date_time), ip, audit)
 
     @@logs[token] ||= create_audit_log token
     @@logs[token] << message
