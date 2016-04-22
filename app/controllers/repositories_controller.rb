@@ -27,7 +27,11 @@ class RepositoriesController < ApplicationController
 
   # GET /repositories/b01e604fce20e8dab976a171fcce5a82/audit
   def audit
-    @audit = read_logs(@repository.token)
+    @audit = ''
+    @audits = Audit.where(token: @repository.token)
+    @audits.each do |audit|
+      @audit << audit.message + "\n"
+    end
   end
 
   # GET /repositories/new
