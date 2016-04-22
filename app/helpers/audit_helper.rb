@@ -13,7 +13,7 @@ module AuditHelper
     raise Exception, '[%s] Cannot store audit log' % token unless @audit.save
 
     @@logs[token] ||= create_audit_log token
-    @@logs[token] << message
+    @@logs[token] << message + "\n"
     logger.info{"(#{token}) #{audit}"}
   end
 

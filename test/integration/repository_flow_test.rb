@@ -51,6 +51,9 @@ class RepositoryFlowTest < ActionDispatch::IntegrationTest
 
     creator.delete_file
 
+    guest.show_audit
+    creator.show_audit
+
     guest.show_repo
     creator.show_repo
   end
@@ -134,6 +137,11 @@ class RepositoryFlowTest < ActionDispatch::IntegrationTest
           end
         end
       end
+    end
+
+    def show_audit
+      get "/#{@repo.token}/audit"
+      assert_select 'p.logs', /[\w\d\s\[\]()]+/
     end
 
     def upload_file
