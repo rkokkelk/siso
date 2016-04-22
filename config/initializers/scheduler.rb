@@ -11,5 +11,6 @@ s = Rufus::Scheduler.singleton
 s.every '6h' do
   Rails.logger.debug{'Running cleanup repo\'s'}
   RepositoriesHelper.clear_old_repositories
+  AuditHelper.clear_old_audit_logs
 end
 
