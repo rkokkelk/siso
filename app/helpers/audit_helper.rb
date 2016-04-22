@@ -35,7 +35,7 @@ module AuditHelper
   end
 
   def clear_old_audit_logs
-    Audit.delete_all('deletion <= ?', DateTime.now)
+    Audit.delete_all(['deletion <= ?', DateTime.now])
     Rails.logger.debug{'Deleted old audit los'}
   end
 
