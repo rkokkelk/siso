@@ -90,6 +90,7 @@ class RepositoriesController < ApplicationController
   def delete
     if @repository.destroy
       audit_log(@repository.token, translate(:audit_repo_deleted))
+      set_end_date_audit_logs @repository.token
       redirect_to(controller: :main, action: :index)
     else
       flash[:alert] = translate :error

@@ -24,6 +24,16 @@ module AuditHelper
     File.open(path, 'r').read
   end
 
+  def set_end_date_audit_logs(token)
+    # Logs are available for three months after deletion of repository
+    end_date = DateTime.now >> 3
+
+    @audits = Audit.where(token: token)
+    @audits.each do |audit|
+      audit.update(deletion: end_date)
+    end
+  end
+
   private
   def create_audit_log(token)
     path = generate_path token
