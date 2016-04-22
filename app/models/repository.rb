@@ -6,6 +6,7 @@ class Repository < ActiveRecord::Base
   # Attributes
   has_secure_password
   has_many          :records
+  has_many          :audits
   attr_accessor     :title, :description, :master_key, :iv
 
   # Callbacks
