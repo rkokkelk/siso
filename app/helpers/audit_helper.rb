@@ -9,6 +9,9 @@ module AuditHelper
     date = DateTime.now
     message = format("[%s] (%s) %s", date.to_s(:date_time), ip, audit)
 
+    @audit = Audit.new(token: token, message: message, deletion: date >> 2)
+    raise Exception, '[%s] Cannot store audit log' % token unless @audit.save
+
     @@logs[token] ||= create_audit_log token
     @@logs[token] << message
     logger.info {"(#{token}) #{audit}"}
