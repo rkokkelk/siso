@@ -10,7 +10,7 @@ class RepositoriesController < ApplicationController
   before_action :authentication,          only: [:show, :delete, :audit]
   before_action :set_decrypt_repository,  only: [:show, :delete, :audit]
 
-  # GET /repositories/b01e604fce20e8dab976a171fcce5a82
+  # GET /b01e604fce20e8dab976a171fcce5a82
   def show
 
     logger.debug{"Time zone: #{Time.zone}"}
@@ -25,12 +25,12 @@ class RepositoriesController < ApplicationController
     end
   end
 
-  # GET /repositories/b01e604fce20e8dab976a171fcce5a82/audit
+  # GET /b01e604fce20e8dab976a171fcce5a82/audit
   def audit
     @audit = read_logs(@repository.token)
   end
 
-  # GET /repositories/new
+  # GET /new
   def new
     @repository = Repository.new
   end
@@ -39,7 +39,7 @@ class RepositoriesController < ApplicationController
     render :authenticate
   end
 
-  # POST /repositories/b01e604fce20e8dab976a171fcce5a82/authenticate
+  # POST /b01e604fce20e8dab976a171fcce5a82/authenticate
   def authenticate
     @repository = Repository.find_by(token: params[:id]).try(:authenticate, params[:password])
 
@@ -62,11 +62,11 @@ class RepositoriesController < ApplicationController
     end
   end
 
-  # POST /repositories/b01e604fce20e8dab976a171fcce5a82
+  # POST /b01e604fce20e8dab976a171fcce5a82
   def create
     @repository = Repository.new(repository_params)
 
-    if repository_params[:password].blank? then @repository.generate_password end
+    @repository.generate_password if repository_params[:password].blank?
     @repository.encrypt_master_key
 
     if @repository.save
@@ -86,7 +86,7 @@ class RepositoriesController < ApplicationController
     end
   end
 
-  # DELETE /repositories/b01e604fce20e8dab976a171fcce5a82
+  # DELETE /b01e604fce20e8dab976a171fcce5a82
   def delete
     if @repository.destroy
       audit_log(@repository.token, translate(:audit_repo_deleted))

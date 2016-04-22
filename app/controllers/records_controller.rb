@@ -6,7 +6,7 @@ class RecordsController < ApplicationController
   before_action :authentication
   before_action :set_objects,     only: [:show, :create, :delete]
 
-  # GET /repository/:id/records/:record_id
+  # GET /:id/:record_id
   def show
     key = get_session_key(@repository)
     @record.decrypt_data key
@@ -24,7 +24,7 @@ class RecordsController < ApplicationController
     audit_log(params[:id], translate(:audit_file_accessed))
   end
 
-  # POST /repository/:id/records
+  # POST /:id/record
   def create
 
     file = params[:file]
@@ -54,7 +54,7 @@ class RecordsController < ApplicationController
     redirect_to(:controller => :repositories, :action => :show, :id => params[:id])
   end
 
-  # DELETE /repository/:id/records/:record_id
+  # DELETE /:id/:record_id
   def delete
 
     if @record.destroy
