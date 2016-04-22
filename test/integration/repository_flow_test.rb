@@ -66,8 +66,11 @@ class RepositoryFlowTest < ActionDispatch::IntegrationTest
     assert_template 'repositories/new'
 
     assert_difference('Repository.count') do
-      post_via_redirect('/new', :repository => {:description => desc, :password => pass, :password_confirm => pass, :title => title})
+      assert_difference('Audit.count') do
+        post_via_redirect('/new', :repository => {:description => desc, :password => pass, :password_confirm => pass, :title => title})
+      end
     end
+
     assert_select 'h2#header', title
     assert_select 'p.description', desc
     assert_select 'table td:nth-child(1)', 'No records'
@@ -97,7 +100,9 @@ class RepositoryFlowTest < ActionDispatch::IntegrationTest
 
     def create_repo
       assert_difference('Repository.count') do
-        post_via_redirect('/new', :repository => {:description => @desc, :password => @pass, :password_confirm => @pass, :title => @title})
+        assert_difference('Audit.count') do
+          post_via_redirect('/new', :repository => {:description => @desc, :password => @pass, :password_confirm => @pass, :title => @title})
+        end
       end
       assert_template 'repositories/show'
       @repo = Repository.last
