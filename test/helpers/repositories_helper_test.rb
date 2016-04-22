@@ -11,7 +11,7 @@ class RepositoriesHelperTest < ActiveSupport::TestCase
 
   test 'should remove repository when old' do
     assert_difference('Repository.count', -1) do
-      assert_difference('Record.count',-2) do
+      assert_difference('Record.count', -2) do
         clear_old_repositories
       end
     end
