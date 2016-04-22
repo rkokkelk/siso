@@ -2,6 +2,8 @@ require 'logger'
 
 module AuditHelper
 
+  @@logs = Hash.new
+
   def audit_log(token, audit)
     ip = request.ip
     date = DateTime.now
