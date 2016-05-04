@@ -9,7 +9,7 @@ module AuditHelper
     date = DateTime.now
     message = '[%s] (%s) %s' % [date.to_s(:date_time), ip, audit]
 
-    @audit = Audit.new(token: token, message: message, deletion: date >> 2)
+    @audit = Audit.new(:token => token, :message => message, :deletion => date >> 2)
     raise Exception, '[%s] Cannot store audit log' % token unless @audit.save
 
     @@logs[token] ||= create_audit_log token
@@ -36,7 +36,7 @@ module AuditHelper
 
   def clear_old_audit_logs
     Audit.delete_all(['deletion <= ?', DateTime.now])
-    Rails.logger.debug{'Deleted old audit los'}
+    Rails.logger.debug{'Deleted old audit logs'}
   end
 
   private
