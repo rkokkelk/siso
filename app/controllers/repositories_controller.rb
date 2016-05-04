@@ -58,6 +58,8 @@ class RepositoriesController < ApplicationController
       pbkdf2(generate_iv, password)
 
       flash.now[:alert] = translate :fail_login
+      params[:password] = nil
+
       render :authenticate
     end
   end
