@@ -23,6 +23,10 @@
     "BUNDLE_WITHOUT": {
       "description": "Do not alter!",
       "value": "development:test:production"
+    },
+    "RAILS_ENV": {
+      "description": "Do not alter!",
+      "value":"heroku"
     }
   },
   "addons": [
