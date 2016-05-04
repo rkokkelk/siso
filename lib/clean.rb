@@ -5,6 +5,7 @@ require 'fileutils'
 
 include RepositoriesHelper
 include RecordsHelper
+include AuditHelper
 
   # path to your application root.
 APP_ROOT = Pathname.new File.expand_path('../../',  __FILE__)
@@ -13,6 +14,9 @@ Dir.chdir APP_ROOT do
 
   puts '== Removing outdated repositories =='
   RepositoriesHelper.clear_old_repositories
+
+  puts '== Removing old audit logs =='
+  clear_old_audit_logs
 
   puts '== Finding orphaned records =='
 

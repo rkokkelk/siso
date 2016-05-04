@@ -2,8 +2,6 @@ require 'logger'
 
 module AuditHelper
 
-  @@logs = Hash.new
-
   def audit_log(token, audit)
     ip = request.ip
     date = DateTime.now
@@ -12,16 +10,7 @@ module AuditHelper
     @audit = Audit.new(:token => token, :message => message, :deletion => date >> 2)
     raise Exception, '[%s] Cannot store audit log' % token unless @audit.save
 
-    @@logs[token] ||= create_audit_log token
-    @@logs[token] << message + "\n"
     logger.info{"(#{token}) #{audit}"}
-  end
-
-  def read_logs(token)
-    path = generate_path token
-    raise Exception, 'Cannot find log' unless File.exist?(path)
-
-    File.open(path, 'r').read
   end
 
   def set_end_date_audit_logs(token)
@@ -37,18 +26,5 @@ module AuditHelper
   def clear_old_audit_logs
     Audit.delete_all(['deletion <= ?', DateTime.now])
     Rails.logger.debug{'Deleted old audit logs'}
-  end
-
-  private
-  def create_audit_log(token)
-    path = generate_path token
-    file = File.open(path, 'a')
-    file.sync = true
-    Logger.new(file)
-  end
-
-  def generate_path(token)
-    filename = 'audit_%s.log' % token
-    Rails.root.join('log', filename)
   end
 end

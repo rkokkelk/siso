@@ -13,4 +13,3 @@ s.every '6h' do
   RepositoriesHelper.clear_old_repositories
   AuditHelper.clear_old_audit_logs
 end
-
