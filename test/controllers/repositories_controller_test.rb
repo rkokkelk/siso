@@ -153,4 +153,20 @@ class RepositoriesControllerTest < ActionController::TestCase
       patch :update, id: @repo1, repository: { created_at: @repo1.created_at, deleted_at: @repo1.deleted_at, description: @repo1.description, iv: @repo1.iv, master_key: @repo1.master_key, password: @repo1.password, title: @repo1.title, token: @repo1.token }
     end
   end
+
+  test 'should show audit' do
+
+    get :audit, id: @repo1.token
+
+    assert_not_nil assigns(:repository)
+    assert_response :success
+  end
+
+  test 'should not show audit' do
+
+    get :audit, id: @repo2.token
+
+    assert_nil assigns(:repository)
+    assert_redirected_to(:controller => 'repositories', :action => 'authenticate', :id => @repo2.token)
+  end
 end

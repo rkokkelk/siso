@@ -27,7 +27,7 @@ class RepositoriesController < ApplicationController
   # GET /b01e604fce20e8dab976a171fcce5a82/audit
   def audit
     @audit = ''
-    @audits = Audit.where(token: @repository.token)
+    @audits = Audit.where(token: @repository.token).order(created_at: :desc)
     @audits.each do |audit|
       @audit << audit.message + "\n"
     end
