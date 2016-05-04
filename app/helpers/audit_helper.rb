@@ -12,16 +12,7 @@ module AuditHelper
     @audit = Audit.new(:token => token, :message => message, :deletion => date >> 2)
     raise Exception, '[%s] Cannot store audit log' % token unless @audit.save
 
-    @@logs[token] ||= create_audit_log token
-    @@logs[token] << message + "\n"
-    logger.info {"(#{token}) #{audit}"}
-  end
-
-  def read_logs(token)
-    path = generate_path token
-    raise Exception, 'Cannot find log' unless File.exist?(path)
-
-    File.open(path, 'r').read
+    logger.info{"(#{token}) #{audit}"}
   end
 
   def set_end_date_audit_logs(token)
