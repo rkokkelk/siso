@@ -25,6 +25,21 @@ class RecordsControllerTest < ActionController::TestCase
     FileUtils.cp(Dir.glob('test/fixtures/assets/*.file'),'data/')
   end
 
+  test 'should not show due to invalid token' do
+
+    get :show, id: @repo1.token, record_id: 'a'
+    assert_not_nil flash[:alert]
+    assert_redirected_to(:controller => 'repositories', :action => 'show', :id => @repo1.token)
+
+    get :show, id: @repo1.token, record_id: @record1_1.token+"\n"
+    assert_not_nil flash[:alert]
+    assert_redirected_to(:controller => 'repositories', :action => 'show', :id => @repo1.token)
+
+    get :show, id: 'a', record_id: @record1_1.token
+    assert_not_nil flash[:alert]
+    assert_redirected_to controller: :main, action: :index
+  end
+
   test 'should get file' do
     master_key = b64_decode session[@repo1.token]
     record_iv = b64_decode @record1_1.iv_enc

@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   # Standard input validation actions
-  before_action :verify_token
+  before_action :verify_tokens
 
   def ip_authentication
     unless IpHelper.verifyIP request.remote_ip
@@ -35,11 +35,18 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def verify_token
+  def verify_tokens
     if params[:id]
       unless /\A[\da-f]{32}\z/ =~ params[:id]
         flash[:alert] = 'error'
         redirect_to(:controller => :main, :action => :index)
+      end
+    end
+
+    if params[:record_id]
+      unless /\A[\da-f]{32}\z/ =~ params[:record_id]
+        flash[:alert] = 'error'
+        redirect_to(:controller => :repositories, :action => :show)
       end
     end
   end
