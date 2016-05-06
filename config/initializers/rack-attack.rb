@@ -8,7 +8,7 @@ class Rack::Attack
   # Return the IP as a discriminator on POST /repository/ID/authenticate requests
   throttle('Repository authentication', :limit => 20, :period => 60.seconds) do |req|
 
-    # Verify correct URL: /repositories/:id/authenticate
+    # Verify correct URL: /:id/authenticate
     unless (req.path =~ /\A\/[\da-f]+\/authenticate\z/).nil?
       req.ip if req.post?
     end

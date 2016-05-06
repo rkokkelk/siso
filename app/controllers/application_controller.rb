@@ -5,6 +5,9 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  # Standard input validation actions
+  before_action :verify_token
+
   def ip_authentication
     unless IpHelper.verifyIP request.remote_ip
       redirect_to(controller: :main, action: :index)
@@ -28,6 +31,15 @@ class ApplicationController < ActionController::Base
           flash[:alert] = 'Something went wrong'
           redirect_to(:controller => :repositories, :action => :show, :id => params[:id])
         end
+      end
+    end
+  end
+
+  def verify_token
+    if params[:id]
+      unless /\A[\da-f]{32}\z/ =~ params[:id]
+        flash[:alert] = 'error'
+        redirect_to(:controller => :main, :action => :index)
       end
     end
   end

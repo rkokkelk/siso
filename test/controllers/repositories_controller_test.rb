@@ -23,6 +23,16 @@ class RepositoriesControllerTest < ActionController::TestCase
     end
   end
 
+  test 'should redirect due to invalid token' do
+    get :show, id: 'a'
+    assert_not_nil flash[:alert]
+    assert_redirected_to controller: :main, action: :index
+
+    get :show, id: @repo1.token+'%'
+    assert_not_nil flash[:alert]
+    assert_redirected_to controller: :main, action: :index
+  end
+
   test 'should get new' do
     get :new
     assert_response :success
@@ -105,8 +115,8 @@ class RepositoriesControllerTest < ActionController::TestCase
     assert_template :authenticate
     flash_1 = flash[:alert]
 
-    post :authenticate, id: 'ABCD', password: 'foobar'
-    assert_nil session['ABCD']
+    post :authenticate, id: '0ef32b37113953c02229b7b1c48ce2f8', password: 'foobar'
+    assert_nil session['0ef32b37113953c02229b7b1c48ce2f8']
     assert_template :authenticate
     flash_2 = flash[:alert]
 
