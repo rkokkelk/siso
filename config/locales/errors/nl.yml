@@ -3,6 +3,9 @@
 # than English, add the necessary files in this directory.
 
 nl:
+
+  invalid_token: 'Je hebt maakt gebruik van een ongeldig token formaat. Verifieer of de URL klopt'
+
   activerecord:
     errors:
       messages:

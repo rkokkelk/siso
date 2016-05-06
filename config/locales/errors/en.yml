@@ -3,6 +3,9 @@
 # than English, add the necessary files in this directory.
 
 en:
+
+  invalid_token: 'You have used an invalid token format, please verify your URL'
+
   activerecord:
     errors:
       messages:

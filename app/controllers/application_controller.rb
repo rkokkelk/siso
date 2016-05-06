@@ -38,14 +38,14 @@ class ApplicationController < ActionController::Base
   def verify_tokens
     if params[:id]
       unless /\A[\da-f]{32}\z/ =~ params[:id]
-        flash[:alert] = 'error'
+        flash[:alert] = translate(:invalid_token)
         redirect_to(:controller => :main, :action => :index)
       end
     end
 
     if params[:record_id]
       unless /\A[\da-f]{32}\z/ =~ params[:record_id]
-        flash[:alert] = 'error'
+        flash[:alert] = translate(:invalid_token)
         redirect_to(:controller => :repositories, :action => :show)
       end
     end
