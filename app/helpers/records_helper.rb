@@ -6,7 +6,7 @@ module RecordsHelper
 
   def write_record(token, file_io)
     if Rails.env.heroku?
-      brick = Brick.new(:token => token, :blob => file_io)
+      brick = Brick.new(token: token, blob: file_io)
       brick.save
     else
       file_loc = file_location token
@@ -15,7 +15,6 @@ module RecordsHelper
   end
 
   def read_record(token)
-
     raise IOError, "Unable to read record (#{token}), does not exist" unless exists_token? token
 
     if Rails.env.heroku?
@@ -28,7 +27,6 @@ module RecordsHelper
   end
 
   def remove_record(token)
-
     raise IOError, "Unable to delete record (#{token}), does not exist" unless exists_token? token
 
     if Rails.env.heroku?
@@ -60,8 +58,9 @@ module RecordsHelper
   end
 
   private
+
   def file_location(value)
-    file_name = '%s.file' % value
+    file_name = "#{value}.file"
     Rails.root.join('data', file_name)
   end
 end

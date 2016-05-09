@@ -2,7 +2,7 @@ class MainController < ApplicationController
 
   def index
     if IpHelper.verifyIP request.remote_ip
-      redirect_to({ :controller => :repositories, :action=> :new })
+      redirect_to( controller: :repositories, action: :new)
     else
       render :index
     end

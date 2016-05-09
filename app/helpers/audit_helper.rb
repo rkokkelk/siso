@@ -1,17 +1,16 @@
 require 'logger'
 
 module AuditHelper
-
-  @@logs = Hash.new
+  @@logs = {}
 
   def audit_log(token, audit)
     ip = request.ip
     date = DateTime.now
-    message = "[%s] (%s) %s\n" % [date.to_s(:date_time), ip, audit]
+    message = format("[%s] (%s) %s\n", date.to_s(:date_time), ip, audit)
 
     @@logs[token] ||= create_audit_log token
     @@logs[token] << message
-    logger.info{"(#{token}) #{audit}"}
+    logger.info {"(#{token}) #{audit}"}
   end
 
   def read_logs(token)
@@ -22,6 +21,7 @@ module AuditHelper
   end
 
   private
+
   def create_audit_log(token)
     path = generate_path token
     file = File.open(path, 'a')
@@ -30,7 +30,7 @@ module AuditHelper
   end
 
   def generate_path(token)
-    filename = 'audit_%s.log' % token
+    filename = "'audit_#{token}.log"
     Rails.root.join('log', filename)
   end
 end

@@ -2,31 +2,30 @@ require 'netaddr'
 
 module IpHelper
 
-  def IpHelper.createCIDR(config_range)
+  def createCIDR(config_range)
     @ranges ||= []
-    #raise SystemExit, 'No IP whitelist specified' unless config_range
 
     config_range.split(',').each do |range|
       range.strip!
       begin
         @ranges << NetAddr::CIDR.create(range)
-        Rails.logger.info {"IP range added to whitelist: #{range}"}
+        Rails.logger.info { "IP range added to whitelist: #{range}" }
       rescue
-        Rails.logger.warn {"Error parsing IP range: #{range}"}
+        Rails.logger.warn { "Error parsing IP range: #{range}" }
       end
     end
   end
 
-  def IpHelper.verifyIP(ip)
+  def verifyIP(ip)
     unless @ranges
-      Rails.logger.error{"Cannot verify IP, @ranges(#{@ranges})"}
+      Rails.logger.error { "Cannot verify IP, @ranges(#{@ranges})" }
       return false
     end
 
-    Rails.logger.debug{"Current ip(#{ip}), @ranges(#{@ranges})"}
+    Rails.logger.debug { "Current ip(#{ip}), @ranges(#{@ranges})" }
     @ranges.each do |range|
       begin
-        if range.matches? ip then return true end
+        return true if range.matches? ip
       rescue NetAddr::ValidationError
         # Error is thrown when IPv4 is compared with IPv6,
         # not fatal so continue

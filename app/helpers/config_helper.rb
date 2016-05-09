@@ -1,7 +1,6 @@
 require 'yaml'
 
 module ConfigHelper
-
   CONFIG_LOC = 'config/config.yml'
   APP_CONFIG = YAML.load_file(Rails.root.join(CONFIG_LOC))
 
@@ -9,10 +8,7 @@ module ConfigHelper
   # ENV takes precedent over config file
   def get_config(key)
     result = ENV[key]
-
-    unless result
-      result = APP_CONFIG[key]
-    end
+    result ||= APP_CONFIG[key]
 
     raise Exception, "No value found with #{key}" unless result
     result

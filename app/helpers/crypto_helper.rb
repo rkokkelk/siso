@@ -1,12 +1,11 @@
 require 'base64'
 
 module CryptoHelper
+  PBKDF_ROUNDS = 20_000
 
-  PBKDF_ROUNDS = 20000
-
-  def encrypt_aes_256(iv, key, data, encode=true, auth_data='')
-
-    if data.nil? or data.empty? then return data end # Empty data cannot be encrypted, so return
+  def encrypt_aes_256(iv, key, data, encode = true, auth_data = '')
+    # Empty data cannot be encrypted, so return
+    return data if data.blank?
 
     cipher = OpenSSL::Cipher.new 'aes-256-gcm'
     cipher.encrypt
@@ -20,15 +19,15 @@ module CryptoHelper
     encode ? b64_encode(auth_encrypt) : auth_encrypt
   end
 
-  def decrypt_aes_256(iv, key, data, encode=true, auth_data='')
-
-    if data.nil? or data.empty? then return data end # Empty data cannot be decrypted, so return
+  def decrypt_aes_256(iv, key, data, encode = true, auth_data = '')
+    # Empty data cannot be decrypted, so return
+    return data if data.blank?
 
     cipher = OpenSSL::Cipher.new 'aes-256-gcm'
     cipher.decrypt
 
     encrypted = encode ? b64_decode(data) : data
-    auth = encrypted[0,16]
+    auth = encrypted[0, 16]
     enc_data = encrypted[16..-1]
 
     cipher.key = key
@@ -64,7 +63,7 @@ module CryptoHelper
     SecureRandom.random_bytes 32
   end
 
-  def generate_secure_password(size=8)
+  def generate_secure_password(size = 8)
     result = ''
     valid_chars = 'abcdefghijklmnoqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890!@@#$%^&*()_+=-][<>:;{}?.,'.split(//)
     size.times do

@@ -233,7 +233,7 @@ Metrics/CyclomaticComplexity:
 Metrics/LineLength:
   Description: 'Limit lines to 80 characters.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#80-character-limits'
-  Enabled: true
+  Enabled: false
 
 Metrics/MethodLength:
   Description: 'Avoid methods longer than 30 lines of code.'
@@ -535,7 +535,7 @@ Style/DeprecatedHashMethods:
 
 Style/Documentation:
   Description: 'Document classes and non-namespace modules.'
-  Enabled: true
+  Enabled: false
 
 Style/DotPosition:
   Description: 'Checks the position of the dot in multi-line method calls.'
@@ -610,7 +610,7 @@ Style/EvenOdd:
 
 Style/ExtraSpacing:
   Description: 'Do not use unnecessary spacing.'
-  Enabled: true
+  Enabled: false
 
 Style/FileName:
   Description: 'Use snake_case for source file names.'
@@ -1077,7 +1077,7 @@ Style/Tab:
 Style/TrailingBlankLines:
   Description: 'Checks trailing blank lines and final newline.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#newline-eof'
-  Enabled: true
+  Enabled: false
 
 Style/TrailingCommaInArguments:
   Description: 'Checks for trailing comma in parameter lists.'
