@@ -1,7 +1,16 @@
 engines:
   rubocop:
     enabled: true
-    
+
+exclude_paths:
+- config/locales/**/*
+- tests/**/*
+- spec/**/*
+- db/migrate/*
+- db/schema.rb
+- bin/*
+- config/initializers/rack_stringio_patch.rb
+
 ratings:
    paths:
    - "**.rb"
