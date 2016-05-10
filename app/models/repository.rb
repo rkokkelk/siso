@@ -14,13 +14,12 @@ class Repository < ActiveRecord::Base
   after_initialize  :setup
 
   # Validations
-  validates :title, presence: true, format: { with: /\A[ \d\w!,\.]+\z/}, length: { minimum: 1, maximum: 100 }
-  validates :description, format: { with: /\A[\s\d\w!?\.\-_,()\{}\[\]\*\$\+=@"'#]*\z/}, length: { maximum: 1000 }
+  validates :title, presence: true, format: { with: /\A[ \d\w!,\.]+\z/ }, length: { minimum: 1, maximum: 100 }
+  validates :description, format: { with: /\A[\s\d\w!?\.\-_,()\{}\[\]\*\$\+=@"'#]*\z/ }, length: { maximum: 1000 }
   validates :token, uniqueness: true
-  validates :password, password_strength: {min_entropy: 10, use_dictionary: true, min_word_length: 6}
+  validates :password, password_strength: { min_entropy: 10, use_dictionary: true, min_word_length: 6 }
 
   def decrypt_data
-
     raise SecurityError, 'Master key not available' if master_key.nil?
 
     self.title = decrypt_aes_256(iv, master_key, title_enc)
@@ -28,7 +27,7 @@ class Repository < ActiveRecord::Base
   end
 
   def encrypt_master_key
-    key = pbkdf2(iv, self.password)
+    key = pbkdf2(iv, password)
     self.master_key_enc = encrypt_aes_256(iv, key, master_key)
   end
 
@@ -38,21 +37,20 @@ class Repository < ActiveRecord::Base
   end
 
   def days_to_deletion
-    (self.deleted_at - DateTime.now).to_i
+    (deleted_at - DateTime.now).to_i
   end
 
   def setup
-    if iv_enc.present?
-      self.iv = b64_decode(iv_enc)
-    end
+    self.iv = b64_decode(iv_enc) if iv_enc.present?
 
-    if token.nil? # Repository is created using new
-      self.iv = generate_iv
-      self.token = generate_token
-      self.master_key = generate_key
-      self.created_at = DateTime.now
-      self.deleted_at = DateTime.now >> 1   # Add 1 month
-    end
+    # Repository is created using new
+    return unless token.nil?
+
+    self.iv = generate_iv
+    self.token = generate_token
+    self.master_key = generate_key
+    self.created_at = DateTime.now
+    self.deleted_at = DateTime.now >> 1 # Add 1 month
   end
 
   def generate_password
@@ -62,6 +60,7 @@ class Repository < ActiveRecord::Base
   end
 
   private
+
   def encrypt_data
     self.iv_enc = b64_encode(iv)
     self.title_enc = encrypt_aes_256(iv, master_key, title)

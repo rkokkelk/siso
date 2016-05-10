@@ -5,7 +5,7 @@ module CryptoHelper
 
   def encrypt_aes_256(iv, key, data, encode = true, auth_data = '')
     # Empty data cannot be encrypted, so return
-    return data if data.blank?
+    return data if data.nil? || data.empty?
 
     cipher = OpenSSL::Cipher.new 'aes-256-gcm'
     cipher.encrypt
@@ -21,7 +21,7 @@ module CryptoHelper
 
   def decrypt_aes_256(iv, key, data, encode = true, auth_data = '')
     # Empty data cannot be decrypted, so return
-    return data if data.blank?
+    return data if data.nil? || data.empty?
 
     cipher = OpenSSL::Cipher.new 'aes-256-gcm'
     cipher.decrypt

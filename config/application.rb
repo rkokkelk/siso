@@ -8,11 +8,10 @@ Bundler.require(:default, Rails.env)
 
 module Siso
   class Application < Rails::Application
-
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
-    config.exceptions_app = self.routes
+    config.exceptions_app = routes
     config.cache_store = :memory_store
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
@@ -33,11 +32,11 @@ module Siso
     # Default HTTP headers
     # Include headers for Anti-Clickjacking & XSS protection
     config.action_dispatch.default_headers = {
-        'X-Frame-Options' => 'SAMEORIGIN',
-        'X-XSS-Protection' => '1; mode=block',
-        'X-Content-Type-Options' => 'nosniff',
-        'Cache-Control' => 'no-store, no-cache',
-        'Content-Security-Policy' => "default-src 'none'; script-src 'self'; img-src 'self'; style-src 'self';"
+      'X-Frame-Options' => 'SAMEORIGIN',
+      'X-XSS-Protection' => '1; mode=block',
+      'X-Content-Type-Options' => 'nosniff',
+      'Cache-Control' => 'no-store, no-cache',
+      'Content-Security-Policy' => "default-src 'none'; script-src 'self'; img-src 'self'; style-src 'self';"
     }
   end
 end
