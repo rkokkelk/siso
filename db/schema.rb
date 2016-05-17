@@ -22,8 +22,10 @@ ActiveRecord::Schema.define(version: 20160504195931) do
   end
 
   create_table "bricks", force: :cascade do |t|
-    t.string "token"
-    t.binary "blob"
+    t.string   "token"
+    t.binary   "blob"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "records", force: :cascade do |t|

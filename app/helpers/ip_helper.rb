@@ -2,13 +2,13 @@ require 'netaddr'
 
 module IpHelper
 
-  def createCIDR(config_range)
-    @ranges ||= []
+  @@ranges ||= []
 
+  def createCIDR(config_range)
     config_range.split(',').each do |range|
       range.strip!
       begin
-        @ranges << NetAddr::CIDR.create(range)
+        @@ranges << NetAddr::CIDR.create(range)
         Rails.logger.info { "IP range added to whitelist: #{range}" }
       rescue
         Rails.logger.warn { "Error parsing IP range: #{range}" }
@@ -17,13 +17,13 @@ module IpHelper
   end
 
   def verifyIP(ip)
-    unless @ranges
-      Rails.logger.error { "Cannot verify IP, @ranges(#{@ranges})" }
+    unless @@ranges
+      Rails.logger.error { "Cannot verify IP, @ranges(#{@@ranges})" }
       return false
     end
 
-    Rails.logger.debug { "Current ip(#{ip}), @ranges(#{@ranges})" }
-    @ranges.each do |range|
+    Rails.logger.debug { "Current ip(#{ip}), @ranges(#{@@ranges})" }
+    @@ranges.each do |range|
       begin
         return true if range.matches? ip
       rescue NetAddr::ValidationError
