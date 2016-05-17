@@ -6,7 +6,7 @@ audit1_one:
   deletion: 2116-04-22
 
 audit1_two:
-  token: 0e9d87d5bcb7e254f591a2e374bd94bc
+  token: 0e9d87d5bcb7e254f591a2e374bd94bb
   message: MyString
   deletion: 2116-04-22
 
@@ -16,6 +16,6 @@ audit2_one:
   deletion: 2016-03-22
 
 audit2_two:
-  token: 0ef32b37113953c02229b7b3c48ce2f9
+  token: 0ef32b37113953c02229b7b3c48ce2f8
   message: MyString
   deletion: 2016-03-22
