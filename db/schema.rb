@@ -22,31 +22,32 @@ ActiveRecord::Schema.define(version: 20160504195931) do
   end
 
   create_table "bricks", force: :cascade do |t|
-    t.string   "token"
-    t.binary   "blob"
-  end
-  create_table 'records', force: :cascade do |t|
-    t.string   'iv_enc',          null: false
-    t.string   'token',           null: false
-    t.string   'file_name_enc',   null: false
-    t.string   'size_enc',        null: false
-    t.integer  'repositories_id', null: false
-    t.datetime 'created_at',      null: false
-    t.datetime 'updated_at',      null: false
+    t.string "token"
+    t.binary "blob"
   end
 
-  add_index 'records', ['repositories_id'], name: 'index_records_on_repositories_id'
+  create_table "records", force: :cascade do |t|
+    t.string   "iv_enc",          null: false
+    t.string   "token",           null: false
+    t.string   "file_name_enc",   null: false
+    t.string   "size_enc",        null: false
+    t.integer  "repositories_id", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
 
-  create_table 'repositories', force: :cascade do |t|
-    t.string    'iv_enc',           null: false
-    t.string    'master_key_enc',   null: false
-    t.string    'password_digest',  null: false
-    t.string    'title_enc',        null: false
-    t.text      'description_enc'
-    t.string    'token',            null: false
-    t.datetime  'created_at',       null: false
-    t.datetime  'deleted_at',       null: false
-    t.datetime  'updated_at',       null: false
+  add_index "records", ["repositories_id"], name: "index_records_on_repositories_id"
+
+  create_table "repositories", force: :cascade do |t|
+    t.string   "iv_enc",          null: false
+    t.string   "master_key_enc",  null: false
+    t.string   "password_digest", null: false
+    t.string   "title_enc",       null: false
+    t.text     "description_enc"
+    t.string   "token",           null: false
+    t.datetime "created_at",      null: false
+    t.datetime "deleted_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
 end

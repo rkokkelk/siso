@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
         # No link between Repository and Record, so not allowed access
         unless Record.exists?(repositories_id: repo.id, token: params[:record_id])
           flash[:alert] = 'Something went wrong'
-          redirect_to(controller: :repositories, action: :show, id: params[:id])
+          redirect_to(controller: :repositories, action: :show, id: repo.token)
         end
       end
     end

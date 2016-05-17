@@ -21,7 +21,7 @@ class RecordsController < ApplicationController
               :filename => file_name,
               :type => file_ext)
 
-    audit_log(params[:id], translate(:audit_file_accessed))
+    audit_log(@repository.token, translate(:audit_file_accessed))
   end
 
   # POST /:id/record
@@ -39,7 +39,7 @@ class RecordsController < ApplicationController
       encrypted_io = encrypt_aes_256(@record.iv, key, file.read, false)
 
       write_record(@record.token, encrypted_io)
-      audit_log(params[:id], translate(:audit_file_created))
+      audit_log(@repository.token, translate(:audit_file_created))
     else
       message = ''
       @record.errors.full_messages.each do |msg|
@@ -49,18 +49,18 @@ class RecordsController < ApplicationController
       flash[:alert] = message
     end
 
-    redirect_to(controller: :repositories, action: :show, id: params[:id])
+    redirect_to(controller: :repositories, action: :show, id: @repository.token)
   end
 
   # DELETE /:id/:record_id
   def delete
     if @record.destroy
-      audit_log(params[:id], translate(:audit_file_deleted))
+      audit_log(@repository.token, translate(:audit_file_deleted))
     else
       flash[:alert] = translate :error
     end
 
-    redirect_to(controller: :repositories, action: :show, id: params[:id])
+    redirect_to(controller: :repositories, action: :show, id: @repository.token)
   end
 
   private
