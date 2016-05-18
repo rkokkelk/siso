@@ -46,7 +46,7 @@ class RepositoryTest < ActiveSupport::TestCase
   end
 
   test 'repository invalid description' do
-    repo = Repository.new(title: 'Test', description: 'foobar', password: '!s##_!%fc*AcVB_',)
+    repo = Repository.new(title: 'Test', description: 'foobar', password: '!s##_!%fc*AcVB_')
     assert repo.valid?
 
     repo.description = 'Invalid_!@#$%^'

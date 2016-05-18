@@ -23,9 +23,7 @@ Dir.chdir APP_ROOT do
 
   records.each do |record|
     token = RecordsHelper.get_token record
-    unless Record.exists?(token: token)
-      remove_records.append(token)
-    end
+    remove_records.append(token) unless Record.exists?(token: token)
   end
 
   if remove_records.size > 0
