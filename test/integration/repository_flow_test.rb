@@ -67,7 +67,7 @@ class RepositoryFlowTest < ActionDispatch::IntegrationTest
 
     assert_difference('Repository.count') do
       assert_difference('Audit.count') do
-        post_via_redirect('/new', repository: {description: desc, password: pass, password_confirm: pass, title: title})
+        post_via_redirect('/new', repository: { description: desc, password: pass, password_confirm: pass, title: title })
       end
     end
 
@@ -100,7 +100,7 @@ class RepositoryFlowTest < ActionDispatch::IntegrationTest
     def create_repo
       assert_difference('Repository.count') do
         assert_difference('Audit.count') do
-          post_via_redirect('/new', repository: { description: @desc, password: @pass, password_confirm: @pass, title: @title } )
+          post_via_redirect('/new', repository: { description: @desc, password: @pass, password_confirm: @pass, title: @title })
         end
       end
       assert_template 'repositories/show'

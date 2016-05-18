@@ -4,7 +4,6 @@ class RecordsFlowTest < ActionDispatch::IntegrationTest
   fixtures :all
 
   test 'multiple file upload and download actions' do
-
     @repo1 = repositories(:one)
 
     post "/#{@repo1.token}/authenticate", password: ')O(I*U&Y%R$E'

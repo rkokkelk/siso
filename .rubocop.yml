@@ -896,7 +896,7 @@ Style/RedundantSelf:
 Style/RegexpLiteral:
   Description: 'Use / or %r around regular expressions.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#percent-r'
-  Enabled: true
+  Enabled: false
 
 Style/RescueEnsureAlignment:
   Description: 'Align rescues and ensures correctly.'
