@@ -1,7 +1,8 @@
 class MainController < ApplicationController
+  include IpHelper
 
   def index
-    if IpHelper.verifyIP request.remote_ip
+    if verifyIP request.remote_ip
       redirect_to( controller: :repositories, action: :new)
     else
       render :index
@@ -13,7 +14,7 @@ class MainController < ApplicationController
   end
 
   def retry_later
-    render :retry_later, :status => 429
+    render :retry_later, status: 429
   end
 
   def server_error

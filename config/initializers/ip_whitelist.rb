@@ -3,4 +3,4 @@
 include IpHelper
 include ConfigHelper
 
-createCIDR get_config('IP_WHITE_LIST')
+create_CIDR get_config('IP_WHITE_LIST')

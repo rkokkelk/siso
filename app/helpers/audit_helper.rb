@@ -1,21 +1,18 @@
 require 'logger'
 
 module AuditHelper
-
-  @@logs = Hash.new
-
   def audit_log(token, audit)
     ip = request.ip
     date = DateTime.now
-    message = format("[%s] (%s) %s", date.to_s(:date_time), ip, audit)
+    message = format('[%s] (%s) %s', date.to_s(:date_time), ip, audit)
 
-    @audit = Audit.new(:token => token, :message => message, :deletion => date >> 2)
-    raise Exception, '[%s] Cannot store audit log' % token unless @audit.save
+    @audit = Audit.new(token: token, message: message, deletion: date >> 2)
+    raise Exception, "[#{token}] Cannot store audit log" unless @audit.save
 
-    logger.info{"(#{token}) #{audit}"}
+    logger.info { "(#{token}) #{audit}" }
   end
 
-  def set_end_date_audit_logs(token)
+  def update_end_date_audit_logs(token)
     # Logs are available for three months after deletion of repository
     end_date = DateTime.now >> 3
 
@@ -27,7 +24,7 @@ module AuditHelper
 
   def clear_old_audit_logs
     Audit.delete_all(['deletion <= ?', DateTime.now])
-    Rails.logger.debug{'Deleted old audit logs'}
+    Rails.logger.debug { 'Deleted old audit logs' }
   end
 
   private

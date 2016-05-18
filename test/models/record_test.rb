@@ -6,7 +6,7 @@ class RecordTest < ActiveSupport::TestCase
 
   setup do
     # Copy record files to data folder
-    FileUtils.cp(Dir.glob('test/fixtures/assets/*.file'),'data/')
+    FileUtils.cp(Dir.glob('test/fixtures/assets/*.file'), 'data/')
   end
 
   test 'record attributes should not be empty' do
@@ -16,10 +16,10 @@ class RecordTest < ActiveSupport::TestCase
   end
 
   test 'record default constructor' do
-    record = Record.new(:file_name => 'foobar.txt', :size => 10)
+    record = Record.new(file_name: 'foobar.txt', size: 10)
     assert record.valid?
 
-    record = Record.new(:file_name => 'foobar.1.5.2-version(1).txt', :size => 123456789)
+    record = Record.new(file_name: 'foobar.1.5.2-version(1).txt', size: 123_456_789)
     assert record.valid?
   end
 
@@ -56,6 +56,6 @@ class RecordTest < ActiveSupport::TestCase
     token = record.token
     record.destroy
 
-    assert (not exists_token? token)
+    assert !exists_token?(token)
   end
 end

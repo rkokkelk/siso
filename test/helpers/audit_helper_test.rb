@@ -6,7 +6,7 @@ class RepositoriesHelperTest < ActiveSupport::TestCase
 
   test 'set new deletion date' do
     @repo2 = repositories(:two)
-    set_end_date_audit_logs @repo2.token
+    update_end_date_audit_logs @repo2.token
 
     correct_date = DateTime.now >> 3
     audits = Audit.where(token: @repo2.token)

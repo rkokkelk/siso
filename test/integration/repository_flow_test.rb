@@ -1,9 +1,7 @@
 require 'test_helper'
 
 class RepositoryFlowTest < ActionDispatch::IntegrationTest
-
   test 'create repository and upload files with static values' do
-
     sess = create_session
     sess.redirect_new
     sess.init_values
@@ -15,13 +13,12 @@ class RepositoryFlowTest < ActionDispatch::IntegrationTest
 
   test 'do not show new repository when originating from invalid IP' do
     # Perform get request from unauthenticated IP
-    get('/', nil, {'REMOTE_ADDR' => '::1'})
+    get('/', nil, 'REMOTE_ADDR' => '::1')
     assert_response :success
     assert_template 'main/index'
   end
 
   test 'create repository and upload files with guest access' do
-
     creator = create_session
     guest = create_session
 
@@ -31,14 +28,14 @@ class RepositoryFlowTest < ActionDispatch::IntegrationTest
     creator.redirect_new
     creator.create_repo
 
-    guest.set_repository creator.get_repository
+    guest.repository = creator.repository
     guest.authenticate
 
     guest.show_repo
     creator.show_repo
 
     guest.upload_file
-    creator.set_record guest.get_record
+    creator.record = guest.record
 
     guest.show_repo
     creator.show_repo
@@ -70,7 +67,7 @@ class RepositoryFlowTest < ActionDispatch::IntegrationTest
 
     assert_difference('Repository.count') do
       assert_difference('Audit.count') do
-        post_via_redirect('/new', :repository => {:description => desc, :password => pass, :password_confirm => pass, :title => title})
+        post_via_redirect('/new', repository: {description: desc, password: pass, password_confirm: pass, title: title})
       end
     end
 
@@ -89,8 +86,7 @@ class RepositoryFlowTest < ActionDispatch::IntegrationTest
   end
 
   module RepositorySessionDSL
-
-    def init_values(desc = 'This is a very long description', pass=')O(I*U&Y^T%R$E#W@Q!', title='Foobar12345')
+    def init_values(desc = 'This is a very long description', pass = ')O(I*U&Y^T%R$E#W@Q!', title = 'Foobar12345')
       @desc = desc
       @pass = pass
       @title = title
@@ -104,7 +100,7 @@ class RepositoryFlowTest < ActionDispatch::IntegrationTest
     def create_repo
       assert_difference('Repository.count') do
         assert_difference('Audit.count') do
-          post_via_redirect('/new', :repository => {:description => @desc, :password => @pass, :password_confirm => @pass, :title => @title})
+          post_via_redirect('/new', repository: { description: @desc, password: @pass, password_confirm: @pass, title: @title } )
         end
       end
       assert_template 'repositories/show'
@@ -115,7 +111,7 @@ class RepositoryFlowTest < ActionDispatch::IntegrationTest
       get "/#{@repo.token}"
       assert_redirected_to "/#{@repo.token}/authenticate"
 
-      post "/#{@repo.token}/authenticate", :password => @pass
+      post "/#{@repo.token}/authenticate", password: @pass
       assert_redirected_to "/#{@repo.token}"
     end
 
@@ -133,7 +129,7 @@ class RepositoryFlowTest < ActionDispatch::IntegrationTest
         assert_select 'table td:nth-child(1)' do |cells|
           assert_equal cells.size, @records.size
           cells.each do |cell|
-            assert_select cell, 'a', {:text => 'foobar1.pdf'}
+            assert_select cell, 'a', text: 'foobar1.pdf'
           end
         end
       end
@@ -146,7 +142,7 @@ class RepositoryFlowTest < ActionDispatch::IntegrationTest
 
     def upload_file
       assert_difference('Record.count') do
-        put_via_redirect("/#{@repo.token}/record/", :file => fixture_file_upload('test/fixtures/assets/foobar1.pdf','application/pdf'))
+        put_via_redirect("/#{@repo.token}/record/", file: fixture_file_upload('test/fixtures/assets/foobar1.pdf', 'application/pdf'))
       end
       @record = Record.last
     end
@@ -163,19 +159,19 @@ class RepositoryFlowTest < ActionDispatch::IntegrationTest
       end
     end
 
-    def get_repository
+    def repository
       @repo
     end
 
-    def set_repository(repo)
+    def repository=(repo)
       @repo = repo
     end
 
-    def get_record
+    def record
       @record
     end
 
-    def set_record(record)
+    def record=(record)
       @record = record
     end
   end

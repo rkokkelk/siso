@@ -1,5 +1,4 @@
 module RepositoriesHelper
-
   def clear_old_repositories
     repositories = Repository.all
 

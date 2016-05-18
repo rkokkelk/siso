@@ -18,8 +18,8 @@ class RecordsController < ApplicationController
                               read_record(@record.token),
                               false)
     send_data(file_io,
-              :filename => file_name,
-              :type => file_ext)
+              filename: file_name,
+              type: file_ext)
 
     audit_log(@repository.token, translate(:audit_file_accessed))
   end

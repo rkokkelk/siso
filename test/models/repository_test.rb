@@ -5,7 +5,7 @@ class RepositoryTest < ActiveSupport::TestCase
 
   setup do
     # Copy record files to data folder
-    FileUtils.cp(Dir.glob('test/fixtures/assets/*.file'),'data/')
+    FileUtils.cp(Dir.glob('test/fixtures/assets/*.file'), 'data/')
   end
 
   test 'repository attributes should not be empty' do
@@ -16,12 +16,12 @@ class RepositoryTest < ActiveSupport::TestCase
   end
 
   test 'repository default constructor' do
-    repo = Repository.new(:title => 'Test', :password => '!s##_!%fc*AcVB_')
+    repo = Repository.new(title: 'Test', password: '!s##_!%fc*AcVB_')
     assert repo.valid?
   end
 
   test 'repository password should not be weak' do
-    repo = Repository.new(:title => 'Test', :password => '123')
+    repo = Repository.new(title: 'Test', password: '123')
     assert repo.invalid?
     assert repo.errors[:password].any?
   end
@@ -33,7 +33,7 @@ class RepositoryTest < ActiveSupport::TestCase
   end
 
   test 'repository invalid title' do
-    repo = Repository.new(title: 'foobar', password: '!s##_!%fc*AcVB_',)
+    repo = Repository.new(title: 'foobar', password: '!s##_!%fc*AcVB_')
     assert repo.valid?
 
     repo.title = 'Invalid_!@#$%^'
@@ -57,13 +57,13 @@ class RepositoryTest < ActiveSupport::TestCase
   test 'should destroy records of repository during destroy' do
     tokens = []
     repo = repositories(:one)
-    repo_records = Record.where('repositories_id = ?',repo.id)
+    repo_records = Record.where('repositories_id = ?', repo.id)
 
     repo_records.each do |record|
       tokens << record.token
     end
 
-    assert_difference('Repository.count',-1) do
+    assert_difference('Repository.count', -1) do
       assert_difference('Record.count', (-tokens.size)) do
         repo.destroy
       end
@@ -71,7 +71,7 @@ class RepositoryTest < ActiveSupport::TestCase
 
     # Verify that all data files are deleted
     tokens.each do |token|
-      assert (not exists_token? token)
+      assert !exists_token?(token)
     end
   end
 end

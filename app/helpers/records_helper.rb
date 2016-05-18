@@ -39,7 +39,6 @@ module RecordsHelper
   end
 
   def exists_token?(token)
-
     if Rails.env.heroku?
       Brick.exists?(token: token)
     else

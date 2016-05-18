@@ -1,10 +1,9 @@
 require 'netaddr'
 
 module IpHelper
-
   @@ranges ||= []
 
-  def createCIDR(config_range)
+  def create_CIDR(config_range)
     config_range.split(',').each do |range|
       range.strip!
       begin

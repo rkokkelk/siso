@@ -7,10 +7,9 @@ module ConfigHelper
   # Get config value
   # ENV takes precedent over config file
   def get_config(key)
-    result = ENV[key]
-    result ||= APP_CONFIG[key]
+    result = ENV[key] || APP_CONFIG[key]
 
-    raise Exception, "No value found with #{key}" unless result
-    result
+    return result if result
+    raise Exception, "No value found with #{key}"
   end
 end

@@ -6,7 +6,7 @@ class RepositoriesHelperTest < ActiveSupport::TestCase
 
   setup do
     # Copy record files to data folder
-    FileUtils.cp(Dir.glob('test/fixtures/assets/*.file'),'data/')
+    FileUtils.cp(Dir.glob('test/fixtures/assets/*.file'), 'data/')
   end
 
   test 'should remove repository when old' do
@@ -16,7 +16,7 @@ class RepositoriesHelperTest < ActiveSupport::TestCase
       end
     end
 
-    assert (not exists_token? '7cb79fc60c4d15a68fc5d94008c1f128')
-    assert (not exists_token? '0ef32b37113953c02229b7b3c48ce2f8')
+    assert !exists_token?('7cb79fc60c4d15a68fc5d94008c1f128')
+    assert !exists_token?('0ef32b37113953c02229b7b3c48ce2f8')
   end
 end

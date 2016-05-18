@@ -11,8 +11,8 @@ class Record < ActiveRecord::Base
   before_destroy    :destroy_file
 
   # Validations
-  validates         :file_name, presence: true, format: { with: /\A[\w\d \-()_\.]+\.\w{1,10}\z/}, length: { minimum: 3, maximum: 100 }
-  validates         :size, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0, :less_than_or_equal_to => 150000000 }
+  validates         :file_name, presence: true, format: { with: /\A[\w\d \-()_\.]+\.\w{1,10}\z/ }, length: { minimum: 3, maximum: 100 }
+  validates         :size, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 150_000_000 }
   validates         :token, uniqueness: true
 
   def decrypt_data(master_key)
@@ -32,8 +32,8 @@ class Record < ActiveRecord::Base
 
   def destroy_file
     remove_record token
-    rescue IOError => e
-      logger.error { "Error destroying record: #{e.message}" }
+  rescue IOError => e
+    logger.error { "Error destroying record: #{e.message}" }
   end
 
   def setup

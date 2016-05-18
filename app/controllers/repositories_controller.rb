@@ -15,7 +15,7 @@ class RepositoriesController < ApplicationController
     @records = Record.where(repositories_id: @repository)
     @records.each do |record|
       record.decrypt_data @repository.master_key
-      logger.debug {"Current time: #{record.created_at.in_time_zone}"}
+      logger.debug { "Current time: #{record.created_at.in_time_zone}" }
     end
 
     # Display warning if repository is deleted within 1 week
@@ -95,7 +95,7 @@ class RepositoriesController < ApplicationController
   def delete
     if @repository.destroy
       audit_log(@repository.token, translate(:audit_repo_deleted))
-      set_end_date_audit_logs @repository.token
+      update_end_date_audit_logs @repository.token
       redirect_to(controller: :main, action: :index)
     else
       flash[:alert] = translate :error
