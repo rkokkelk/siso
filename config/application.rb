@@ -38,5 +38,8 @@ module Siso
       'Cache-Control' => 'no-store, no-cache',
       'Content-Security-Policy' => "default-src 'none'; script-src 'self'; img-src 'self'; style-src 'self';"
     }
+
+    # Load general config file
+    config.x.config = config_for(:config)
   end
 end
