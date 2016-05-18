@@ -7,15 +7,13 @@ require 'fileutils'
 
 module ActiveSupport
   class TestCase
-    include ConfigHelper
-
     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
     fixtures :all
     # Start codeclimate testreporter
     CodeClimate::TestReporter.start
 
     # Load IP helper
-    IpHelper.create_CIDR get_config('IP_WHITE_LIST')
+    IpHelper.create_CIDR Rails.configuration.x.config['IP_WHITE_LIST']
 
     def get_id_from_url(url)
       url.split('/')[-1]
