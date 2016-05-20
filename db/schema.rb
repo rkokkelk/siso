@@ -13,6 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20160504195931) do
 
+
   create_table "audits", force: :cascade do |t|
     t.string   "token"
     t.string   "message"
@@ -49,5 +50,4 @@ ActiveRecord::Schema.define(version: 20160504195931) do
     t.datetime "deleted_at",      null: false
     t.datetime "updated_at",      null: false
   end
-
 end

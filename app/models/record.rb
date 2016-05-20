@@ -4,7 +4,7 @@ class Record < ActiveRecord::Base
 
   # Attributes
   belongs_to        :repository
-  attr_accessor     :iv, :file_name, :size
+  attr_accessor     :iv, :file_name, :size, :key
 
   # Callbacks
   after_initialize  :setup
@@ -37,11 +37,13 @@ class Record < ActiveRecord::Base
   end
 
   def setup
-    self.iv = b64_decode(iv_enc) if iv_enc.present?
 
-    return unless token.nil?
-
-    self.iv = generate_iv
-    self.token = generate_token
+    if token.nil?
+      self.iv = generate_iv
+      self.token = generate_token
+      encrypt_data key
+    else
+      self.iv = b64_decode(iv_enc) if iv_enc.present?
+    end
   end
 end

@@ -16,21 +16,21 @@ class RecordTest < ActiveSupport::TestCase
   end
 
   test 'record default constructor' do
-    record = Record.new(file_name: 'foobar.txt', size: 10)
+    record = Record.new(file_name: 'foobar.txt', size: '10', key: generate_key)
     assert record.valid?
 
-    record = Record.new(file_name: 'foobar.1.5.2-version(1).txt', size: 123_456_789)
+    record = Record.new(file_name: 'foobar.1.5.2-version(1).txt', size: '123456789', key: generate_key)
     assert record.valid?
   end
 
   test 'record token should not be equal' do
-    record = Record.new(file_name: records(:repo1_one).file_name, token: records(:repo1_one).token)
+    record = Record.new(file_name: records(:repo1_one).file_name, token: records(:repo1_one).token, key: generate_key)
     assert record.invalid?
     assert record.errors[:token].any?
   end
 
   test 'record invalid file_name' do
-    record = Record.new(file_name: 'foobar.txt', size: 10, token: generate_token)
+    record = Record.new(file_name: 'foobar.txt', size: '10', token: generate_token, key: generate_key)
     assert record.valid?
 
     record.file_name = 'Invalid_!@<>#$%^'
@@ -43,7 +43,7 @@ class RecordTest < ActiveSupport::TestCase
   end
 
   test 'record invalid size' do
-    record = Record.new(file_name: 'foobar.txt', size: 10)
+    record = Record.new(file_name: 'foobar.txt', size: '10', key: generate_key)
     assert record.valid?
 
     record.size = -1

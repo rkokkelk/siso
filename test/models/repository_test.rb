@@ -12,7 +12,6 @@ class RepositoryTest < ActiveSupport::TestCase
     repo = Repository.new
     assert repo.invalid?
     assert repo.errors[:title].any?
-    assert repo.errors[:password].any?
   end
 
   test 'repository default constructor' do
