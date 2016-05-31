@@ -10,6 +10,10 @@ ENV['RAILS_ENV'] ||= 'production'
 
 Dir.chdir APP_ROOT do
 
+  if ENV['RAILS_ENV'] == 'production'
+    ENV['BUNDLE_WITHOUT'] = 'heroku:development:test'
+  end
+
   puts '== Installing dependencies =='
   system 'gem install bundler --conservative'
   system 'bundle check || bundle install'
