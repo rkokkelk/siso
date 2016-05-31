@@ -41,6 +41,7 @@ class ApplicationController < ActionController::Base
       if params[token] && /\A[\da-f]{32}\z/ !~ params[token]
         flash[:alert] = translate(:invalid_token)
         redirect_to(controller: :main, action: :index)
+        return
       end
     end
   end
