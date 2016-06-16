@@ -23,8 +23,8 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.1.0'
-# See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
+# Ensure that Nokogiri is updated to at least 1.6.8 due to libxml2 vulnerability
+gem 'nokogiri', '~> 1.6', '>= 1.6.8'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
