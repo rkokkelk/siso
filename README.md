@@ -30,6 +30,15 @@ One of the principles of SISO is to make it simple to use. Therefore in order to
    
 Setting this to the IP range of the organisations ensures that only employees can create repositories.
 
+## Configuration
+
+### Branding
+It is possible to show a logo at the top of the SISO application. It is automatically created if a image is placed at the following location:
+`app/assets/images/logo.png`
+
+After adding the image, please ensure that the application is restarted and the ensure that the assets are recompiled using:
+`rake assets:precompile`
+
 ## Deploy
 
 ### Heroku Deploy
