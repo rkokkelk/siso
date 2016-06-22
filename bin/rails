@@ -45,6 +45,9 @@ unless Rails.env.heroku? or Rails.env.development? or ENV['SISO_PROXY']
         cert_name = [['CN', WEBrick::Utils::getservername]]
         cert, key = WEBrick::Utils::create_self_signed_cert(2048, cert_name, '')
 
+        # Generate unique serial to prevent Serial Reuse errors
+        cert.serial = rand(0..1000000000)
+
         Dir.mkdir('tls') unless Dir.exist?('tls')
         IO.binwrite('tls/siso.pem', cert.to_pem)
         IO.binwrite('tls/siso.key', key.export)
