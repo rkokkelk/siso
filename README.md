@@ -22,8 +22,10 @@ SISO is a simple and secure file transfer system. It aims to provide functionali
 
 ### Docker
 
-A docker image is available [[here|https://hub.docker.com/r/rkokkelk/siso/]].
+A docker image is available [here](https://hub.docker.com/r/rkokkelk/siso/).
+
+or use `docker pull rkokkelk/siso`
 
 ## Documentation
 
-Further documentation about configuration, installation and other features can be found at the [[Wiki|https://github.com/rkokkelk/siso/wiki]].
+Further documentation about configuration, installation and other features can be found at the [Wiki](https://github.com/rkokkelk/siso/wiki).
