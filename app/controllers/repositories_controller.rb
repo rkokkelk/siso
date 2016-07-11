@@ -54,11 +54,7 @@ class RepositoriesController < ApplicationController
 
       redirect_to(action: :show, id: @repository.token)
     else
-      # Perform resource intensive task equal to other if
-      # to prevent side-channel information leakage
-      password = generate_token
-      BCrypt::Password.create(password)
-      pbkdf2(generate_iv, password)
+      generate_system_load
 
       flash.now[:alert] = translate :fail_login
       params[:password] = nil
@@ -70,9 +66,6 @@ class RepositoriesController < ApplicationController
   # POST /b01e604fce20e8dab976a171fcce5a82
   def create
     @repository = Repository.new(repository_params)
-
-    @repository.generate_password if repository_params[:password].blank?
-    @repository.encrypt_master_key
 
     if @repository.save
       reset_session
@@ -114,5 +107,13 @@ class RepositoriesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def repository_params
     params.require(:repository).permit(:title, :description, :password, :password_confirmation)
+  end
+
+  def generate_system_load
+    # Perform resource intensive task equal
+    # to prevent side-channel information leakage
+    password = generate_token
+    BCrypt::Password.create(password)
+    pbkdf2(generate_iv, password)
   end
 end

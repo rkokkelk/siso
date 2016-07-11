@@ -30,10 +30,10 @@ class RecordsController < ApplicationController
     verify_file_type file
 
     key = session_key @repository
-    @record = Record.new(file_name: file.original_filename, size: file.tempfile.size.to_s)
-    @record.repositories_id = @repository.id
-
-    @record.encrypt_data key
+    @record = Record.new(file_name: file.original_filename,
+                         size: file.tempfile.size.to_s,
+                         repositories_id: @repository.id,
+                         key: key)
 
     if @record.save
       encrypted_io = encrypt_aes_256(@record.iv, key, file.read, false)

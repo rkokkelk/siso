@@ -42,16 +42,21 @@ class Repository < ActiveRecord::Base
   end
 
   def setup
-    self.iv = b64_decode(iv_enc) if iv_enc.present?
+    if token.nil?
+      # repository is created using new
+      self.iv = generate_iv
+      self.token = generate_token
+      self.master_key = generate_key
+      self.created_at = DateTime.now
+      self.deleted_at = DateTime.now >> 1 # Add 1 month
 
-    # Repository is created using new
-    return unless token.nil?
-
-    self.iv = generate_iv
-    self.token = generate_token
-    self.master_key = generate_key
-    self.created_at = DateTime.now
-    self.deleted_at = DateTime.now >> 1 # Add 1 month
+      # Verify if password is set, encrypt data
+      generate_password if self.password.nil?
+      encrypt_master_key
+    else
+      # repository is loaded from db
+      self.iv = b64_decode(iv_enc) if iv_enc.present?
+    end
   end
 
   def generate_password

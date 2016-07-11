@@ -12,8 +12,7 @@ rescue LoadError => e
   raise unless e.message.include?('spring')
 end
 
-# Do not generate certificates when SISO is used as reverse proxy
-unless Rails.env.heroku? or Rails.env.development? or ENV['SISO_PROXY']
+unless Rails.env.heroku? or Rails.env.development?
   module Rails
     class Server < ::Rack::Server
       def default_options
@@ -44,6 +43,9 @@ unless Rails.env.heroku? or Rails.env.development? or ENV['SISO_PROXY']
       def generate_tls_keys
         cert_name = [['CN', WEBrick::Utils::getservername]]
         cert, key = WEBrick::Utils::create_self_signed_cert(2048, cert_name, '')
+
+        # Generate unique serial to prevent Serial Reuse errors
+        cert.serial = rand(0..1000000000)
 
         Dir.mkdir('tls') unless Dir.exist?('tls')
         IO.binwrite('tls/siso.pem', cert.to_pem)
