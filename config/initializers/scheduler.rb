@@ -5,13 +5,6 @@ require 'rufus-scheduler'
 include AuditHelper
 include RepositoriesHelper
 
-# Execute cleanup at startup of SISO
-# not using in test due to DB creation errors
-unless Rails.env.test?
-  clear_old_repositories
-  clear_old_audit_logs
-end
-
 # Generate Scheduler Singleton
 s = Rufus::Scheduler.singleton
 
