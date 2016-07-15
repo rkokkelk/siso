@@ -13,6 +13,9 @@ pickle-email-*.html
 
 #config/secrets.yml
 
+# Jekyll content
+_site
+
 # Add no content of data folder
 *.file
 !test/fixtures/assets/*.file

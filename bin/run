@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
-# Start thin server hosting the SISO web application
-# in production environment
+# Start webrick server hosting the SISO web application
+# start in production if no RAILS_ENV is set
+ENV['RAILS_ENV'] ||= 'production'
 
 puts '== Precompile assets =='
 system 'rake assets:precompile'
