@@ -3,13 +3,17 @@
 # start in production if no RAILS_ENV is set
 ENV['RAILS_ENV'] ||= 'production'
 
-puts '== Precompile assets =='
-system 'rake assets:precompile'
+# Change pwd to root of siso app in order 
+# for rails & rake to function
+Dir.chdir File.dirname(__FILE__) do
+  puts '== Precompile assets =='
+  system 'rake assets:precompile'
 
-puts '== Generate secret keys =='
-ENV['SECRET_KEY_BASE'] = 'rake secret'
+  puts '== Generate secret keys =='
+  ENV['SECRET_KEY_BASE'] = 'rake secret'
 
-puts '== Start the server =='
-system 'rails server'
+  puts '== Start the server =='
+  system 'rails server'
 
-puts '== End =='
+  puts '== End =='
+end

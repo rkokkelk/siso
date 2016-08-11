@@ -28,7 +28,6 @@ unless Rails.env.heroku? or Rails.env.development?
       end
 
       def get_tls_keys
-
         if File.exist?('tls/siso.pem') and File.exists?('tls/siso.key')
           cert = OpenSSL::X509::Certificate.new IO.binread('tls/siso.pem')
           key =  OpenSSL::PKey::RSA.new IO.binread('tls/siso.key')
