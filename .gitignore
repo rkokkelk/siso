@@ -22,6 +22,7 @@ _site
 
 # Public assets
 public/assets
+app/assets/images/logo.png
 
 # Generate TLS certificates
 tls/
