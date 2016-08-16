@@ -20,9 +20,14 @@ defaults: &defaults
   # Security
   #############
 
-  # Set minimum amount of entropy required for a password to be accepted
+  # Set minimum amount of entropy required for a password to be accepted.
   # See more info at: https://cubicspot.blogspot.nl/2011/11/how-to-calculate-password-strength.html
   MIN_ENTROPY_PW: 10
+
+  # Number of rounds used for the Password-Based Key Derivation Function, increasing this number will
+  # increase the security of the master key. Do not alter if you are unfamiliar with the subject
+  # IMPORTANT: altering this number will make it impossible to login in existing repositories
+  PBKDF_ROUNDS: 20_000
 
 #
 # Do not modify the following lines

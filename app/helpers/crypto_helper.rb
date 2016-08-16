@@ -1,8 +1,6 @@
 require 'base64'
 
 module CryptoHelper
-  PBKDF_ROUNDS = 20_000
-
   def encrypt_aes_256(iv, key, data, encode = true, auth_data = '')
     # Empty data cannot be encrypted, so return
     return data if data.nil? || data.empty?
@@ -40,7 +38,8 @@ module CryptoHelper
 
   def pbkdf2(iv, pass)
     digest = OpenSSL::Digest::SHA256.new
-    OpenSSL::PKCS5.pbkdf2_hmac(pass, iv, PBKDF_ROUNDS, digest.digest_length, digest)
+    rounds = Rails.configuration.x.config['PBKDF_ROUNDS']
+    OpenSSL::PKCS5.pbkdf2_hmac(pass, iv, rounds, digest.digest_length, digest)
   end
 
   def b64_encode(data)
