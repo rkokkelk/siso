@@ -11,13 +11,6 @@ class RepositoryFlowTest < ActionDispatch::IntegrationTest
     sess.delete_file
   end
 
-  test 'do not show new repository when originating from invalid IP' do
-    # Perform get request from unauthenticated IP
-    get('/', nil, 'REMOTE_ADDR' => '::1')
-    assert_response :success
-    assert_template 'main/index'
-  end
-
   test 'create repository and upload files with guest access' do
     creator = create_session
     guest = create_session
