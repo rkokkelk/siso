@@ -63,7 +63,7 @@ class RepositoriesController < ApplicationController
     end
   end
 
-  # POST /b01e604fce20e8dab976a171fcce5a82
+  # POST /create
   def create
     @repository = Repository.new(repository_params)
 
