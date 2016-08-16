@@ -34,11 +34,6 @@ Rails.application.configure do
   # Randomize the order test cases are executed.
   config.active_support.test_order = :random
 
-  # Use the lowest log level to ensure availability of diagnostic information
-  # when problems arise.
-  config.logger = Logger.new(STDOUT)
-  config.log_level = :info
-
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
