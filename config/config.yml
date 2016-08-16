@@ -13,15 +13,21 @@ defaults: &defaults
   IP_WHITE_LIST: 0.0.0.0/0
 
   # Set Language, default is set to English
-  # Possible settings: en nl
+  # Options: en nl
   LOCALE: en
 
   #############
   # Logging
   #############
 
-  # Options: stdout, file, syslog
-  LOGGER: file
+  # Specify how to log messages from SISO
+  # File is written to log directory
+  # Options: stdout file
+  LOGGER: stdout
+
+  # Set log level
+  # Options: debug info warn error fatal
+  LOG_LEVEL: info
 
   #############
   # Security

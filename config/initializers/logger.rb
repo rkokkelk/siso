@@ -1,24 +1,34 @@
 # Be sure to restart your server when you modify this file.
 # Define logger and format
 
-Rails.logger = Logger.new('/dev/null')
-
-unless Rails.env.development?
-  case Rails.configuration.x.config['LOGGER']
-    when 'stdout'
-      Rails.logger = Logger.new(STDOUT)
-    when 'file'
-      Rails.logger = Logger.new("#{Rails.root}/log/#{Rails.env}.log")
-  end
+case Rails.configuration.x.config['LOGGER']
+  when 'stdout'
+    logger = Logger.new(STDOUT)
+  when 'file'
+    logger = Logger.new("#{Rails.root}/log/#{Rails.env}.log")
 end
 
-Rails.logger.formatter = proc { |severity, datetime, progname, msg|
+# Set log level
+logger.level = Rails.configuration.x.config['LOG_LEVEL']
+
+# Set enviroment specific settings
+if Rails.env.development?
+  logger = Logger.new('/dev/null')
+  logger.level = :debug
+elsif Rails.env.heroku?
+  logger = Logger.new(STDOUT)
+  logger.level = :info
+end
+
+logger.formatter = proc { |severity, datetime, progname, msg|
   format("%s [%-5s] %s%s\n",
          datetime.to_s(:logging),
          severity,
          progname ? "#{progname} -- " : nil,
          msg)
 }
+
+Rails.logger = logger
 
 Siso::Application.configure do
   # Set lograge enabled, improves Rails standard output
