@@ -64,11 +64,19 @@ module CryptoHelper
   end
 
   def generate_secure_password(size = 8)
-    result = ''
+    entropy = Rails.configuration.x.config['MIN_ENTROPY_PW']
     valid_chars = 'abcdefghijklmnoqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890!@@#$%^&*()_+=-][<>:;{}?.,'.split(//)
-    size.times do
-      result += valid_chars[SecureRandom.random_number valid_chars.size]
+
+    while true do
+      result = ''
+      size.times do
+        result += valid_chars[SecureRandom.random_number valid_chars.size]
+      end
+
+      checker = StrongPassword::StrengthChecker.new(result)
+      return result if checker.is_strong?(min_entropy: entropy)
+
+      size = size + 1
     end
-    result
   end
 end

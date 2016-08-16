@@ -83,10 +83,15 @@ class CryptoHelperTest < ActiveSupport::TestCase
   end
 
   test 'Password generate' do
+    entropy = Rails.configuration.x.config['MIN_ENTROPY_PW']
     pass = generate_secure_password
-    assert_equal pass.size, 8
+    checker = StrongPassword::StrengthChecker.new(pass)
+    assert pass.size => 8
+    assert checker.is_strong?(min_entropy: entropy)
 
     pass = generate_secure_password 20
-    assert_equal pass.size, 20
+    checker = StrongPassword::StrengthChecker.new(pass)
+    assert pass.size => 20
+    assert checker.is_strong?(min_entropy: entropy)
   end
 end

@@ -2,6 +2,11 @@
 # Please restart the application after changing this file
 
 defaults: &defaults
+
+  #############
+  # General
+  #############
+
   # IP-range from which user allowed to create repositories
   # Specify using a comma separated value in CIDR format.
   # e.g 192.168.0.0/24, 127.0.0.1/24, 144.212.233.1/32
@@ -10,6 +15,14 @@ defaults: &defaults
   # Set Language, default is set to English
   # Possible settings: en nl
   LOCALE: en
+
+  #############
+  # Security
+  #############
+
+  # Set minimum amount of entropy required for a password to be accepted
+  # See more info at: https://cubicspot.blogspot.nl/2011/11/how-to-calculate-password-strength.html
+  MIN_ENTROPY_PW: 10
 
 #
 # Do not modify the following lines
