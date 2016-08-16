@@ -20,3 +20,8 @@ Rails.logger.formatter = proc { |severity, datetime, progname, msg|
          msg)
 }
 
+Siso::Application.configure do
+  # Set lograge enabled, improves Rails standard output
+  config.lograge.enabled = true
+end
+

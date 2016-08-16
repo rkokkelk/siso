@@ -26,6 +26,9 @@ gem 'coffee-rails', '~> 4.1.0'
 # Ensure that Nokogiri is updated to at least 1.6.8 due to libxml2 vulnerability
 gem 'nokogiri', '~> 1.6', '>= 1.6.8'
 
+# Lograge gem for diminishing Rails standard output
+gem 'lograge'
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
