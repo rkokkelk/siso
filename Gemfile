@@ -14,6 +14,8 @@ gem 'strong_password', '~> 0.0.5'
 gem 'rack-attack'
 # Cron gemfile
 gem 'rufus-scheduler', '~> 3.1', '>= 3.1.10'
+# gem Render Anywhere, used to render views in Rake
+gem 'render_anywhere', :require => false
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 4.2.7.1'

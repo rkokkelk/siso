@@ -1,8 +1,7 @@
-<% if not notice.blank? %>
+<% if defined?(notice) and not notice.blank? %>
   <p class="notice"><%= notice %></p>
 <%end%>
 
-<% if not alert.blank? %>
+<% if defined?(alert) and not alert.blank? %>
     <p class="alert"><%= alert %></p>
 <%end%>
-
