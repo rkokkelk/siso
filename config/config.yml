@@ -17,6 +17,13 @@ defaults: &defaults
   LOCALE: en
 
   #############
+  # Logging
+  #############
+
+  # Options: stdout, file, syslog
+  LOGGER: file
+
+  #############
   # Security
   #############
 
