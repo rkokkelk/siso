@@ -25,6 +25,10 @@
     <%= f.label :description, class: 'right' %>
     <%= f.text_area :description, size: '52x6', :autocomplete => :off%>
   </div>
+  <div class="field">
+    <%= f.label :email, class: 'right' %>
+    <%= f.text_field :email, size: 40, :autocomplete => :off%>
+  </div>
   <div class="actions">
     <%= f.submit translate(:repo_btn_create)  %>
   </div>

@@ -7,7 +7,7 @@ class Repository < ActiveRecord::Base
   has_secure_password
   has_many          :records
   has_many          :audits
-  attr_accessor     :title, :description, :master_key, :iv
+  attr_accessor     :title, :description, :master_key, :iv, :email
 
   # Callbacks
   before_save       :encrypt_data
@@ -16,6 +16,8 @@ class Repository < ActiveRecord::Base
 
   # Validations
   validates :title, presence: true, format: { with: /\A[ \d\w!,\.]+\z/ }, length: { minimum: 1, maximum: 100 }
+  # Todo: create input validation email
+  validates :email, length: { maximum: 100 }
   validates :description, format: { with: /\A[\s\d\w!?\.\-_,()\{}\[\]\*\$\+=@"'#]*\z/ }, length: { maximum: 1000 }
   validates :token, uniqueness: true
   validates :password, password_strength: { min_entropy: 10, use_dictionary: true, min_word_length: 6 }
@@ -23,6 +25,9 @@ class Repository < ActiveRecord::Base
   def decrypt_data
     raise SecurityError, 'Master key not available' if master_key.nil?
 
+
+    self.email = decrypt_aes_256(iv, master_key, email_enc)
+    logger.info { " Email_enc #{email_enc}, email #{email}"}
     self.title = decrypt_aes_256(iv, master_key, title_enc)
     self.description = decrypt_aes_256(iv, master_key, description_enc)
   end
@@ -70,6 +75,7 @@ class Repository < ActiveRecord::Base
   def encrypt_data
     self.iv_enc = b64_encode(iv)
     self.title_enc = encrypt_aes_256(iv, master_key, title)
+    self.email_enc = encrypt_aes_256(iv, master_key, email)
     self.description_enc = encrypt_aes_256(iv, master_key, description)
   end
 

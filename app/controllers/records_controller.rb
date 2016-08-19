@@ -21,7 +21,7 @@ class RecordsController < ApplicationController
               filename: file_name,
               type: file_ext)
 
-    RecordNotifier.accessed(@repository).deliver_now
+    RecordNotifier.accessed(@repository, request).deliver_now
     audit_log(@repository.token, translate(:audit_file_accessed))
   end
 
@@ -40,6 +40,7 @@ class RecordsController < ApplicationController
       encrypted_io = encrypt_aes_256(@record.iv, key, file.read, false)
 
       write_record(@record.token, encrypted_io)
+      RecordNotifier.created(@repository, request).deliver_now
       audit_log(@repository.token, translate(:audit_file_created))
     else
       message = ''
@@ -56,6 +57,7 @@ class RecordsController < ApplicationController
   # DELETE /:id/:record_id
   def delete
     if @record.destroy
+      RecordNotifier.deleted(@repository, request).deliver_now
       audit_log(@repository.token, translate(:audit_file_deleted))
     else
       flash[:alert] = translate :error
@@ -68,6 +70,8 @@ class RecordsController < ApplicationController
 
   def set_objects
     @repository = Repository.find_by(token: params[:id])
+    @repository.master_key = session_key @repository
+    @repository.decrypt_data
     @record = Record.find_by(repositories_id: @repository, token: params[:record_id])
   end
 

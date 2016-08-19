@@ -1,1 +1,8 @@
+SISO
+
+Repository: <%= @repo.title %>
+Deleted at: <%= @repo.deleted_at.in_time_zone.to_s(:siso_date) %>
+
 <%= yield %>
+
+<%= @url  %>

@@ -106,7 +106,7 @@ class RepositoriesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def repository_params
-    params.require(:repository).permit(:title, :description, :password, :password_confirmation)
+    params.require(:repository).permit(:title, :description, :password, :password_confirmation, :email)
   end
 
   def generate_system_load

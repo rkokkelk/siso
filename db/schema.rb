@@ -11,8 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160504195931) do
-
+ActiveRecord::Schema.define(version: 20160819214744) do
 
   create_table "audits", force: :cascade do |t|
     t.string   "token"
@@ -49,5 +48,7 @@ ActiveRecord::Schema.define(version: 20160504195931) do
     t.datetime "created_at",      null: false
     t.datetime "deleted_at",      null: false
     t.datetime "updated_at",      null: false
+    t.string   "email_enc"
   end
+
 end
