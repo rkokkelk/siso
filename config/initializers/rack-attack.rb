@@ -6,21 +6,23 @@ module Rack
     cache.store = ActiveSupport::Cache::MemoryStore.new
 
     # Always allow requests from localhost
-    # (blocklist & throttles are skipped), usefull for tests
+    # (blocklist & throttles are skipped), useful for tests
     safelist('allow from localhost') do |req|
-      # Requests are allowed if the return value is truthy
-      '127.0.0.1' == req.ip || '::1' == req.ip
+        # Requests are allowed if the return value is truthy
+        '127.0.0.1' == req.ip || '::1' == req.ip
     end
 
     # Throttle login attempts for a given ip to 20 reqs/minute
     # Return the IP as a discriminator on POST /:id/authenticate requests
-    throttle('Repository authentication (IP)', limit: 1, period: 60.seconds) do |req|
+    throttle('Repository authentication (IP)', limit: 20, period: 60.seconds) do |req|
+      Rails.logger.debug { 'Login IP' }
       req.ip if req.post? && req.path =~ /\A\/[\da-f]+\/authenticate\z/
     end
 
     # Throttle login attempts for a given repository to 20 reqs/minute
     # Return the repository token as a discriminator on POST /:id/authenticate requests
     throttle('Repository authentication (Token)', limit: 20, period: 60.seconds) do |req|
+      Rails.logger.debug { 'Login Token' }
       req.params[:id] if req.post? && req.path =~ /\A\/[\da-f]+\/authenticate\z/
     end
 
@@ -34,13 +36,13 @@ module Rack
     ActiveSupport::Notifications.subscribe('rack.attack') do |_name, start, finish, _request_id, req|
       # No need for logging during test
       unless Rails.env.test?
-        Rails.logger.warn { "Bruteforce detected (#{_name}) IP:[#{req.ip}], Start:[#{start.to_s(:date_time_ms)}], Finished:[#{finish.to_s(:date_time_ms)}]" }
+        Rails.logger.warn { "Bruteforce detected IP:[#{req.ip}], Start:[#{start.to_s(:date_time_ms)}], Finished:[#{finish.to_s(:date_time_ms)}]" }
       end
     end
 
     # Define output if throttle is fired
     self.throttled_response = lambda do |env|
-      # Todo: fix reference
+      # Retrieve HTML content of 500 error page Todo: fix reference
       html = Rack::Render.new().render(:template => 'main/server_error',
                                        :layout   => 'application')
 
