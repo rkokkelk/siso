@@ -21,6 +21,7 @@ class RecordsController < ApplicationController
               filename: file_name,
               type: file_ext)
 
+    RecordNotifier.accessed(@repository).deliver_now
     audit_log(@repository.token, translate(:audit_file_accessed))
   end
 
